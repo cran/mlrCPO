@@ -23,7 +23,7 @@ Suggests: party, rpart, mlbench, knitr, rmarkdown, testthat, mRMRe,
         FSelector, e1071, DiscriMiner, digest, lintr, Hmisc, fastICA
 LazyData: yes
 ByteCompile: yes
-Version: 0.3.2
+Version: 0.3.3
 Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'ParamSetSugar.R' 'callInterface.R' 'FormatCheck.R' 'callCPO.R'
         'properties.R' 'parameters.R' 'listCPO.R' 'makeCPO.R'
@@ -42,11 +42,11 @@ Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
 RoxygenNote: 6.0.1.9000
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2018-04-04 17:18:26 UTC; user
+Packaged: 2018-04-21 15:52:21 UTC; user
 Author: Martin Binder [aut, cre],
   Bernd Bischl [ctb],
   Michel Lang [ctb],
   Lars Kotthoff [ctb]
 Maintainer: Martin Binder <ma.binder@campus.lmu.de>
 Repository: CRAN
-Date/Publication: 2018-04-05 16:24:28 UTC
+Date/Publication: 2018-04-21 21:49:58 UTC
