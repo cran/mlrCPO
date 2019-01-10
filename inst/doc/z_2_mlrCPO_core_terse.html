@@ -12,7 +12,7 @@
 
 <meta name="author" content="Martin Binder" />
 
-<meta name="date" content="2018-10-01" />
+<meta name="date" content="2019-01-10" />
 
 <title>mlrCPO Core (No Output)</title>
 
@@ -280,13 +280,13 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">mlrCPO Core (No Output)</h1>
 <h4 class="author"><em>Martin Binder</em></h4>
-<h4 class="date"><em>2018-10-01</em></h4>
+<h4 class="date"><em>2019-01-10</em></h4>
 
 
 
-<section id="cpo-vignette-navigation" class="level4">
+<div id="cpo-vignette-navigation" class="section level4">
 <h4>CPO Vignette Navigation</h4>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><a href="a_1_getting_started.html">First Steps</a> (<a href="z_1_getting_started_terse.html">compact version</a>)</li>
 <li><a href="a_2_mlrCPO_core.html">mlrCPO Core</a> (compact version)</li>
 <li><a href="a_3_all_CPOs.html">CPOs Built Into mlrCPO</a> (<a href="z_3_all_CPOs_terse.html">compact version</a>)</li>
@@ -381,12 +381,12 @@ Table of Contents
 </li>
 </ul>
 </div>
-</section>
-<section id="introduction" class="level2">
+</div>
+<div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p>This vignette is supposed to be a short reference of the primitives and tools supplied by the <code>mlrCPO</code> package.</p>
-</section>
-<section id="lifecycle-of-a-cpo" class="level2">
+</div>
+<div id="lifecycle-of-a-cpo" class="section level2">
 <h2>Lifecycle of a CPO</h2>
 <p><strong>CPO</strong>s are first-class objects in R that represent data manipulation. They can be combined to form networks of operation, they can be attached to <code>mlr</code> <code>Learner</code>s, and they have tunable Hyperparameters that influence their behaviour. <code>CPO</code>s go through a lifecycle from construction to <code>CPO</code> to a <code>CPOTrained</code> “retrafo” or “inverter” object. The different stages of a <code>CPO</code> related object can be distinguished using <strong><code>getCPOClass()</code></strong>, which takes one of five values:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">getCPOClass</span>(cpoPca)</a>
@@ -394,7 +394,7 @@ Table of Contents
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">getCPOClass</span>(pid.task <span class="op">%&gt;|%</span><span class="st"> </span><span class="kw">cpoPca</span>())</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">getCPOClass</span>(<span class="kw">inverter</span>(bh.task <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoLogTrafoRegr</span>()))</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">getCPOClass</span>(NULLCPO)</a></code></pre></div>
-<section id="cpoconstructor" class="level3">
+<div id="cpoconstructor" class="section level3">
 <h3>CPOConstructor</h3>
 <p><code>CPO</code>s are created using <strong><code>CPOConstructor</code></strong>s. These are R functions with a print function and many parameters in common.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">print</span>(cpoAsNumeric)  <span class="co"># example CPOConstructor</span></a>
@@ -410,14 +410,14 @@ Table of Contents
 <li>control which of the <code>CPO</code>’s hyperparameters are “exported”, i.e. can late be manipulated using <code>setHyperPars()</code>.</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">names</span>(<span class="kw">formals</span>(cpoPca))</a></code></pre></div>
-</section>
-<section id="cpo" class="level3">
+</div>
+<div id="cpo" class="section level3">
 <h3>CPO</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">(<span class="dt">cpo =</span> <span class="kw">cpoScale</span>()) <span class="co"># construct CPO with default Hyperparameter values</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">print</span>(cpo, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)  <span class="co"># detailed printing. Alternative: !cpo</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">class</span>(cpo)  <span class="co"># CPOs that are not compound are &quot;CPOPrimitive&quot;</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">getCPOClass</span>(cpo)</a></code></pre></div>
-<section id="functions-that-work-on-cpos" class="level4">
+<div id="functions-that-work-on-cpos" class="section level4">
 <h4>Functions that work on CPOs</h4>
 <p>The inner “state” of a <code>CPO</code> can be inspected and manipulated using various getters and setters.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">getParamSet</span>(cpo)</a>
@@ -440,15 +440,15 @@ Table of Contents
 <p>The <code>identicalCPO()</code> function is used to check whether the <em>underlying operation</em> of two <code>CPO</code>s is identical. For this understanding, <code>CPO</code>s with different hyperparameters can still be “identical”.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">identicalCPO</span>(<span class="kw">cpoScale</span>(<span class="dt">scale =</span> <span class="ot">TRUE</span>), <span class="kw">cpoScale</span>(<span class="dt">scale =</span> <span class="ot">FALSE</span>))</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">identicalCPO</span>(<span class="kw">cpoScale</span>(), <span class="kw">cpoPca</span>())</a></code></pre></div>
-</section>
-<section id="cpo-application" class="level4">
+</div>
+<div id="cpo-application" class="section level4">
 <h4>CPO Application</h4>
 <p><code>CPO</code>s can be applied to <code>data.frame</code> and <code>Task</code> objects using <code>%&gt;&gt;%</code> or <code>applyCPO</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">head</span>(iris) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoPca</span>()</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">task =<span class="st"> </span><span class="kw">applyCPO</span>(<span class="kw">cpoPca</span>(), iris.task)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">head</span>(<span class="kw">getTaskData</span>(task))</a></code></pre></div>
-</section>
-<section id="cpo-composition" class="level4">
+</div>
+<div id="cpo-composition" class="section level4">
 <h4>CPO Composition</h4>
 <p><code>CPO</code> composition can be done using <code>%&gt;&gt;%</code> or <code>composeCPO</code>. It results in a new CPO which mostly behaves like a primitive CPO. Exceptions are:</p>
 <ul>
@@ -470,16 +470,16 @@ Table of Contents
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">getCPOOperatingType</span>(NULLCPO)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">getCPOOperatingType</span>(<span class="kw">cpoScale</span>())</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">getCPOOperatingType</span>(<span class="kw">cpoScale</span>() <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoLogTrafoRegr</span>() <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoSample</span>())</a></code></pre></div>
-</section>
-<section id="compound-cpo-chaining-and-decomposition" class="level4">
+</div>
+<div id="compound-cpo-chaining-and-decomposition" class="section level4">
 <h4>Compound CPO Chaining and Decomposition</h4>
 <p>Composite <code>CPO</code> objects can be broken into their constituent primitive <code>CPO</code>s using <code>as.list()</code>. The inverse of this operation is <code>pipeCPO()</code>, which composes a list of <code>CPO</code>s in the given order.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">as.list</span>(compound)</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">pipeCPO</span>(<span class="kw">as.list</span>(compound))  <span class="co"># chainCPO: (list of CPO) -&gt; CPO</span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw">pipeCPO</span>(<span class="kw">list</span>())</a></code></pre></div>
-</section>
-</section>
-<section id="cpolearner" class="level3">
+</div>
+</div>
+<div id="cpolearner" class="section level3">
 <h3>CPOLearner</h3>
 <p>CPO-Learner attachment works using <code>%&gt;&gt;%</code> or <code>attachCPO</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">lrn =<span class="st"> </span><span class="kw">makeLearner</span>(<span class="st">&quot;classif.logreg&quot;</span>)</a>
@@ -498,14 +498,14 @@ Table of Contents
 <a class="sourceLine" id="cb17-4" data-line-number="4">newdata =<span class="st"> </span><span class="kw">subsetTask</span>(bh.task, <span class="dv">301</span><span class="op">:</span><span class="dv">500</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">retrafo</span>(trafo)</a>
 <a class="sourceLine" id="cb17-5" data-line-number="5">pred =<span class="st"> </span><span class="kw">predict</span>(model, newdata)</a>
 <a class="sourceLine" id="cb17-6" data-line-number="6"><span class="kw">invert</span>(<span class="kw">inverter</span>(newdata), pred)</a></code></pre></div>
-<section id="cpolearner-decomposition" class="level4">
+<div id="cpolearner-decomposition" class="section level4">
 <h4>CPOLearner Decomposition</h4>
 <p>It is possible to obtain both the underlying <code>Learner</code> and the attached <code>CPO</code> from a <code>CPOLearner</code>. Note that if a <code>CPOLearner</code> is wrapped by some method (e.g. a <code>TuneWrapper</code>), this does not work, since <code>CPO</code> can not probe below the first wrapping layer.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">getLearnerCPO</span>(cpolrn)  <span class="co"># the CPO</span></a>
 <a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">getLearnerBare</span>(cpolrn)  <span class="co"># the Learner</span></a></code></pre></div>
-</section>
-</section>
-<section id="cpotrained" class="level3">
+</div>
+</div>
+<div id="cpotrained" class="section level3">
 <h3>CPOTrained</h3>
 <p>CPOs perform data-dependent operation. However, when this operation becomes part of a machine-learning process, the operation on predict-data must depend only on the training data. A <code>CPORetrafo</code> object represents the re-application of a trained CPO. A <code>CPOInverter</code> object represents the transformation of a prediction made on a transformed task back to the form of the original data.</p>
 <p>The <code>CPOTrained</code> objects generated by application of a <code>CPO</code> (or application of another <code>CPOTrained</code>) can be retrieved using the <code>retrafo()</code> or the <code>inverter()</code> function.</p>
@@ -530,7 +530,7 @@ Table of Contents
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># clearRI returns the object without retrafo or inverter attributes</span></a>
 <a class="sourceLine" id="cb24-2" data-line-number="2">bh3 =<span class="st"> </span><span class="kw">clearRI</span>(transformed)</a>
 <a class="sourceLine" id="cb24-3" data-line-number="3"><span class="kw">attributes</span>(bh3)</a></code></pre></div>
-<section id="functions-that-work-on-cpotrained" class="level4">
+<div id="functions-that-work-on-cpotrained" class="section level4">
 <h4>Functions that work on CPOTrained</h4>
 <p>General methods that work on <code>CPOTrained</code> object to inspect its object properties. Many methods that work on a <code>CPO</code> also work on a <code>CPOTrained</code> and give the same result.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">getCPOName</span>(ret)</a>
@@ -550,8 +550,8 @@ Table of Contents
 <p>The <code>CPO</code> and the <code>CPOConstructor</code> used to create the `CPOTrained can be queried.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">getCPOTrainedCPO</span>(ret)</a>
 <a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">getCPOConstructor</span>(ret)</a></code></pre></div>
-</section>
-<section id="cpotrained-inspection" class="level4">
+</div>
+<div id="cpotrained-inspection" class="section level4">
 <h4>CPOTrained Inspection</h4>
 <p><code>CPOTrained</code> objects can be inspected using <code>getCPOTrainedState()</code>. The state contains the hyperparameters, the <code>control</code> object (CPO dependent data representing the data information needed to re-apply the operation), and information about the <code>Task</code> / <code>data.frame</code> layout used for training (column names, column types) in <code>data$shapeinfo.input</code> and <code>data$shapeinfo.output</code>.</p>
 <p>The state can be manipulated and used to create new <code>CPOTrained</code>s, using <code>makeCPOTrainedFromState()</code>.</p>
@@ -559,8 +559,8 @@ Table of Contents
 <a class="sourceLine" id="cb29-2" data-line-number="2">state<span class="op">$</span>control<span class="op">$</span>center[<span class="dv">1</span>] =<span class="st"> </span><span class="dv">1000</span>  <span class="co"># will now subtract 1000 from the first column</span></a>
 <a class="sourceLine" id="cb29-3" data-line-number="3">new.retrafo =<span class="st"> </span><span class="kw">makeCPOTrainedFromState</span>(cpoScale, state)</a>
 <a class="sourceLine" id="cb29-4" data-line-number="4"><span class="kw">head</span>(iris <span class="op">%&gt;&gt;%</span><span class="st"> </span>new.retrafo)</a></code></pre></div>
-</section>
-<section id="cpotrained-are-automatically-chained" class="level4">
+</div>
+<div id="cpotrained-are-automatically-chained" class="section level4">
 <h4>CPOTrained are Automatically Chained</h4>
 <p>When executing <code>data %&gt;&gt;% CPO</code>, the result has an associated <code>CPORetrafo</code> and <code>CPOInverter</code> object. When applying another <code>CPO</code>, the <code>CPORetrafo</code> and <code>CPOInverter</code> will be chained automatically. This is to make <code>(data %&gt;&gt;% CPO1) %&gt;&gt;% CPO2</code> work the same as <code>data %&gt;&gt;% (CPO1 %&gt;&gt;% CPO2)</code>.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">data =<span class="st"> </span><span class="kw">head</span>(iris) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoPca</span>()</a>
@@ -577,8 +577,8 @@ Table of Contents
 <a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">inverter</span>(data) =<span class="st"> </span><span class="ot">NULL</span></a>
 <a class="sourceLine" id="cb33-3" data-line-number="3">data3 =<span class="st"> </span>data <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoScale</span>()</a>
 <a class="sourceLine" id="cb33-4" data-line-number="4"><span class="kw">retrafo</span>(data3)</a></code></pre></div>
-</section>
-<section id="cpotrained-composition-decomposition-and-chaining" class="level4">
+</div>
+<div id="cpotrained-composition-decomposition-and-chaining" class="section level4">
 <h4>CPOTrained Composition, Decomposition, and Chaining</h4>
 <p><code>CPOTrained</code> can be composed using <code>%&gt;&gt;%</code> and <code>pipeCPO()</code>, just like <code>CPO</code>s. They can also be split apart into primitive parts using <code>as.list</code>. It is recommended to only chain <code>CPOTrained</code> objects if they were created in the given order by preprocessing operations, since <code>CPOTrained</code>s are very dependent on their position within a preprocessing pipeline.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">compound.retrafo =<span class="st"> </span><span class="kw">retrafo</span>(<span class="kw">head</span>(iris) <span class="op">%&gt;&gt;%</span><span class="st"> </span>compound)</a>
@@ -586,8 +586,8 @@ Table of Contents
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">(<span class="dt">retrafolist =</span> <span class="kw">as.list</span>(compound.retrafo))</a></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">retrafolist[[<span class="dv">1</span>]] <span class="op">%&gt;&gt;%</span><span class="st"> </span>retrafolist[[<span class="dv">2</span>]]</a>
 <a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">pipeCPO</span>(retrafolist)</a></code></pre></div>
-</section>
-<section id="application-of-cpotrained" class="level4">
+</div>
+<div id="application-of-cpotrained" class="section level4">
 <h4>Application of CPOTrained</h4>
 <p>Similarly to <code>CPO</code>s, <code>CPOTrained</code> objects can be applied to data using <code>%&gt;&gt;%</code>, <code>applyCPO</code>, or <code>predict</code>. This only works with objects that have the <code>&quot;retrafo&quot;</code> capability and hence the <code>CPORetrafo</code> class.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">transformed =<span class="st"> </span>iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoScale</span>()</a>
@@ -597,8 +597,8 @@ Table of Contents
 <p><strong><code>applyCPO()</code></strong> and <strong><code>predict()</code></strong> are synonyms of <code>%&gt;&gt;%</code> when used for <code>CPORetrafo</code> objects:</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">applyCPO</span>(<span class="kw">retrafo</span>(transformed), <span class="kw">head</span>(iris))</a>
 <a class="sourceLine" id="cb39-2" data-line-number="2"><span class="kw">predict</span>(<span class="kw">retrafo</span>(transformed), <span class="kw">head</span>(iris))</a></code></pre></div>
-</section>
-<section id="inversion-using-cpotrained" class="level4">
+</div>
+<div id="inversion-using-cpotrained" class="section level4">
 <h4>Inversion using CPOTrained</h4>
 <p>To use <code>CPOTrained</code> objects for inversion, the <code>invert()</code> function is used. Besides the <code>CPOTrained</code>, it takes the data to invert, and optionally the <code>predict.type</code>. Typically <code>CPOTrained</code> objects that were retrieved using <code>inverter()</code> from a transformed dataset should be used for inversion. Retrafo <code>CPOTrained</code> objects retrieved from a transformed data set using <code>retrafo()</code> sometimes have both the <code>&quot;retrafo&quot;</code> as well as the <code>&quot;invert&quot;</code> capability (precisely when all TOCPOs used had the <code>constant.invert</code> flag set, see <a href="a_4_custom_CPOs.html">Building Custom CPOs</a>) and can then also be used for inversion. In that case, however, the <code>&quot;truth&quot;</code> column of an inverted prediction is dropped.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">transformed =<span class="st"> </span>bh.task <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoLogTrafoRegr</span>()</a>
@@ -609,10 +609,10 @@ Table of Contents
 <a class="sourceLine" id="cb41-2" data-line-number="2"><span class="kw">invert</span>(ret, prediction)</a></code></pre></div>
 <p>Inversion can be done on both predictions given by <code>mlr</code> <code>Learner</code>s, as well as plain vectors, <code>data.frame</code>s, and <code>matrix</code> objects.</p>
 <p>Note that the prediction being inverted must have the form of a prediction done with the <code>predict.type</code> that an inverter expects as input for the <code>predict.type</code> given to <code>invert()</code> as an argument. This can be queried using the <code>getCPOPredictType()</code> function. If <code>invert()</code> is called with <code>predict.type = p</code>, then the prediction must be one made with a <code>Learner</code> that has <code>predict.type</code> set to <code>getCPOPredictType(cpo)[p]</code>.</p>
-</section>
-</section>
-</section>
-<section id="nullcpo" class="level2">
+</div>
+</div>
+</div>
+<div id="nullcpo" class="section level2">
 <h2>NULLCPO</h2>
 <p><code>NULLCPO</code> is the neutral element of <code>%&gt;&gt;%</code> and the operations it represents (<code>composeCPO()</code>, <code>applyCPO()</code>, and <code>attachCPO()</code>), i.e. when it is used as an argument of these functions, the data, <code>Learner</code> or <code>CPO</code> is not changed. <code>NULLCPO</code> is also the result <code>pipeCPO()</code> called with the empty list, and of <code>retrafo()</code> and <code>inverter()</code> when they are called for objects with no <code>CPOTrained</code> objects attached.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">pipeCPO</span>(<span class="kw">list</span>())</a>
@@ -638,8 +638,8 @@ Table of Contents
 <a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">nullcpoToNull</span>(NULLCPO)</a>
 <a class="sourceLine" id="cb44-3" data-line-number="3"><span class="kw">nullToNullcpo</span>(<span class="dv">10</span>) <span class="co"># not changed</span></a>
 <a class="sourceLine" id="cb44-4" data-line-number="4"><span class="kw">nullcpoToNull</span>(<span class="dv">10</span>) <span class="co"># ditto</span></a></code></pre></div>
-</section>
-<section id="cpo-name-and-id" class="level2">
+</div>
+<div id="cpo-name-and-id" class="section level2">
 <h2>CPO Name and ID</h2>
 <p>A <code>CPO</code> has a “name” which identifies the general operation done by this <code>CPO</code>. For example, it is <code>&quot;pca&quot;</code> for a <code>CPO</code> created using <code>cpoPca()</code>. Furthermore, a <code>CPO</code> has an “ID” which is associated with the particular <code>CPO</code> object at hand. For primitive <code>CPO</code>s, it can be queried and set using <code>getCPOId()</code> and <code>setCPOId()</code>, and it can be set during construction, but it <em>defaults</em> to the <code>CPO</code>’s name. The ID will also be prefixed to the <code>CPO</code>’s hyperparameters after construction, if they are exported. This can help prevent hyperparameter name clashes when composing <code>CPO</code>s with otherwise identical hyperparameter names. It is possible to set the ID to <code>NULL</code> to have no prefix for hyperparameter names.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">cpo =<span class="st"> </span><span class="kw">cpoPca</span>()</a>
@@ -651,8 +651,8 @@ Table of Contents
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb49-2" data-line-number="2">cpo <span class="op">%&gt;&gt;%</span><span class="st"> </span>cpo</a></code></pre></div>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">cpo <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">setCPOId</span>(cpo, <span class="st">&quot;two&quot;</span>)</a></code></pre></div>
-</section>
-<section id="cpo-properties" class="level2">
+</div>
+<div id="cpo-properties" class="section level2">
 <h2>CPO Properties</h2>
 <p>CPOs contain information about the kind of data they can work with, and what kind of data they produce. <code>getCPOProperties</code> returns a list with the slots <code>handling</code>, <code>adding</code>, <code>needed</code>. <code>properties$handling</code> indicates the kind of data a CPO can handle, <code>properties$needed</code> indicates the kind of data it needs the data receiver (e.g. attached learner) to have, and <code>properties$adding</code> lists the properties it adds to a given learner. An example is <code>cpoDummyEncode()</code>, a CPO that converts factors to numerics: The receiving learner needs to handle numerics, so <code>properties$needed == &quot;numerics&quot;</code>, but it <em>adds</em> the ability to handle factors (since they are converted), so <code>properties$adding = c(&quot;factors&quot;, &quot;ordered&quot;)</code>.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">getCPOProperties</span>(<span class="kw">cpoDummyEncode</span>())</a></code></pre></div>
@@ -661,14 +661,14 @@ Table of Contents
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">train</span>(<span class="kw">cpoDummyEncode</span>(<span class="dt">reference.cat =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">makeLearner</span>(<span class="st">&quot;classif.geoDA&quot;</span>), bc.task)</a></code></pre></div>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">getLearnerProperties</span>(<span class="st">&quot;classif.geoDA&quot;</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">getLearnerProperties</span>(<span class="kw">cpoDummyEncode</span>(<span class="ot">TRUE</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">makeLearner</span>(<span class="st">&quot;classif.geoDA&quot;</span>))</a></code></pre></div>
-<section id="sometimes-properties" class="level3">
+<div id="sometimes-properties" class="section level3">
 <h3><code>.sometimes</code>-Properties</h3>
 <p>As described in more detail in the <a href="a_4_custom_CPOs.html">Building Custom CPOs</a> vignette, <code>CPO</code>s can have properties that are considered only when composing <code>CPO</code>s, or only when checking data returned by <code>CPO</code>s. In short, consider a <code>CPO</code> that does imputation, but only for factorial features. This <code>CPO</code> would need to have <code>&quot;missings&quot;</code> in its <code>$adding</code> properties slot, since it enables <code>Learner</code> to handle (some) <code>Tasks</code> that have missing values. However, this <code>CPO</code> may under certain circumstances still return data that has missing values. This discrepancy is recorded internally by having two “hidden” sets of properties that can be retrieved with <code>getCPOProperties()</code> with <code>get.internal</code> set to <code>TRUE</code>. These properties are <code>adding.min</code>, the minimal set of properties added, and <code>needed.max</code>, the maximal set of properties needed by consecutive operators. These can be understood as a description of the “worst case” behaviour of the <code>CPO</code>, since behaviour that is out of bounds of these sets causes an error by the <code>mlrCPO</code>-framework.</p>
 <p>An example is the <code>cpoApplyFun</code> <code>CPO</code>: When it is constructed, it is not known what kind of properties will be added or needed, so <code>adding.min</code> is empty while <code>needed.max</code> is the set of all data properties. When composing <code>CPO</code>s, this <code>CPO</code> is handled as if it magically does exactly the data conversion necessary to make the <code>CPO</code>s or <code>Learner</code> coming after it work with the data. If this ends up not being the case, an error is thrown during application or training by the following <code>CPO</code> or <code>Learner</code>.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">getCPOProperties</span>(<span class="kw">cpoApplyFun</span>(<span class="dt">export =</span> <span class="st">&quot;export.all&quot;</span>), <span class="dt">get.internal =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-</section>
-</section>
-<section id="cpo-affect" class="level2">
+</div>
+</div>
+<div id="cpo-affect" class="section level2">
 <h2>CPO Affect</h2>
 <p>When constructing a <code>CPO</code>, it is possible to restrict the columns on which the <code>CPO</code> operates using the <code>affect.*</code> parameters of the <code>CPOConstructor</code>. These parameters are:</p>
 <ul>
@@ -685,15 +685,15 @@ Table of Contents
 <a class="sourceLine" id="cb57-3" data-line-number="3"><span class="kw">getCPOAffect</span>(cpo)</a></code></pre></div>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">triris =<span class="st"> </span>iris <span class="op">%&gt;&gt;%</span><span class="st"> </span>cpo</a>
 <a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">head</span>(triris)</a></code></pre></div>
-</section>
-<section id="cpo-parameter-export" class="level2">
+</div>
+<div id="cpo-parameter-export" class="section level2">
 <h2>CPO Parameter Export</h2>
 <p>Sometimes when using many CPOs, their hyperparameters may get messy. <code>mlrCPO</code> enables the user to control which hyperparameter get exported. The parameter “export” can be one of <code>&quot;export.default&quot;</code>, <code>&quot;export.set&quot;</code>, <code>&quot;export.unset&quot;</code>, <code>&quot;export.default.set&quot;</code>, <code>&quot;export.default.unset&quot;</code>, <code>&quot;export.all&quot;</code>, <code>&quot;export.none&quot;</code>. “all” and “none” do what one expects; “default” exports the “recommended” parameters; “set” and “unset” export the values that have not been set, or only the values that were set (and are not left as default). “default.set” and “default.unset” work as “set” and “unset”, but restricted to the default exported parameters.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="op">!</span><span class="kw">cpoScale</span>()</a></code></pre></div>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="op">!</span><span class="kw">cpoScale</span>(<span class="dt">export =</span> <span class="st">&quot;export.none&quot;</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="op">!</span><span class="kw">cpoScale</span>(<span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">export =</span> <span class="st">&quot;export.unset&quot;</span>)</a></code></pre></div>
-</section>
-<section id="syntactic-sugar" class="level2">
+</div>
+<div id="syntactic-sugar" class="section level2">
 <h2>Syntactic Sugar</h2>
 <p>There are some <code>%&gt;&gt;%</code>-related operators that perform similar operations but may be more concise in certain applications. In general these operators are left-assiciative, i.e. they are evaluated after the expressions to their left were evaluated. Therefore, for example, <code>a %&gt;&gt;% b %&lt;&lt;% c</code> is equivalent to <code>(a %&gt;&gt;% b) %&lt;&lt;% c</code>. Exceptions are the assignment operators, <code>%&lt;&gt;&gt;%</code> and <code>%&lt;&lt;&lt;%</code>, as well as the <code>%&gt;|%</code> operator, see below.</p>
 <p>The operators are:</p>
@@ -705,7 +705,7 @@ Table of Contents
 <li><strong><code>%&gt;|%</code></strong>: <code>%&gt;&gt;%</code>, followed by application of <code>retrafo()</code>. This operator evaluates the arguments to its right before being evaluated itself. <code>a %&gt;|% b %&lt;&lt;% c</code> is equivalent to <code>retrafo(a %&gt;&gt;% (b %&lt;&lt;% c))</code>.</li>
 <li><strong><code>%|&lt;%</code></strong>: The above with exchanged arguments. Like most R operators, this one evaluates arguments to its <em>left</em> before being evaluated itself. <code>a %&gt;&gt;% b %|&lt;% c</code> is equivalent to <code>retrafo((a %&gt;&gt;% b) %&lt;&lt;% c)</code>.</li>
 </ul>
-</section>
+</div>
 
 
 

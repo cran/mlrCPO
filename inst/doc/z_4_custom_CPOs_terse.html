@@ -12,7 +12,7 @@
 
 <meta name="author" content="Martin Binder" />
 
-<meta name="date" content="2018-10-01" />
+<meta name="date" content="2019-01-10" />
 
 <title>Building Custom CPOs (No Output)</title>
 
@@ -280,13 +280,13 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Building Custom CPOs (No Output)</h1>
 <h4 class="author"><em>Martin Binder</em></h4>
-<h4 class="date"><em>2018-10-01</em></h4>
+<h4 class="date"><em>2019-01-10</em></h4>
 
 
 
-<section id="cpo-vignette-navigation" class="level4">
+<div id="cpo-vignette-navigation" class="section level4">
 <h4>CPO Vignette Navigation</h4>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><a href="a_1_getting_started.html">First Steps</a> (<a href="z_1_getting_started_terse.html">compact version</a>)</li>
 <li><a href="a_2_mlrCPO_core.html">mlrCPO Core</a> (<a href="z_2_mlrCPO_core_terse.html">compact version</a>)</li>
 <li><a href="a_3_all_CPOs.html">CPOs Built Into mlrCPO</a> (<a href="z_3_all_CPOs_terse.html">compact version</a>)</li>
@@ -396,14 +396,14 @@ Table of Contents
 </li>
 </ul>
 </div>
-</section>
-<section id="intro" class="level2">
+</div>
+<div id="intro" class="section level2">
 <h2>Intro</h2>
 <p>The <a href="a_3_all_CPOs.html"><code>CPO</code>s built into <code>mlrCPO</code></a> can be used for many different purposes, and can be combined to form even more powerful transformation operations. However, in some cases, it may be necessary to define new “custom” <code>CPO</code>s that perform a certain task; either because a preprocessing method is not (yet) defined as a builtin <code>CPO</code>, or because some operation very specific to the task at hand needs to be performed.</p>
 <p>For this purpose, <code>mlrCPO</code> offers a very powerful interface for the creation of new <code>CPO</code>s. The functions and methods described here are also the methods used internally to create <code>mlrCPO</code>’s builtin <code>CPO</code>s. Therefore, to learn the art of defining <code>CPO</code>s, it is also possible to look at the <a href="https://github.com/mlr-org/mlrCPO/tree/master/R"><code>mlrCPO</code> source tree</a> in files starting with “<code>CPO_</code>” for example <code>CPO</code> definitions.</p>
 <p>There are three types of <code>CPO</code>: “Feature Operation <code>CPO</code>s” (<a href="#feature-operation-cpos"><strong>FOCPO</strong>s</a>) which are only allowed to change feature columns of incoming data, and which are the most common <code>CPO</code>s; “Target Operation <code>CPO</code>s” (<a href="#target-operation-cpos"><strong>TOCPO</strong>s</a>) that change only target columns, and “Retrafoless <code>CPO</code>s” (<a href="#retrafoless-cpos"><strong>ROCPO</strong>s</a>) that may add or delete rows to a data set, but only during training. Conceptually, ROCPOs are the simplest <code>CPO</code>s, followed by FOCPOs and the even more complicated TOCPOs. The commonalities of all <code>CPO</code> defining functions will be described first, followed by the different <code>CPO</code> types in order of growing complexity.</p>
-</section>
-<section id="making-a-cpo" class="level2">
+</div>
+<div id="making-a-cpo" class="section level2">
 <h2>Making a CPO</h2>
 <p>To create a <code>CPOConstructor</code> that can then be used to create a <code>CPO</code>, a <code>makeCPO*()</code> function needs to be called. There are five functions of this kind, differing by what kind of <code>CPO</code> they create and how much flexibility (at the cost of simplicity) they offer the user:</p>
 <table>
@@ -429,25 +429,25 @@ Table of Contents
 </tbody>
 </table>
 <p>Each of these functions takes a “name” for the new <code>CPO</code>, settings for the parameter set to be used, settings for the format in which the data is supposed to be provided, data property settings, the packages to load, <code>CPO</code> type specific settins, and finally the transformation functions.</p>
-<section id="cpo-name" class="level3">
+<div id="cpo-name" class="section level3">
 <h3>CPO name</h3>
 <p>Each <code>CPO</code> has a “name” that is used for representation when printing, and as the default prefix for hyperparameters. <code>cpoPca</code>, for example, has the name “<code>pca</code>”:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="op">!</span><span class="kw">cpoPca</span>()</a></code></pre></div>
 <p>The name is set using the <strong><code>cpo.name</code></strong> parameter of the <code>make*()</code> functions.</p>
-</section>
-<section id="cpo-parameters" class="level3">
+</div>
+<div id="cpo-parameters" class="section level3">
 <h3>CPO parameters</h3>
 <p>The <code>ParSet</code> used by the <code>CPO</code> are given as the second <strong><code>par.set</code></strong> parameter. These parameters must be either constructed using <code>makeParamSet()</code> from the <code>ParamHelpers</code> package, or using the <code>pSS()</code> function for a more concise <code>ParSet</code> definition. The given parameters will then be the function parameters of the <code>CPOConstructor</code>, and will by default be exported as hyperparameters (prefixed with the <code>cpo.name</code>).</p>
 <p>It is possible to use the default parameter values of the <code>par.set</code> as defaults, or to give a <strong><code>par.vals</code></strong> list of default values. If <code>par.vals</code> is given, the defaults within <code>par.set</code> are completely ignored. Parameters that have a default value are set to this value upon construction if no value is given by the user.</p>
 <p>Not all available parameters of a <code>CPO</code> need to be exported as hyperparameters. <em>Which</em> parameters are exported can be set during <code>CPO</code> construction, but the default exported parameters can be set using <strong><code>export.params</code></strong>. This can either be a <code>character</code> vector of the names of parameters to export, or <code>TRUE</code> (default, export all) or <code>FALSE</code> (no export).</p>
-</section>
-<section id="data-format" class="level3">
+</div>
+<div id="data-format" class="section level3">
 <h3>Data Format</h3>
 <p>Different <code>CPO</code> operations may want to operate on the data in different forms: as a <code>Task</code>, as a <code>data.frame</code> with or without the target column, etc. The <code>CPO</code> framework can perform some conversion of data to fit different needs, which is set up by the value of fthe <strong><code>dataformat</code></strong> parameter, together with <strong><code>dataformat.factor.with.ordered</code></strong>. While <code>dataformat</code> has slightly different effects on different <code>CPO</code> types, typically its values and effects are:</p>
 <table>
 <colgroup>
-<col style="width: 15%"></col>
-<col style="width: 84%"></col>
+<col width="15%"></col>
+<col width="84%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -479,33 +479,33 @@ Table of Contents
 </tbody>
 </table>
 <p>Another parameter influencing the data format is the <strong><code>fix.factors</code></strong> flag which controls whether factor levels of prediction data need to be set to be the same as during training. If it is <code>TRUE</code>, previously unseen factor levels are set to <code>NA</code> during prediction.</p>
-</section>
-<section id="properties" class="level3">
+</div>
+<div id="properties" class="section level3">
 <h3>Properties</h3>
 <p><code>mlr</code> and <code>mlrCPO</code> make it possible to specify what kind of data a <code>CPO</code> or a <code>Learner</code> can handle. However, since <code>CPO</code>s may change data to be more or less fitting for a certain <code>Learner</code>, a <code>CPO</code> must announce not only what data it can handle, but also how it changes the capabilities of the machine learning pipeline in which it is envolved. During construction, four parameters related to properties can be given.</p>
 <p>The <strong><code>properties.data</code></strong> parameter defines what properties of feature data the <code>CPO</code> can handle; it must be a subset of <code>&quot;numerics&quot;</code>, <code>&quot;factors&quot;</code>, <code>&quot;ordered&quot;</code>, and <code>&quot;missings&quot;</code>. Typically, only the <code>&quot;missings&quot;</code> part is interesting since <code>CPO</code>s that only handle a subset of types will usually just ignore columns of other types.</p>
 <p>The <strong><code>properties.target</code></strong> parameter defines what <code>Task</code> properties related to the task type and the target column a <code>CPO</code> can handle. It is a subset of <code>&quot;cluster&quot;</code>, <code>&quot;classif&quot;</code>, <code>&quot;multilabel&quot;</code>, <code>&quot;regr&quot;</code>, <code>&quot;surv&quot;</code> (so far defining the task type a <code>CPO</code> can handle), <code>&quot;oneclass&quot;</code>, <code>&quot;twoclass&quot;</code>, <code>&quot;multiclass&quot;</code> (properties specific to <code>classif</code> <code>Task</code>s). Most FOCPOs do not care about the task type, while TOCPOs may only support a single task type.</p>
 <p><strong><code>properties.adding</code></strong> lists the properties that a CPO <em>adds</em> to the capabilities of a machine learning pipeline when it is executed before it, while <strong><code>properties.needed</code></strong> lists the properties <em>needed</em> from the following pipeline. <code>cpoDummyEncode</code>, for example, a <code>CPO</code> that converts factors and ordereds to numerics, has <code>properties.adding == c(&quot;factors&quot;, &quot;ordered&quot;)</code> and <code>properties.needed == &quot;numerics&quot;</code>. The many imputation <code>CPO</code>s have <code>properties.adding == &quot;missings&quot;</code>. Usually these are only a subset of the possible <code>properties.data</code> states, but for TOCPOs this may also be any of <code>&quot;oneclass&quot;</code>, <code>&quot;twoclass&quot;</code>, <code>&quot;multiclass&quot;</code>. Note that neither <code>properties.adding</code> nor <code>properties.needed</code> may be any task type, even for TOCPOs that perform task conversion.</p>
-<section id="property-checking-and-.sometimes-properties" class="level4">
+<div id="property-checking-and-.sometimes-properties" class="section level4">
 <h4>Property Checking and <code>.sometimes</code> Properties</h4>
 <p>The <code>CPO</code> framework will check that a <code>CPO</code> only adds and removes the kind of data properties that it declared in <code>properties.adding</code> and <code>properties.needed</code>. It will also check that composition of <code>CPO</code>s, and attachment of <code>CPO</code>s to <code>Learner</code>s, work out. Sometimes, however, it is necessary to treat a <code>CPO</code> like it does a certain manipulation (removing <code>missings</code>, for example) in some cases, while not in others. A <code>CPO</code> that only imputes missings in <em>numeric</em> columns should be treated as <code>properties.adding == &quot;missings&quot;</code> when is is attached to a <code>Learner</code>, and the <code>Learner</code> should gain the <code>&quot;missings&quot;</code> property. However, when data that has missings in its factorial columns is given to this <code>CPO</code>, the <code>CPO</code> framework will complain that the <code>CPO</code> that declared <code>&quot;missings&quot;</code> in <code>properties.adding</code> returned data that still had missing values in it. The solution to this dilemma is to suffix some properties with “<code>.sometimes</code>” when declaring them in <code>properties.adding</code> and <code>properties.needed</code>. When composing <code>CPO</code>s, and when checking data <em>returned</em> by a <code>CPO</code>, the framework will then be as lenient as possible. In the given example, <code>properties.adding == &quot;missings&quot;</code> will be assumed when attaching the <code>CPO</code> to a <code>Learner</code>, while <code>properties.adding == character(0)</code> is assumed when checking the <code>CPO</code>’s output (and missing values that were not imputed are therefore forgiven).</p>
-</section>
-</section>
-<section id="packages" class="level3">
+</div>
+</div>
+<div id="packages" class="section level3">
 <h3>Packages</h3>
 <p>The single <strong><code>packages</code></strong> parameter can be set to a <code>character</code> vector listing packages necessary for a <code>CPO</code> to work. This is mostly useful when a <code>CPO</code> should be defined as part of a package or script to be distributed. The listed package will <em>not</em> automatically be <em>attached</em>, it will only be <em>loaded</em>. This means that a function exported by a package still needs to be called using <code>::</code>. The benefit of declaring it in <code>packages</code> is that it will be loaded upon <em>construction</em> of a <code>CPO</code>, which means that a user will get immediate feedback about whether the <code>CPO</code> can be used or needs more packages to be installed.</p>
-</section>
-<section id="transformation-functions" class="level3">
+</div>
+<div id="transformation-functions" class="section level3">
 <h3>Transformation Functions</h3>
 <p>The different types of <code>CPO</code>, and the different <code>make*()</code> functions, need different transformation functions to be defined. The principle behind these functions is alwasy the same, however: The <code>CPO</code> framework takes input data, transforms it according to <code>dataformat</code>, checks it according to <code>properties.data</code> and <code>properties.target</code>, and then gives it to one or more user-given transformation function. The transformation function must then usually create a control object containing information about the data to be used later, or transform the incoming data and return the transformation result (or both). The <code>CPO</code> framework then checks the transformed data according to <code>properties.adding</code> and <code>properties.needed</code> and gives it back to the <code>CPO</code> user.</p>
 <p>Transformation functions are given to parameters starting with <strong><code>cpo.</code></strong>. They can either be given as functions, or as “<strong>headless</strong>” functions missing the <code>function(...)</code> part. In the latter case, the headless function must be a succession of expressions enclosed in curly braces (<code>{</code>, <code>}</code>) and the necessary function head is added by the <code>CPO</code> framework. The functions often take a subset of <code>data</code>, <code>target</code>, <code>control</code>, or <code>control.invert</code> parameters, in addition to all parameters as given in <code>par.set</code>.</p>
-<section id="functional-transformation" class="level4">
+<div id="functional-transformation" class="section level4">
 <h4>Functional Transformation</h4>
 <p>The communication between transformation functions, e.g. giving the PCA matrix to its retrafo function, usually happens via “control” objects created by these functions and then given as parameter to other functions. In some cases, however, it may be more elegant to create a new function (e.g. a <code>cpo.retrafo</code> function) within another function as a “closure” (in the general, not R specific, sense) with access to all the outer functions variables. The <code>CPO</code> framework makes this possible by allowing a function to be given instead of a “control” object. The function which would usually receive this control object must then be given as <code>NULL</code> in the <code>makeCPO*()</code> call.</p>
-</section>
-</section>
-</section>
-<section id="retrafoless-cpos" class="level2">
+</div>
+</div>
+</div>
+<div id="retrafoless-cpos" class="section level2">
 <h2>Retrafoless CPOs</h2>
 <p>Retrafoless <code>CPO</code>s, or ROCPOs, are conceptually the simplest <code>CPO</code> type, since they do not create <code>CPOTrained</code> objects and therefore only need one transformation function: <code>cpo.trafo</code>. The value of the <code>dataformat</code> parameter may only be either <code>&quot;df.all&quot;</code> or <code>&quot;task&quot;</code>, resulting in either a <code>data.frame</code> (consisting all columns, including the target column) or a <code>Task</code> being given to the <code>cpo.trafo</code> function. <code>cpo.trafo</code> should have the parameters <code>data</code> (receiving the data as either a <code>Task</code> or <code>data.frame</code>), <code>target</code> (receiving the names of target columns in the data), and any parameter as given to <code>par.set</code>. The return value of <code>cpo.trafo</code> must be the transformed data, in the same format (<code>data.frame</code> or <code>Task</code>) as given as input.</p>
 <p>Since a ROCPO only transforms incoming data during training, it should not do any transformation of target or feature values that would make it necessary to repeat this action during prediction. It may, for example, be used for subsampling a classification task to balance target classes, but it should not change the levels or values of given data rows.</p>
@@ -530,11 +530,11 @@ Table of Contents
 <a class="sourceLine" id="cb4-6" data-line-number="6">    row.indices =<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(data), newsize)</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">    data[row.indices, ]</a>
 <a class="sourceLine" id="cb4-8" data-line-number="8">  })</a></code></pre></div>
-</section>
-<section id="feature-operation-cpos" class="level2">
+</div>
+<div id="feature-operation-cpos" class="section level2">
 <h2>Feature Operation CPOs</h2>
 <p>FOCPOs are created with either the <code>makeCPO()</code> function, or the <code>makeCPOExtendedTrafo()</code> function. The former conceptually separates training from transformation, the latter separates transformation of training data from transformation of prediction data.</p>
-<section id="makecpo" class="level3">
+<div id="makecpo" class="section level3">
 <h3><code>makeCPO()</code></h3>
 <p>In principle, a FOCPO needs a function that “trains” a control object depending on the data (<code>cpo.train</code>), and another function that uses this control object, and new data, to perform the preprocessing operation (<code>cpo.retrafo</code>). The <code>cpo.train</code>-function must return a “control” object which contains all information about how to transform a given dataset. <code>cpo.retrafo</code> takes a (potentially new!) dataset <em>and</em> the “control” object returned by <code>cpo.trafo</code>, and transforms the new data according to plan.</p>
 <p>In contrast to <code>makeCPORetrafoless()</code>, the <code>dataformat</code> parameter of <code>makeCPO()</code> can take all values described in the section <a href="#data-format">Data Format</a>. The <code>cpo.train</code> function takes the arguments <code>data</code>, <code>target</code>, and any other parameter described in <code>param.set</code>. The <code>data</code> value is the incoming data as a <code>Task</code>, a <code>data.frame</code> with or without the target column, or a list of <code>data.frames</code> of different column types, according to <code>dataformat</code>. The <code>target</code> value is a <code>character</code> vector of target names if <code>dataformat</code> is <code>&quot;task&quot;</code> or <code>&quot;df.all&quot;</code>, or a <code>data.frame</code> of the target columns otherwise.</p>
@@ -566,7 +566,7 @@ Table of Contents
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">head</span>(iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">retrafo</span>(trafd))</a></code></pre></div>
 <p>It is also possible to inspect the <code>CPOTrained</code> object to see that the <code>control</code> is there:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">getCPOTrainedState</span>(<span class="kw">retrafo</span>(trafd))</a></code></pre></div>
-<section id="functional-focpo" class="level4">
+<div id="functional-focpo" class="section level4">
 <h4>Functional FOCPO</h4>
 <p>Instead of returning the <code>control</code> object, <code>cpo.train</code> may also return the <code>cpo.retrafo</code> <em>function</em>. This may be more succinct to write if there are many little pieces of information from the <code>cpo.train</code> run that the <code>cpo.retrafo</code> function should have access to.</p>
 <p>When <code>cpo.retrafo</code> is given functionally, it should be a function with only <em>one</em> parameter: the newly incoming data. It can access the values of the <code>par.set</code> parameters from its encapsulating environment in <code>cpo.train</code>.</p>
@@ -596,8 +596,8 @@ Table of Contents
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">(<span class="dt">trafd =</span> <span class="kw">head</span>(iris) <span class="op">%&gt;&gt;%</span><span class="st"> </span>cpo)</a></code></pre></div>
 <p>The <code>CPOTrained</code> state for a functional <code>CPO</code> is the <em>environment</em> of the retrafo function. It contains the “<code>ctrl</code>” variable defined during training, the parameters given to <code>cpo.train</code>, and the <code>cpo.retrafo</code> function itself. Note that <code>data</code> and <code>target</code> are deleted and replaced by different values.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">getCPOTrainedState</span>(<span class="kw">retrafo</span>(trafd))</a></code></pre></div>
-</section>
-<section id="stateless-focpo" class="level4">
+</div>
+<div id="stateless-focpo" class="section level4">
 <h4>Stateless FOCPO</h4>
 <p>“Stateless” <code>CPO</code>s are <code>CPO</code>s that perform the same action during transformation of training and prediction data, independent from information during training. An example would be a <code>CPO</code> that converts all its columns to <code>numeric</code> columns. When a FOCPO does not need a state, the <code>cpo.train</code> parameter of <code>makeCPO()</code> can be set to <code>NULL</code>. The <code>cpo.retrafo</code> function then has no <code>control</code> paramter and instead only a <code>data</code> and any <code>par.set</code> parameter. The <code>as.numeric</code>-<code>CPO</code> could be written as the following:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">xmpAsNum =<span class="st"> </span><span class="kw">makeCPO</span>(<span class="st">&quot;asnum&quot;</span>,  <span class="co"># nolint</span></a>
@@ -611,9 +611,9 @@ Table of Contents
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">(<span class="dt">trafd =</span> <span class="kw">head</span>(iris) <span class="op">%&gt;&gt;%</span><span class="st"> </span>cpo)</a></code></pre></div>
 <p>The “state” of the <code>CPOTrained</code> object thus created only contains information about the incoming <em>data shape</em>, to make sure that the <code>CPOTrained</code> object is only used on conforming data (as doing otherwise would indicate a bug).</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">getCPOTrainedState</span>(<span class="kw">retrafo</span>(trafd))</a></code></pre></div>
-</section>
-</section>
-<section id="makecpoextendedtrafo" class="level3">
+</div>
+</div>
+<div id="makecpoextendedtrafo" class="section level3">
 <h3><code>makeCPOExtendedTrafo()</code></h3>
 <p>Sometimes it is advantageous to have the training operation return the transformed data right away. PCA, for example, returns the rotation matrix <em>and</em> the transformed data; it would be a waste of time to only return the rotation matrix in a <code>cpo.train</code> function and apply it on the training data in <code>cpo.retrafo</code>. The <code>makeCPOExtendedTrafo()</code> function works very much like <code>makeCPO()</code>, with the difference that it has a <code>cpo.trafo</code> instead of a <code>cpo.train</code> function parameter. The <code>cpo.trafo</code> takes the same parameters as <code>cpo.train</code>, but returns the <em>transformed data</em> instead of a control object. The control object needs to be created <em>additionally</em>, as a variable by the <code>cpo.trafo</code> function. The <code>CPO</code> framework takes the value of a variable named <code>control</code> inside the <code>cpo.trafo</code> function and gives it to the <code>cpo.retrafo</code> function.</p>
 <p>The following is a simplified version of the <code>cpoPca</code> <code>CPO</code>, which does not scale or center the data.</p>
@@ -640,7 +640,7 @@ Table of Contents
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">tail</span>(iris) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">retrafo</span>(trafd)</a></code></pre></div>
 <p>The rotation matrix can be inspected using <code>getCPOTrainedState</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">getCPOTrainedState</span>(<span class="kw">retrafo</span>(trafd))</a></code></pre></div>
-<section id="functional-focpo-1" class="level4">
+<div id="functional-focpo-1" class="section level4">
 <h4>Functional FOCPO</h4>
 <p>As with <code>makeCPO()</code>, <code>makeCPOExtendedTrafo()</code> makes it possible to define functional <code>CPO</code>s. Instead of <em>returning</em> a <code>cpo.retrafo</code> function, the <code>cpo.retrafo</code> function needs to be <em>defined</em> as a variable, instead of a “<code>control</code>” variable. Like in <code>makeCPO()</code>, the <code>cpo.retrafo</code> parameter of <code>makeCPOExtendedTrafo()</code> must then be <code>NULL</code>. The PCA example above could thus also be written as</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">xmpPcaFunc =<span class="st"> </span><span class="kw">makeCPOExtendedTrafo</span>(<span class="st">&quot;simple.pca.func&quot;</span>,  <span class="co"># nolint</span></a>
@@ -663,19 +663,19 @@ Table of Contents
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">(<span class="dt">trafd =</span> <span class="kw">head</span>(iris) <span class="op">%&gt;&gt;%</span><span class="st"> </span>cpo)</a></code></pre></div>
 <p>This also serves as an example of the disadvantages of a functional <code>CPO</code>: Since the <code>CPO</code> state contains all the information contained in the <code>cpo.trafo</code> call (except the <code>data</code> and <code>target</code> variables), it may take up more memory than needed. For this <code>CPO</code>, the state contains the <code>pcr</code> variable which contains the transformed training data in its <code>$x</code> slot. If the training data is a very large dataset, this would result in <code>CPO</code> states that take up a lot of working memory.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">getCPOTrainedState</span>(<span class="kw">retrafo</span>(trafd))<span class="op">$</span>pcr<span class="op">$</span>x</a></code></pre></div>
-</section>
-</section>
-</section>
-<section id="target-operation-cpos" class="level2">
+</div>
+</div>
+</div>
+<div id="target-operation-cpos" class="section level2">
 <h2>Target Operation CPOs</h2>
 <p>TOCPOs are more complicated than FOCPOs, since they potentially need to operate on data at three different points: During initial training, during the re-transformation for new prediction data, and during the inversion of predictions made by a model trained on transformed data. Similarly to <code>makeCPO()</code>, <code>makeCPOTargetOp()</code> splits these operations up into functions that create “<code>control</code>” objects, and functions that do the actual transformation. <code>makeCPOExtendedTargetOp()</code>, on the other hand, gives the user more flexibility at the price of the user having to make sure that transformation and retransformation perform the same operation–similarly to <code>makeCPOExtendedTrafo()</code> for FOCPOs.</p>
-<section id="task-type-and-conversion" class="level3">
+<div id="task-type-and-conversion" class="section level3">
 <h3>Task Type and Conversion</h3>
 <p>In contrast to FOCPOs, TOCPOs can only operate on one type of <code>Task</code>. Therefore, the <code>properties.target</code> parameter of <code>makeCPO*TargetOp()</code> must contain exactly one <code>Task</code> type (<code>&quot;cluster&quot;</code>, <code>&quot;classif&quot;</code>, <code>&quot;regr&quot;</code>, <code>&quot;surv&quot;</code>, <code>&quot;multilabel&quot;</code>) and possibly some more task properties (currently only <code>&quot;oneclass&quot;</code>, <code>&quot;twoclass&quot;</code>, <code>&quot;multiclass&quot;</code> if the <code>Task</code> type is <code>&quot;classif&quot;</code>).</p>
 <p>It is possible to write TOCPOs that perform <em>conversion</em> of <code>Task</code> types. For that, the <code>task.type.out</code> parameter must be set to the <code>Task</code> type that the <code>CPO</code> converts the data to. If conversion happens, the transformation functions need to return target data fit for the <code>task.type.out</code> <code>Task</code> type.</p>
 <p><code>properties.adding</code> and <code>properties.needed</code> should <em>not</em> be any <code>Task</code> type, even when conversion happens. Only if one of the task types has <em>additional</em> properties–currently only the <code>&quot;oneclass&quot;</code>, <code>&quot;twoclass&quot;</code>, <code>&quot;multiclass&quot;</code> properties of classification <code>Task</code>s–should these additional properties be listed in <code>properties.adding</code> or <code>properties.needed</code>.</p>
-</section>
-<section id="predict.type" class="level3">
+</div>
+<div id="predict.type" class="section level3">
 <h3><code>predict.type</code></h3>
 <p><code>mlr</code> makes it possible for <code>Learner</code>s to make different kinds of prediction. Usually they can predict a “response”, making their best effort to predict the true value of a task target. Many <code>Learner</code> types can predict a probability when their <code>predict.type</code> is set to <code>&quot;prob&quot;</code>, returning a <code>data.frame</code> of their estimated probability distribution over possible responses. For regression <code>Learner</code>s, <code>predict.type</code> can be <code>&quot;se&quot;</code> for the <code>Learner</code> to predict its estimated standard error of their response prediction.</p>
 <p>When TOCPOs invert these predictions, they may</p>
@@ -685,8 +685,8 @@ Table of Contents
 </ul>
 <p>This is done using the <code>predict.type.map</code> parameter of <code>makeCPO*TargetOp()</code>. It is a named <code>list</code> or named <code>character</code> vector with the names indicating the supported <code>predict.type</code>s, and the values indicating the required underlying predictions. For example, if a TOCPO can perform <code>&quot;response&quot;</code> and <code>&quot;se&quot;</code> prediction, and to predict <code>&quot;response&quot;</code> the underlying <code>Learner</code> must also perform <code>&quot;response&quot;</code> prediction, but for <code>&quot;se&quot;</code> prediction it must perform <code>&quot;prob&quot;</code> prediction, the <code>predict.type.map</code> would have the value</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">c</span>(<span class="dt">response =</span> <span class="st">&quot;response&quot;</span>, <span class="dt">se =</span> <span class="st">&quot;prob&quot;</span>)</a></code></pre></div>
-</section>
-<section id="makecpotargetop" class="level3">
+</div>
+<div id="makecpotargetop" class="section level3">
 <h3><code>makeCPOTargetOp()</code></h3>
 <p><code>makeCPOTargetOp()</code> has a <code>cpo.train</code> and <code>cpo.retrafo</code> function parameter that work similarly to the ones of <code>makeCPO()</code>. In contrast to <code>makeCPO()</code>, however, <code>cpo.retrafo</code> must return the <em>target</em> data instead of the feature data. The <code>data</code> and <code>target</code> parameters of <code>cpo.retrafo</code> get the same data as they get in a FOCPO created with <code>makeCPO()</code>, with the exception that if <code>dataformat</code> is <code>&quot;task&quot;</code> or <code>&quot;df.all&quot;</code>, the <code>target</code> parameter will receive the <em>whole</em> input data in form of a <code>Task</code> or <code>data.frame</code> (while the <code>data</code> argument, as in a FOCPO, will receive only the feature <code>data.frame</code>). The return value of <code>cpo.retrafo</code> for a TOCPO must always be in the same format as the input <code>target</code> value: a <code>data.frame</code> with the manipulated target values when <code>dataformat</code> is anything besides <code>&quot;task&quot;</code> or <code>&quot;df.all&quot;</code>, or a <code>Task</code> or <code>data.frame</code> of all data (with non-target columns unmodified) otherwise.</p>
 <p>Inversion of predictions is performed using the functions <code>cpo.train.invert</code> and <code>cpo.invert</code>. <code>cpo.train.invert</code> takes a <code>data</code> and a <code>control</code> argument, and any arguments declared in the <code>par.set</code>. It is called whenever new data is fed into the <code>CPO</code> or its retrafo <code>CPOTrained</code>, and creates a <code>CPOTrained</code> state that is used to invert the prediction done on this new data. The <code>control</code> argument takes the value returned by the <code>cpo.train</code> function upon initial training, and the <code>data</code> argument is the new data for which to prepare the <code>CPOTrained</code> inverter. It has the form dictated by <code>dataformat</code>, with the exception that <code>&quot;task&quot;</code> and <code>&quot;df.all&quot;</code> <code>dataformat</code> are handled as <code>&quot;df.feature&quot;</code>; this is necessary since the new data could be a <code>data.frame</code> of data with unknown target.</p>
@@ -762,7 +762,7 @@ Table of Contents
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">lrnpred =<span class="st"> </span><span class="kw">predict</span>(cpo.model, test.task)</a>
 <a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">performance</span>(lrnpred)</a></code></pre></div>
 <p>See <a href="#postscriptum">Postscriptum</a> for an evaluation of <code>xmpMeatLearn</code>’s performance.</p>
-<section id="functional-tocpo" class="level4">
+<div id="functional-tocpo" class="section level4">
 <h4>Functional TOCPO</h4>
 <p>Just like for FOCPOs, it is possible to create functional TOCPOs. In the case of <code>makeCPOTargetOp()</code>, it is possible to have <code>cpo.train</code> create <code>cpo.retrafo</code> and <code>cpo.train.invert</code>, instead of giving them to <code>makeCPOTargetOp()</code> directly. Just as in <code>makeCPO</code>, these functions can then access the state of their environment in the <code>cpo.train</code> call and hence have neither a <code>control</code> argument, nor any arguments for the <code>par.set</code> parameters. Since <code>cpo.train</code> must in this case create two functions, these functions only need to be defined within <code>cpo.train</code>, the return value is ignored.</p>
 <p>Note that <code>cpo.retrafo</code> and <code>cpo.train.invert</code> must either be both functional or both object based.</p>
@@ -812,8 +812,8 @@ Table of Contents
 <a class="sourceLine" id="cb34-41" data-line-number="41">      }</a>
 <a class="sourceLine" id="cb34-42" data-line-number="42">    }</a>
 <a class="sourceLine" id="cb34-43" data-line-number="43">  })</a></code></pre></div>
-</section>
-<section id="constant-invert-tocpos" class="level4">
+</div>
+<div id="constant-invert-tocpos" class="section level4">
 <h4>Constant Invert TOCPOs</h4>
 <p>The example given above is a relatively elaborate TOCPO which needs information from the prediction data to perform inversion. Many simpler applications of target transformation do not need this information if their inversion step is independent of this data. It is possible to declare such a TOCPO using the <code>constant.invert</code> flag in <code>makeCPOTargetOp()</code>. If <code>constant.invert</code> is set to <code>TRUE</code>, the <code>cpo.train.invert</code> argument must be explicitly set to <code>NULL</code>. <code>cpo.train</code> still needs to have a <code>control.invert</code> argument; it is set to the value returned by <code>cpo.train</code>.</p>
 <p>The following example is a TOCPO for regression <code>Task</code>s that centers target values during training. After prediction, the data is inverted by adding the original mean of the training data to the predictions. This inversion operation does not need any information about the prediction data going in, so the TOCPO can be declared <code>constant.invert</code>.</p>
@@ -861,12 +861,12 @@ Table of Contents
 <p>A special property of <code>constant.invert</code> TOCPOs is that their retrafo <code>CPOTrained</code> can also be used for inversion. This is the case since the tight coupling of inversion operation to the data used to create the prediction is not necessary when the inversion is actually independent of this data. This is indicated by <code>getCPOTrainedCapability()</code> returning a vector with the <code>&quot;invert&quot;</code> capability set to <code>1</code>. However, when using the retrafo <code>CPOTrained</code> for inversion, the “truth” column is absent from the inverted prediction.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">getCPOTrainedCapability</span>(retr)</a></code></pre></div>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">invert</span>(retr, pred)</a></code></pre></div>
-</section>
-<section id="functional-constant-invert-tocpo" class="level4">
+</div>
+<div id="functional-constant-invert-tocpo" class="section level4">
 <h4>Functional Constant Invert TOCPO</h4>
 <p>Just as above, <code>constant.invert</code> TOCPOs can be <em>functional</em>. For this, the <code>cpo.train</code> function must declare both a <code>cpo.retrafo</code> <em>and</em> a <code>cpo.invert</code> variable which perform the requested operations. These functions have no <code>control</code> or <code>control.invert</code> parameter, and no parameters pertaining to <code>par.set</code>.</p>
-</section>
-<section id="stateless-tocpo" class="level4">
+</div>
+<div id="stateless-tocpo" class="section level4">
 <h4>Stateless TOCPO</h4>
 <p>Very simple target column operations that operate on a row-by-row basis without needing information e.g. from training data, can be declared as “stateless”. Similarly to <code>makeCPO()</code>, when <code>cpo.train</code> parameter is set to <code>NULL</code>, no control object is created for a <code>CPOTrained</code>. Furthermore, a stateless TOCPO must always have <code>constant.invert</code> set as well. Therefore, only <code>cpo.retrafo</code> and <code>cpo.invert</code> are given as functions, both without a <code>control</code> or <code>control.invert</code> argument. One example is a TOCPO that log-transforms the target column of a regression task, and exponentiates the predictions made from this during inversion. (A better inversion would take the <code>&quot;se&quot;</code> prediction into account, see <code>cpoLogTrafoRegr</code>.)</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">xmpLogRegr =<span class="st"> </span><span class="kw">makeCPOTargetOp</span>(<span class="st">&quot;log.regr&quot;</span>,  <span class="co"># nolint</span></a>
@@ -894,9 +894,9 @@ Table of Contents
 <p>Note that both the inverter <em>and</em> the retrafo <code>CPOTrained</code> can be used for inversion, since a stateless TOCPO also has <code>constant.invert</code> set. As above, when using the retrafo <code>CPOTrained</code>, the truth column is absent from the result.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">invert</span>(<span class="kw">inverter</span>(predict.traf), pred)</a></code></pre></div>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">invert</span>(retr, pred)</a></code></pre></div>
-</section>
-</section>
-<section id="makecpoextendedtargetop" class="level3">
+</div>
+</div>
+<div id="makecpoextendedtargetop" class="section level3">
 <h3><code>makeCPOExtendedTargetOp()</code></h3>
 <p>Just as for FOCPOs, it is possible to declare a TOCPO while having more direct control over what happens at which stage of training, re-transformation, or inversion. In a TOCPO defined with <code>makeCPOTargetOp()</code>, the <code>cpo.retrafo</code> and <code>cpo.train.invert</code> functions are called automatically when necessary during training and re-transformation. <code>makeCPOExtendedTargetOp()</code> instead has a <code>cpo.trafo</code> and a <code>cpo.retrafo</code> parameter, which get called during the respective operation.</p>
 <p><code>cpo.trafo</code> must be a function taking the same parameters as <code>cpo.train</code> in <code>makeCPOTargetOp()</code>. Instead of returning a control object, it must define a variable named “<code>control</code>”, and a variable named “<code>control.invert</code>”. The former is used as the <code>control</code> argument of <code>cpo.retrafo</code>, the latter is used as <code>control.invert</code> for <code>cpo.invert</code> when using the inverter <code>CPOTrained</code> created during training. The return value of <code>cpo.trafo</code> must be similar to the value returned by <code>cpo.retrafo</code> in <code>makeCPOTargetOp()</code>: it must be the modified data set or target, depending on <code>dataformat</code>.</p>
@@ -941,9 +941,9 @@ Table of Contents
 <p>The <code>trafd</code> object has an inverter <code>CPOTrained</code> attribute that was created by <code>cpo.trafo</code>, the <code>retrafd</code> object has an inverter <code>CPOTrained</code> attribute created by <code>cpo.retrafo</code> (necessarily). This is made visible by the given example inverter function:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">inv =<span class="st"> </span><span class="kw">invert</span>(<span class="kw">inverter</span>(trafd), <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">inv =<span class="st"> </span><span class="kw">invert</span>(<span class="kw">inverter</span>(retrafd), <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</a></code></pre></div>
-</section>
-</section>
-<section id="postscriptum" class="level2">
+</div>
+</div>
+<div id="postscriptum" class="section level2">
 <h2>Postscriptum</h2>
 <p>As an aside, the <code>Learner</code> enhanced by <code>xmpMetaLearn</code> seems to perform marginally better than either <code>&quot;classif.svm&quot;</code> or <code>&quot;classif.logreg&quot;</code> on their own for a large enough subset of <code>pid.task</code> (here resampled with output suppressed).</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">learners =<span class="st"> </span><span class="kw">list</span>(</a>
@@ -971,7 +971,7 @@ Table of Contents
 <a class="sourceLine" id="cb60-4" data-line-number="4">)</a>
 <a class="sourceLine" id="cb60-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb60-6" data-line-number="6"><span class="kw">round</span>(<span class="kw">p.adjust</span>(pvals), <span class="dv">3</span>)</a></code></pre></div>
-</section>
+</div>
 
 
 

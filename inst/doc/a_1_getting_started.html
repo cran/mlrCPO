@@ -12,7 +12,7 @@
 
 <meta name="author" content="Martin Binder" />
 
-<meta name="date" content="2018-10-01" />
+<meta name="date" content="2019-01-10" />
 
 <title>First Steps</title>
 
@@ -280,15 +280,15 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">First Steps</h1>
 <h4 class="author"><em>Martin Binder</em></h4>
-<h4 class="date"><em>2018-10-01</em></h4>
+<h4 class="date"><em>2019-01-10</em></h4>
 
 
 
-<section id="cpo-vignette-navigation" class="level4">
+<div id="cpo-vignette-navigation" class="section level4">
 <h4>CPO Vignette Navigation</h4>
 <pre><code>## Loading required package: ParamHelpers</code></pre>
 <pre><code>## Loading required package: mlr</code></pre>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li>First Steps (<a href="z_1_getting_started_terse.html">compact version</a>)</li>
 <li><a href="a_2_mlrCPO_core.html">mlrCPO Core</a> (<a href="z_2_mlrCPO_core_terse.html">compact version</a>)</li>
 <li><a href="a_3_all_CPOs.html">CPOs Built Into mlrCPO</a> (<a href="z_3_all_CPOs_terse.html">compact version</a>)</li>
@@ -370,28 +370,28 @@ Table of Contents
 </li>
 </ul>
 </div>
-</section>
-<section id="about-the-vignettes" class="level2">
+</div>
+<div id="about-the-vignettes" class="section level2">
 <h2>About the Vignettes</h2>
 <p>Since <code>mlrCPO</code> is a package with some depth to it, it comes with a few vignettes that each explain different aspects of its operation. These are the current document (“First Steps”), offering a short introduction and information on where to get started, “<a href="a_2_mlrCPO_core.html">mlrCPO Core</a>”, describing all the functions and tools offered by <code>mlrCPO</code> that are independent from specific <code>CPO</code>s, “<a href="a_3_all_CPOs.html">CPOs Built Into mlrCPO</a>”, listing all <code>CPO</code>s included in the <code>mlrCPO</code> package, and “<a href="a_4_custom_CPOs.html">Building Custom CPOs</a>”, describing the process of creating new <code>CPO</code>s that offer new functionality.</p>
 <p>All vignettes also have a “compact version” with the R output suppressed for readability. They are linked in the navigation section at the top.</p>
 <p>All vignettes assume that <code>mlrCPO</code> (and therefore its requirement <code>mlr</code>) is installed successfully and loaded using <code>library(&quot;mlrCPO&quot;)</code>. Help with installation is provided on the <a href="https://github.com/mlr-org/mlrCPO">project’s GitHub page</a>.</p>
-</section>
-<section id="what-is-mlrcpo" class="level2">
+</div>
+<div id="what-is-mlrcpo" class="section level2">
 <h2>What is mlrCPO?</h2>
 <p>“Composable Preprocessing Operators”, “CPO”, are an extension for the <a href="https://github.com/mlr-org/mlr">mlr</a> (“Machine Learning in R”) project which present preprocessing operations in the form of R objects. These CPO objects can be composed to form complex operations, they can be applied to data sets, and can be attached to mlr <code>Learner</code> objects to generate machine learning pipelines that combine preprocessing and model fitting.</p>
-<section id="what-is-preprocessing" class="level3">
+<div id="what-is-preprocessing" class="section level3">
 <h3>What is Preprocessing</h3>
 <p>“Preprocessing”, as understood by <code>mlrCPO</code>, is any manipulation of data used in a machine learning process to get it from its form as found in the wild into a form more fitting for the machine learning algorithm (“<code>Learner</code>”) used for model fitting. It is important that the exact method of preprocessing is kept track of, to be able to perform this method when the resulting model is used to make predictions on new data. It is also important, when evaluating preprocessing methods e.g. using <em>resampling</em>, that the parameters of these methods are independent of the validation dataset and only depend on the training data set.</p>
 <p><code>mlrCPO</code> tries to support the user in all these aspects of preprocessing:</p>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li>By providing a large set of atomic preprocessing <code>CPO</code>s that can perform many different operations. Operations that go beyond the provided toolset can be implemented in custom <code>CPO</code>s.</li>
 <li>By using “<code>CPOTrained</code>” objects that represent the preprocessing done on training data that should, in that way, be re-applied to new prediction data.</li>
 <li>By making it possible to combine preprocessing objects with <code>mlr</code> “<code>Learner</code>” objects that represent the entinre machine learning pipeline to be tuned and evaluated.</li>
 </ol>
-</section>
-</section>
-<section id="preprocessing-operations" class="level2">
+</div>
+</div>
+<div id="preprocessing-operations" class="section level2">
 <h2>Preprocessing Operations</h2>
 <p>At the centre of <code>mlrCPO</code> are “<code>CPO</code>” objects. To get a <code>CPO</code> object, it is necessary to call a <em>CPO Constructor</em>. A CPO Constructor sets up the parameters of a <code>CPO</code> and provides further options for its behaviour. Internally, CPO Constructors are <em>functions</em> that have a common interface and a friendly printer method.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">cpoScale  <span class="co"># a cpo constructor</span></a>
@@ -449,8 +449,8 @@ Table of Contents
 <a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 52             2           2            2           2 versicolor</span></a>
 <a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; 102            2           1            3           3  virginica</span></a>
 <a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; 103            3           1            3           3  virginica</span></a></code></pre></div>
-</section>
-<section id="hyperparameters" class="level2">
+</div>
+<div id="hyperparameters" class="section level2">
 <h2>Hyperparameters</h2>
 <p>When performing preprocessing, it is sometimes necessary to change a small aspect of a long preprocessing pipeline. Instead of having to re-construct the whole pipeline, <code>mlrCPO</code> offers the possibility to change <em>hyperparameters</em> of a <code>CPO</code>. This makes it very easy e.g. for tuning of preprocessing in combination with a machine learning algorithm.</p>
 <p>Hyperparameters of <code>CPO</code>s can be manipulated in the same way as they are manipulated for <code>Learners</code> in <code>mlr</code>, using <strong><code>getParamSet</code></strong> (to list the parameters), <strong><code>getHyperPars</code></strong> (to list the parameter values), and <strong><code>setHyperPars</code></strong> (to change these values). To get the parameter set of a <code>CPO</code>, it is also possible to use <strong>verbose printing</strong> using the <code>!</code> (exclamation mark) operator.</p>
@@ -518,8 +518,8 @@ Table of Contents
 <a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">#&gt;               Type len    Def   Constr Req Tunable Trafo</span></a>
 <a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">#&gt; pca.center logical   -   TRUE        -   -    TRUE     -</span></a>
 <a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">#&gt; pca.rank   integer   - &lt;NULL&gt; 1 to Inf   -    TRUE     -</span></a></code></pre></div>
-</section>
-<section id="retrafo" class="level2">
+</div>
+<div id="retrafo" class="section level2">
 <h2>Retrafo</h2>
 <p>Manipulating data for preprocessing itself is relatively easy. A challenge comes when one wants to integrate preprocessing into a machine-learning pipeline: The same preprocessing steps that are performed on the training data need to be performed on the new prediction data. However, the transformation performed for prediction often needs information from the training step. For example, if training entail performing PCA, then for prediction, the data must not undergo another PCA, instead it needs to be rotated by the <em>rotation matrix</em> found by the training PCA. The process of obtaining the rotation matrix will be called “training” the <code>CPO</code>, and the object that contains the trained information is called <code>CPOTrained</code>. For preprocessing operations that operate only on <em>features</em> of a task (as opposed to the target column), the <code>CPOTrained</code> will always be applied to new incoming data, and hence be of class <code>CPORetrafo</code> and called a “<strong>retrafo</strong>” object. To obtain this retrafo object, one can use <strong><code>retrafo()</code></strong>. Retrafo objects can be applied to data just as <code>CPO</code>s can, by using the <code>%&gt;&gt;%</code> operator.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">transformed =<span class="st"> </span>iris.demo <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoPca</span>(<span class="dt">rank =</span> <span class="dv">3</span>)</a>
@@ -562,8 +562,8 @@ Table of Contents
 <a class="sourceLine" id="cb27-2" data-line-number="2"><span class="co">#&gt; CPO Retrafo chain</span></a>
 <a class="sourceLine" id="cb27-3" data-line-number="3"><span class="co">#&gt; [RETRAFO pca(center = TRUE, scale = FALSE)] =&gt;</span></a>
 <a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">#&gt; [RETRAFO scale(center = TRUE, scale = TRUE)]</span></a></code></pre></div>
-</section>
-<section id="inverter" class="level2">
+</div>
+<div id="inverter" class="section level2">
 <h2>Inverter</h2>
 <p>So far only <code>CPO</code>s were introduced that change the feature columns of a <code>Task</code>. (“Feature Operation <code>CPO</code>s”–<em>FOCPO</em>s). There is another class of <code>CPO</code>s, “Target Operation <code>CPO</code>s” or <em>TOCPO</em>s, that can change a <code>Task</code>’s target columns.</p>
 <p>This comes at the cost of some complexity when performing prediction: Since the training data that was ultimately fed into a <code>Learner</code> had a transformed target column, the predictions made by the resulting model will not be directly comparable to the original target values. Consider <code>cpoLogTrafoRegr</code>, a <code>CPO</code> that log-transforms the target variable of a regression <code>Task</code>. The predictions made with a <code>Learner</code> on a log-transformed target variable will be in log-space and need to be exponentiated (or otherwise re-transformed). This inversion operation is represented by an “<strong>inverter</strong>” object that is attached to a transformation result similarly to a retrafo object, and can be obtained using the <strong><code>inverter()</code></strong> function. It is of class <code>CPOInverter</code>, a subclass of <code>CPOTrained</code>.</p>
@@ -647,7 +647,7 @@ Table of Contents
 <a class="sourceLine" id="cb35-11" data-line-number="11"><span class="co">#&gt; 7  1   0.3 0.2243966</span></a>
 <a class="sourceLine" id="cb35-12" data-line-number="12"><span class="co">#&gt; 8  2   0.2 0.2125006</span></a>
 <a class="sourceLine" id="cb35-13" data-line-number="13"><span class="co">#&gt; 9  3   0.2 0.2237922</span></a></code></pre></div>
-<section id="constant-inverters" class="level3">
+<div id="constant-inverters" class="section level3">
 <h3>Constant Inverters</h3>
 <p>The <code>cpoLogTrafoRegr</code> is a special case of TOCPO in that its inversion operation is <em>constant</em>: It does not depend on the new incoming data, so in theory it is not necessary to get a new inverter object for every piece of data that is being transformed. Therefore, it is possible to use the <em>retrafo</em> object for inversion in this case. However, the “truth” column will not be available in this case:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">invert</span>(<span class="kw">retrafo</span>(iris.logd), pred)</a>
@@ -666,8 +666,8 @@ Table of Contents
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">getCPOTrainedCapability</span>(inv)  <span class="co"># a pure inverter, can not be used for retrafo</span></a>
 <a class="sourceLine" id="cb38-2" data-line-number="2"><span class="co">#&gt; retrafo  invert </span></a>
 <a class="sourceLine" id="cb38-3" data-line-number="3"><span class="co">#&gt;      -1       1</span></a></code></pre></div>
-</section>
-<section id="general-inverters" class="level3">
+</div>
+<div id="general-inverters" class="section level3">
 <h3>General Inverters</h3>
 <p>As an example of a <code>CPO</code> that does not have a constant inverter, consider <code>cpoRegrResiduals</code>, wich fits a regression model on training data and returns the residuals of this fit. When performing prediction, the <code>invert</code> action is to add predictions by the <code>CPO</code>’s model to the incoming predictions made by a model trained on the residuals.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">123</span>)  <span class="co"># for reproducibility</span></a>
@@ -711,9 +711,9 @@ Table of Contents
 <a class="sourceLine" id="cb42-10" data-line-number="10"><span class="co">#&gt; 7  1   0.3 0.3869842</span></a>
 <a class="sourceLine" id="cb42-11" data-line-number="11"><span class="co">#&gt; 8  2   0.2 0.3075500</span></a>
 <a class="sourceLine" id="cb42-12" data-line-number="12"><span class="co">#&gt; 9  3   0.2 0.3834882</span></a></code></pre></div>
-</section>
-</section>
-<section id="retrafoless-cpos" class="level2">
+</div>
+</div>
+<div id="retrafoless-cpos" class="section level2">
 <h2>Retrafoless CPOs</h2>
 <p>Besides <em>FOCPO</em>s and <em>TOCPO</em>s, there are also “<em>Retrafoless</em>” <code>CPO</code>s (<em>ROCPO</em>s). These only perform operation in the training part of a machine learning pipeline, but in turn are the only <code>CPO</code>s that may change the number of rows in a dataset. The goal of ROCPOs is to change the number of data samples, but not to transform the data or target values themselves. Examples of ROCPOs are <code>cpoUndersample</code>, <code>cpoSmote</code>, and <code>cpoSample</code>.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">sampled =<span class="st"> </span>iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoSample</span>(<span class="dt">size =</span> <span class="dv">3</span>)</a>
@@ -727,8 +727,8 @@ Table of Contents
 <a class="sourceLine" id="cb44-2" data-line-number="2"><span class="co">#&gt; NULLCPO</span></a>
 <a class="sourceLine" id="cb44-3" data-line-number="3"><span class="kw">inverter</span>(sampled)</a>
 <a class="sourceLine" id="cb44-4" data-line-number="4"><span class="co">#&gt; NULLCPO</span></a></code></pre></div>
-</section>
-<section id="cpo-learners" class="level2">
+</div>
+<div id="cpo-learners" class="section level2">
 <h2>CPO Learners</h2>
 <p>Until now, the <code>CPO</code>s have been invoked explicitly to manipulate data and get retrafo and inverter objects. It is good to be aware of the data flows in a machine learning process involving preprocessing, but <code>mlrCPO</code> makes it very easy to automatize this. It is possible to <em>attach</em> a <code>CPO</code> to a <code>Learner</code> using <strong><code>attachCPO</code></strong> or the <code>%&gt;&gt;%</code>-operator. When a <code>CPO</code> is attached to a <code>Learner</code>, a <code>CPOLearner</code> is created. The <code>CPOLearner</code> performs the preprocessing operation dictated by the <code>CPO</code> before training the underlying model, and stores and uses the retrafo and inverter objects necessary during prediction. It is possible to attach compound <code>CPO</code>s, and it is possible to attach further <code>CPO</code>s to a <code>CPOLearner</code> to extend the preprocessing pipeline. Exported hyperparamters of a <code>CPO</code> are also present in a <code>CPOLearner</code> and can be changed using <code>setHyperPars</code>, as usual with other <code>Learner</code> objects.</p>
 <p>Recreating the pipeline from <a href="#general-inverters">General Inverters</a> with a <code>CPOLearner</code> looks like the following. Note the prediction <code>pred</code> made in the end is identical with the one made above.</p>
@@ -758,8 +758,8 @@ Table of Contents
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">retrafo</span>(model)</a>
 <a class="sourceLine" id="cb47-2" data-line-number="2"><span class="co">#&gt; CPO Retrafo chain {type:regr}</span></a>
 <a class="sourceLine" id="cb47-3" data-line-number="3"><span class="co">#&gt; [RETRAFO regr.residuals(crr.train.residuals = plain, crr.resampling = &lt;CVDesc&gt;)]</span></a></code></pre></div>
-</section>
-<section id="cpo-tuning" class="level2">
+</div>
+<div id="cpo-tuning" class="section level2">
 <h2>CPO Tuning</h2>
 <p>Since the hyperparameters of a <code>CPO</code> are present in a <code>CPOLearner</code>, is possible to tune hyperparameters of preprocessing operations. It can be done using <code>mlr</code>’s <strong><code>tuneParams()</code></strong> function and works identically to tuning common <code>Learner</code>-parameters.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">icalrn =<span class="st"> </span><span class="kw">cpoIca</span>() <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">makeLearner</span>(<span class="st">&quot;classif.logreg&quot;</span>)</a>
@@ -782,8 +782,8 @@ Table of Contents
 <a class="sourceLine" id="cb50-4" data-line-number="4"><span class="co">#&gt; Tune result:</span></a>
 <a class="sourceLine" id="cb50-5" data-line-number="5"><span class="co">#&gt; Op. pars: ica.n.comp=8; ica.alg.typ=deflation</span></a>
 <a class="sourceLine" id="cb50-6" data-line-number="6"><span class="co">#&gt; mmce.test.mean=0.2252355</span></a></code></pre></div>
-</section>
-<section id="syntactic-sugar" class="level2">
+</div>
+<div id="syntactic-sugar" class="section level2">
 <h2>Syntactic Sugar</h2>
 <p>Besides the <code>%&gt;&gt;%</code> operator, there are a few related operators which are short forms of operations that otherwise take more typing.</p>
 <ul>
@@ -791,8 +791,8 @@ Table of Contents
 <li><strong><code>%&lt;&gt;&gt;%</code> and <code>%&lt;&lt;&lt;%</code></strong> are the <code>%&gt;&gt;%</code> or <code>%&lt;&lt;%</code> operators, combined with assignment. <code>a %&lt;&gt;&gt;% b</code> is the same as <code>a = a %&gt;&gt;% b</code>. These operators perform the operations on their right before they do the assignment, so it is not necessary to use parentheses when writing <code>a = a %&gt;&gt;% b %&gt;&gt;% c</code> as <code>a %&lt;&gt;&gt;% b %&gt;&gt;% c</code>.</li>
 <li><strong><code>%&gt;|%</code> and <code>%|&lt;%</code></strong> feed data in a <code>CPO</code> and gets the <code>retrafo()</code>. <code>data %&gt;|% a</code> is the same as <code>retrafo(data %&gt;&gt;% a)</code>. The <code>%&gt;|%</code> operator performs the operation on its right before getting the retrafo, so it is not necessary to use parentheses when writing <code>retrafo(data %&gt;&gt;% a %&gt;&gt;% b)</code> as <code>data %&gt;|% a %&gt;&gt;% b</code>.</li>
 </ul>
-</section>
-<section id="inspecting-cpos" class="level2">
+</div>
+<div id="inspecting-cpos" class="section level2">
 <h2>Inspecting CPOs</h2>
 <p>As described before, it is possible to <em>compose</em> <code>CPO</code>s to create relatively complex preprocessing pipelines. It is therefore necessary to have tools to inspect a <code>CPO</code> pipeline or related objects.</p>
 <p>The first line of attack when inspecting a <code>CPO</code> is always the <code>print</code> function. <code>print(x, verbose = TRUE)</code> will often print more information about a <code>CPO</code> than the ordinary print function. A shorthand alias for this is the exclamation point “<strong><code>!</code></strong>”. When verbosely printing a <code>CPOConstructor</code>, the transformation functions are shown. When verbosely printing a <code>CPO</code>, the constituent elements are separately printed, each showing their parameter sets.</p>
@@ -902,11 +902,11 @@ Table of Contents
 <a class="sourceLine" id="cb58-7" data-line-number="7"><span class="co">#&gt; 52  versicolor 6.691140 -5.133560 1.578507 0.2890056</span></a>
 <a class="sourceLine" id="cb58-8" data-line-number="8"><span class="co">#&gt; 102  virginica 7.131950 -4.170538 1.489981 0.2680589</span></a>
 <a class="sourceLine" id="cb58-9" data-line-number="9"><span class="co">#&gt; 103  virginica 8.374389 -5.125100 1.456995 0.3318477</span></a></code></pre></div>
-</section>
-<section id="special-cpos" class="level2">
+</div>
+<div id="special-cpos" class="section level2">
 <h2>Special CPOs</h2>
 <p>There is a large and growing variety of <code>CPO</code>s that perform many different operations. It is advisable to browse through <a href="a_3_all_CPOs.html">CPOs Built Into mlrCPO</a> for an overview. To get a list of all built-in <code>CPO</code>s, use <strong><code>listCPO()</code></strong>. A few important or “meta” <code>CPO</code>s that can be used to influence the behaviour of other <code>CPO</code>s are described here.</p>
-<section id="nullcpo" class="level3">
+<div id="nullcpo" class="section level3">
 <h3>NULLCPO</h3>
 <p>The value associated with “no operation” is the <code>NULLCPO</code> value. It is the neutral element of the <code>%&gt;&gt;%</code> operations, and the value of <code>retrafo()</code> and <code>inverter()</code> when there are otherwise no associated retrafo or inverter values.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">NULLCPO</a>
@@ -915,8 +915,8 @@ Table of Contents
 <a class="sourceLine" id="cb60-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
 <a class="sourceLine" id="cb60-3" data-line-number="3"><span class="kw">cpoPca</span>() <span class="op">%&gt;&gt;%</span><span class="st"> </span>NULLCPO</a>
 <a class="sourceLine" id="cb60-4" data-line-number="4"><span class="co">#&gt; pca(center = TRUE, scale = FALSE)[not exp'd: tol = &lt;NULL&gt;, rank = &lt;NULL&gt;]</span></a></code></pre></div>
-</section>
-<section id="cpo-multiplexer" class="level3">
+</div>
+<div id="cpo-multiplexer" class="section level3">
 <h3>CPO Multiplexer</h3>
 <p>The multiplexer makes it possible to combine many CPOs into one, with an extra <code>selected.cpo</code> parameter that chooses between them. This makes it possible to tune over many different tuner configurations at once.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">cpm =<span class="st"> </span><span class="kw">cpoMultiplex</span>(<span class="kw">list</span>(cpoIca, <span class="kw">cpoPca</span>(<span class="dt">export =</span> <span class="st">&quot;export.all&quot;</span>)))</a>
@@ -953,8 +953,8 @@ Table of Contents
 <a class="sourceLine" id="cb63-7" data-line-number="7"><span class="co">#&gt; 52  versicolor  1.232156 -0.11798420  0.10744449</span></a>
 <a class="sourceLine" id="cb63-8" data-line-number="8"><span class="co">#&gt; 102  virginica  1.672966  0.84503760  0.01891907</span></a>
 <a class="sourceLine" id="cb63-9" data-line-number="9"><span class="co">#&gt; 103  virginica  2.915405 -0.10952398 -0.01406707</span></a></code></pre></div>
-</section>
-<section id="cpo-wrapper" class="level3">
+</div>
+<div id="cpo-wrapper" class="section level3">
 <h3>CPO Wrapper</h3>
 <p>A simple CPO with one parameter which gets applied to the data as CPO. This is different from a multiplexer in that its parameter is free and can take any value that behaves like a CPO. On the downside, this does not expose the argument’s parameters to the outside.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">cpa =<span class="st"> </span><span class="kw">cpoWrap</span>()</a>
@@ -988,8 +988,8 @@ Table of Contents
 <a class="sourceLine" id="cb67-2" data-line-number="2"><span class="co">#&gt;             Type len  Def Constr Req Tunable Trafo</span></a>
 <a class="sourceLine" id="cb67-3" data-line-number="3"><span class="co">#&gt; wrap.cpo untyped   -    -      -   -    TRUE     -</span></a>
 <a class="sourceLine" id="cb67-4" data-line-number="4"><span class="co">#&gt; model    logical   - TRUE      -   -   FALSE     -</span></a></code></pre></div>
-</section>
-<section id="cbind-cpo" class="level3">
+</div>
+<div id="cbind-cpo" class="section level3">
 <h3>CBind CPO</h3>
 <p><code>cbind</code> other CPOs as operation. The <code>cbinder</code> makes it possible to build DAGs of CPOs that perform different operations on data and paste the results next to each other. It is often useful to combine <code>cpoCbind</code> with <code>cpoSelect</code> to filter out columns that would otherwise be duplciated.</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">scale =<span class="st"> </span><span class="kw">cpoSelect</span>(<span class="dt">pattern =</span> <span class="st">&quot;Sepal&quot;</span>, <span class="dt">id =</span> <span class="st">&quot;first&quot;</span>) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoScale</span>(<span class="dt">id =</span> <span class="st">&quot;scale&quot;</span>)</a>
@@ -1030,13 +1030,13 @@ Table of Contents
 <a class="sourceLine" id="cb70-7" data-line-number="7"><span class="co">#&gt; 52    0.54389412   0.3458343  0.1400495  0.6291330          4.5         1.5</span></a>
 <a class="sourceLine" id="cb70-8" data-line-number="8"><span class="co">#&gt; 102  -0.05725201  -1.6715322  1.1414685 -1.2224350          5.1         1.9</span></a>
 <a class="sourceLine" id="cb70-9" data-line-number="9"><span class="co">#&gt; 103   1.24523128  -0.4611123  1.2065671  0.5544558          5.9         2.1</span></a></code></pre></div>
-</section>
-</section>
-<section id="custom-cpos" class="level2">
+</div>
+</div>
+<div id="custom-cpos" class="section level2">
 <h2>Custom CPOs</h2>
 <p>Even though <code>CPO</code>s are very flexible and can be combined in many ways, it may be necessary to create completely custom <code>CPO</code>s. Custom CPOs can be created using the <strong><code>makeCPO()</code></strong> and related functions. “<a href="a_4_custom_CPOs.html">Building Custom CPOs</a>” is a wide topic which has its own vignette.</p>
-</section>
-<section id="summary" class="level2">
+</div>
+<div id="summary" class="section level2">
 <h2>Summary</h2>
 <ul>
 <li><strong><code>CPO</code></strong>s are built using <strong><code>CPOConstructor</code></strong>s by calling them like functions.</li>
@@ -1056,7 +1056,7 @@ Table of Contents
 <li>Notable <code>CPO</code>s are <strong><code>NULLCPO</code></strong> (the neutral element of <code>%&gt;&gt;%</code>), <strong><code>cpoMultiplex</code></strong>, <strong><code>cpoWrap</code></strong>, and <strong><code>cpoCbind</code></strong>.</li>
 <li>It is possible to create custom <code>CPO</code>s using <strong><code>makeCPO</code></strong> and similar functions. These are described <a href="a_4_custom_CPOs.html">in their own vignette</a>.</li>
 </ul>
-</section>
+</div>
 
 
 

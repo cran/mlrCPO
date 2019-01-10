@@ -12,7 +12,7 @@
 
 <meta name="author" content="Martin Binder" />
 
-<meta name="date" content="2018-10-01" />
+<meta name="date" content="2019-01-10" />
 
 <title>CPOs Built Into mlrCPO</title>
 
@@ -280,20 +280,20 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">CPOs Built Into mlrCPO</h1>
 <h4 class="author"><em>Martin Binder</em></h4>
-<h4 class="date"><em>2018-10-01</em></h4>
+<h4 class="date"><em>2019-01-10</em></h4>
 
 
 
-<section id="cpo-vignette-navigation" class="level4">
+<div id="cpo-vignette-navigation" class="section level4">
 <h4>CPO Vignette Navigation</h4>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><a href="a_1_getting_started.html">First Steps</a> (<a href="z_1_getting_started_terse.html">compact version</a>)</li>
 <li><a href="a_2_mlrCPO_core.html">mlrCPO Core</a> (<a href="z_2_mlrCPO_core_terse.html">compact version</a>)</li>
 <li>CPOs Built Into mlrCPO (<a href="z_3_all_CPOs_terse.html">compact version</a>)</li>
 <li><a href="a_4_custom_CPOs.html">Building Custom CPOs</a> (<a href="z_4_custom_CPOs_terse.html">compact version</a>)</li>
 </ol>
-</section>
-<section id="listing-cpos" class="level2">
+</div>
+<div id="listing-cpos" class="section level2">
 <h2>Listing CPOs</h2>
 <p>Builtin CPOs can be listed with <code>listCPO()</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">listCPO</span>()[, <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;category&quot;</span>, <span class="st">&quot;subcategory&quot;</span>)]</a></code></pre></div>
@@ -1277,8 +1277,8 @@ predict.type
 </tr>
 </tbody>
 </table>
-</section>
-<section id="nullcpo" class="level2">
+</div>
+<div id="nullcpo" class="section level2">
 <h2>NULLCPO</h2>
 <p><code>NULLCPO</code> is the neutral element of <code>%&gt;&gt;%</code>. It is returned by some functions when no other CPO or Retrafo is present.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">NULLCPO</a>
@@ -1293,10 +1293,10 @@ predict.type
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; list()</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw">pipeCPO</span>(<span class="kw">list</span>())</a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; NULLCPO</span></a></code></pre></div>
-</section>
-<section id="meta-cpo" class="level2">
+</div>
+<div id="meta-cpo" class="section level2">
 <h2>Meta-CPO</h2>
-<section id="cpowrap" class="level3">
+<div id="cpowrap" class="section level3">
 <h3>cpoWrap</h3>
 <p>A simple CPO with one parameter which gets applied to the data as CPO. This is different from a multiplexer in that its parameter is free and can take any value that behaves like a CPO. On the downside, this does not expose the argument’s parameters to the outside.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">cpa =<span class="st"> </span><span class="kw">cpoWrap</span>()</a>
@@ -1329,8 +1329,8 @@ predict.type
 <a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt;             Type len  Def Constr Req Tunable Trafo</span></a>
 <a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt; wrap.cpo untyped   -    -      -   -    TRUE     -</span></a>
 <a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; model    logical   - TRUE      -   -   FALSE     -</span></a></code></pre></div>
-</section>
-<section id="cpomultiplex" class="level3">
+</div>
+<div id="cpomultiplex" class="section level3">
 <h3>cpoMultiplex</h3>
 <p>Combine many CPOs into one, with an extra <code>selected.cpo</code> parameter that chooses between them.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">cpm =<span class="st"> </span><span class="kw">cpoMultiplex</span>(<span class="kw">list</span>(cpoScale, cpoPca))</a>
@@ -1370,8 +1370,8 @@ predict.type
 <a class="sourceLine" id="cb4-35" data-line-number="35"><span class="co">#&gt; 4  setosa -2.745343  0.3182990 -0.03155937 -0.075575817</span></a>
 <a class="sourceLine" id="cb4-36" data-line-number="36"><span class="co">#&gt; 5  setosa -2.728717 -0.3267545 -0.09007924 -0.061258593</span></a>
 <a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co">#&gt; 6  setosa -2.280860 -0.7413304 -0.16867766 -0.024200858</span></a></code></pre></div>
-</section>
-<section id="cpocase" class="level3">
+</div>
+<div id="cpocase" class="section level3">
 <h3>cpoCase</h3>
 <p>A CPO that builds data-dependent CPO networks. This is a generalized CPO-Multiplexer that takes a function which decides (from the data, and from user-specified hyperparameters) what CPO operation to perform. Besides optional arguments, the used CPO’s Hyperparameters are exported as well. This is a generalization of <code>cpoMultiplex</code>; however, <code>requires</code> of the involved parameters are not adjusted, since this is impossible in principle.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">s.and.p =<span class="st"> </span><span class="kw">cpoCase</span>(<span class="kw">pSS</span>(logical.param<span class="op">:</span><span class="st"> </span>logical),</a>
@@ -1396,8 +1396,8 @@ predict.type
 <a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; pca.center    logical   -  TRUE      -   -    TRUE     -</span></a>
 <a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; pca.scale     logical   - FALSE      -   -    TRUE     -</span></a></code></pre></div>
 <p>The resulting CPO <code>s.and.p</code> performs scaling and PCA, with the order depending on the parameter <code>logical.param</code> and on whether the mean of the data’s first column exceeds 10. If either of those is true, the data will be first scaled, then PCA’d, otherwise the order is reversed. The all CPOs listed in <code>.export</code> are passed to the <code>cpo.build</code>.</p>
-</section>
-<section id="cpocbind" class="level3">
+</div>
+<div id="cpocbind" class="section level3">
 <h3>cpoCbind</h3>
 <p><code>cbind</code> other CPOs as operation. The <code>cbinder</code> makes it possible to build DAGs of CPOs that perform different operations on data and paste the results next to each other.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">scale =<span class="st"> </span><span class="kw">cpoScale</span>(<span class="dt">id =</span> <span class="st">&quot;scale&quot;</span>)</a>
@@ -1514,8 +1514,8 @@ predict.type
 <a class="sourceLine" id="cb9-28" data-line-number="28"><span class="co">#&gt; 4                  0.2</span></a>
 <a class="sourceLine" id="cb9-29" data-line-number="29"><span class="co">#&gt; 5                  0.2</span></a>
 <a class="sourceLine" id="cb9-30" data-line-number="30"><span class="co">#&gt; 6                  0.4</span></a></code></pre></div>
-</section>
-<section id="cpotransformparams" class="level3">
+</div>
+<div id="cpotransformparams" class="section level3">
 <h3>cpoTransformParams</h3>
 <p><code>cpoTransformParams</code> wraps another <code>CPO</code> and sets some of its hyperparameters to the value of expressions depending on other hyperparameter values. This can be used to make a transformation of parameters similar to the <code>trafo</code> parameter of a <code>Param</code> in <code>ParamHelpers</code>, but it can also be used to set multiple parameters at the same time, depending on a single new parameter.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">cpo =<span class="st"> </span><span class="kw">cpoTransformParams</span>(<span class="kw">cpoPca</span>(), <span class="kw">alist</span>(<span class="dt">pca.scale =</span> pca.center))</a>
@@ -1551,11 +1551,11 @@ predict.type
 <a class="sourceLine" id="cb11-26" data-line-number="26"><span class="co">#&gt; 4  setosa -2.745343  0.3182990 -0.03155937</span></a>
 <a class="sourceLine" id="cb11-27" data-line-number="27"><span class="co">#&gt; 5  setosa -2.728717 -0.3267545 -0.09007924</span></a>
 <a class="sourceLine" id="cb11-28" data-line-number="28"><span class="co">#&gt; 6  setosa -2.280860 -0.7413304 -0.16867766</span></a></code></pre></div>
-</section>
-</section>
-<section id="data-manipulation" class="level2">
+</div>
+</div>
+<div id="data-manipulation" class="section level2">
 <h2>Data Manipulation</h2>
-<section id="cposcale" class="level3">
+<div id="cposcale" class="section level3">
 <h3>cpoScale</h3>
 <p>Implements the <code>base::scale</code> function.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">b =</span> <span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">*</span><span class="st"> </span><span class="dv">10</span>)</a>
@@ -1569,8 +1569,8 @@ predict.type
 <a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; 1 -1  10</span></a>
 <a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; 2  0   0</span></a>
 <a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; 3  1 -10</span></a></code></pre></div>
-</section>
-<section id="cpopca" class="level3">
+</div>
+<div id="cpopca" class="section level3">
 <h3>cpoPca</h3>
 <p>Implements <code>stats::prcomp</code>. No scaling or centering is performed.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">df <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoPca</span>()</a>
@@ -1578,8 +1578,8 @@ predict.type
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; 1 -10.04988  4.163336e-16</span></a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; 2   0.00000  0.000000e+00</span></a>
 <a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; 3  10.04988 -4.163336e-16</span></a></code></pre></div>
-</section>
-<section id="cpodummyencode" class="level3">
+</div>
+<div id="cpodummyencode" class="section level3">
 <h3>cpoDummyEncode</h3>
 <p>Dummy encoding of factorial variables. Optionally uses the first factor as reference variable.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">head</span>(iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoDummyEncode</span>())</a>
@@ -1612,8 +1612,8 @@ predict.type
 <a class="sourceLine" id="cb14-28" data-line-number="28"><span class="co">#&gt; 4                0</span></a>
 <a class="sourceLine" id="cb14-29" data-line-number="29"><span class="co">#&gt; 5                0</span></a>
 <a class="sourceLine" id="cb14-30" data-line-number="30"><span class="co">#&gt; 6                0</span></a></code></pre></div>
-</section>
-<section id="cposelect" class="level3">
+</div>
+<div id="cposelect" class="section level3">
 <h3>cpoSelect</h3>
 <p>Select to use only certain columns of a dataset. Select by column index, name, or regex pattern.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">head</span>(iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoSelect</span>(<span class="dt">pattern =</span> <span class="st">&quot;Width&quot;</span>))</a>
@@ -1633,8 +1633,8 @@ predict.type
 <a class="sourceLine" id="cb15-15" data-line-number="15"><span class="co">#&gt; 4         3.1         0.2  setosa</span></a>
 <a class="sourceLine" id="cb15-16" data-line-number="16"><span class="co">#&gt; 5         3.6         0.2  setosa</span></a>
 <a class="sourceLine" id="cb15-17" data-line-number="17"><span class="co">#&gt; 6         3.9         0.4  setosa</span></a></code></pre></div>
-</section>
-<section id="cpodropconstants" class="level3">
+</div>
+<div id="cpodropconstants" class="section level3">
 <h3>cpoDropConstants</h3>
 <p>Drops constant features or numerics, with variable tolerance</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">head</span>(iris) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoDropConstants</span>()  <span class="co"># drops 'species'</span></a>
@@ -1653,8 +1653,8 @@ predict.type
 <a class="sourceLine" id="cb16-14" data-line-number="14"><span class="co">#&gt; 4          4.6         3.1          1.5</span></a>
 <a class="sourceLine" id="cb16-15" data-line-number="15"><span class="co">#&gt; 5          5.0         3.6          1.4</span></a>
 <a class="sourceLine" id="cb16-16" data-line-number="16"><span class="co">#&gt; 6          5.4         3.9          1.7</span></a></code></pre></div>
-</section>
-<section id="cpofixfactors" class="level3">
+</div>
+<div id="cpofixfactors" class="section level3">
 <h3>cpoFixFactors</h3>
 <p>Drops unused factors and makes sure prediction data has the same factor levels as training data.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">levels</span>(iris<span class="op">$</span>Species)</a>
@@ -1673,8 +1673,8 @@ predict.type
 <a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt; 1            5.1         3.5          1.4         0.2  setosa</span></a>
 <a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt; 100          5.7         2.8          4.1         1.3    &lt;NA&gt;</span></a>
 <a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt; 140          6.9         3.1          5.4         2.1    &lt;NA&gt;</span></a></code></pre></div>
-</section>
-<section id="cpomissingindicators" class="level3">
+</div>
+<div id="cpomissingindicators" class="section level3">
 <h3>cpoMissingIndicators</h3>
 <p>Creates columns indicating missing data. Most useful in combination with cpoCbind.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">impdata =<span class="st"> </span>df</a>
@@ -1694,8 +1694,8 @@ predict.type
 <a class="sourceLine" id="cb21-8" data-line-number="8"><span class="co">#&gt; 1 NA -10    TRUE</span></a>
 <a class="sourceLine" id="cb21-9" data-line-number="9"><span class="co">#&gt; 2  2 -20   FALSE</span></a>
 <a class="sourceLine" id="cb21-10" data-line-number="10"><span class="co">#&gt; 3  3 -30   FALSE</span></a></code></pre></div>
-</section>
-<section id="cpoapplyfun" class="level3">
+</div>
+<div id="cpoapplyfun" class="section level3">
 <h3>cpoApplyFun</h3>
 <p>Apply an univariate function to data columns</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">head</span>(iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoApplyFun</span>(<span class="cf">function</span>(x) <span class="kw">sqrt</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">10</span>, <span class="dt">affect.type =</span> <span class="st">&quot;numeric&quot;</span>))</a>
@@ -1706,8 +1706,8 @@ predict.type
 <a class="sourceLine" id="cb22-6" data-line-number="6"><span class="co">#&gt; 4    -7.855239   -8.239318    -8.775255   -9.552786  setosa</span></a>
 <a class="sourceLine" id="cb22-7" data-line-number="7"><span class="co">#&gt; 5    -7.763932   -8.102633    -8.816784   -9.552786  setosa</span></a>
 <a class="sourceLine" id="cb22-8" data-line-number="8"><span class="co">#&gt; 6    -7.676210   -8.025158    -8.696160   -9.367544  setosa</span></a></code></pre></div>
-</section>
-<section id="cpoasnumeric" class="level3">
+</div>
+<div id="cpoasnumeric" class="section level3">
 <h3>cpoAsNumeric</h3>
 <p>Convert (non-numeric) features to numeric</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">head</span>(iris[<span class="kw">sample</span>(<span class="kw">nrow</span>(iris), <span class="dv">10</span>), ] <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoAsNumeric</span>())</a>
@@ -1718,8 +1718,8 @@ predict.type
 <a class="sourceLine" id="cb23-6" data-line-number="6"><span class="co">#&gt; 130          7.2         3.0          5.8         1.6       3</span></a>
 <a class="sourceLine" id="cb23-7" data-line-number="7"><span class="co">#&gt; 138          6.4         3.1          5.5         1.8       3</span></a>
 <a class="sourceLine" id="cb23-8" data-line-number="8"><span class="co">#&gt; 7            4.6         3.4          1.4         0.3       1</span></a></code></pre></div>
-</section>
-<section id="cpocollapsefact" class="level3">
+</div>
+<div id="cpocollapsefact" class="section level3">
 <h3>cpoCollapseFact</h3>
 <p>Combine low prevalence factors. Set <code>max.collapsed.class.prevalence</code> how big the combined factor level may be.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">iris2 =<span class="st"> </span>iris</a>
@@ -1749,8 +1749,8 @@ predict.type
 <a class="sourceLine" id="cb24-25" data-line-number="25"><span class="co">#&gt; 8           5.0         3.4          1.5         0.2 collapsed</span></a>
 <a class="sourceLine" id="cb24-26" data-line-number="26"><span class="co">#&gt; 9           4.4         2.9          1.4         0.2    setosa</span></a>
 <a class="sourceLine" id="cb24-27" data-line-number="27"><span class="co">#&gt; 10          4.9         3.1          1.5         0.1    setosa</span></a></code></pre></div>
-</section>
-<section id="cpomodelmatrix" class="level3">
+</div>
+<div id="cpomodelmatrix" class="section level3">
 <h3>cpoModelMatrix</h3>
 <p>Specify which columns get used, and how they are transformed, using a <code>formula</code>.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">head</span>(iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoModelMatrix</span>(<span class="op">~</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>Species<span class="op">:</span>Petal.Width))</a>
@@ -1791,8 +1791,8 @@ predict.type
 <a class="sourceLine" id="cb25-36" data-line-number="36"><span class="co">#&gt; 4                            0</span></a>
 <a class="sourceLine" id="cb25-37" data-line-number="37"><span class="co">#&gt; 5                            0</span></a>
 <a class="sourceLine" id="cb25-38" data-line-number="38"><span class="co">#&gt; 6                            0</span></a></code></pre></div>
-</section>
-<section id="cposcalerange" class="level3">
+</div>
+<div id="cposcalerange" class="section level3">
 <h3>cpoScaleRange</h3>
 <p>scale values to a given range</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">head</span>(iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoScaleRange</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</a>
@@ -1803,8 +1803,8 @@ predict.type
 <a class="sourceLine" id="cb26-6" data-line-number="6"><span class="co">#&gt; 4   -0.8333333 -0.08333333   -0.8305085  -0.9166667  setosa</span></a>
 <a class="sourceLine" id="cb26-7" data-line-number="7"><span class="co">#&gt; 5   -0.6111111  0.33333333   -0.8644068  -0.9166667  setosa</span></a>
 <a class="sourceLine" id="cb26-8" data-line-number="8"><span class="co">#&gt; 6   -0.3888889  0.58333333   -0.7627119  -0.7500000  setosa</span></a></code></pre></div>
-</section>
-<section id="cposcalemaxabs" class="level3">
+</div>
+<div id="cposcalemaxabs" class="section level3">
 <h3>cpoScaleMaxAbs</h3>
 <p>Multiply features to set the maximum absolute value.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">head</span>(iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoScaleMaxAbs</span>(<span class="fl">0.1</span>))</a>
@@ -1815,8 +1815,8 @@ predict.type
 <a class="sourceLine" id="cb27-6" data-line-number="6"><span class="co">#&gt; 4   0.05822785  0.07045455   0.02173913       0.008  setosa</span></a>
 <a class="sourceLine" id="cb27-7" data-line-number="7"><span class="co">#&gt; 5   0.06329114  0.08181818   0.02028986       0.008  setosa</span></a>
 <a class="sourceLine" id="cb27-8" data-line-number="8"><span class="co">#&gt; 6   0.06835443  0.08863636   0.02463768       0.016  setosa</span></a></code></pre></div>
-</section>
-<section id="cpospatialsign" class="level3">
+</div>
+<div id="cpospatialsign" class="section level3">
 <h3>cpoSpatialSign</h3>
 <p>Normalize values row-wise</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">head</span>(iris <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoSpatialSign</span>())</a>
@@ -1827,12 +1827,12 @@ predict.type
 <a class="sourceLine" id="cb28-6" data-line-number="6"><span class="co">#&gt; 4    0.8000302   0.5391508    0.2608794  0.03478392  setosa</span></a>
 <a class="sourceLine" id="cb28-7" data-line-number="7"><span class="co">#&gt; 5    0.7909650   0.5694948    0.2214702  0.03163860  setosa</span></a>
 <a class="sourceLine" id="cb28-8" data-line-number="8"><span class="co">#&gt; 6    0.7841750   0.5663486    0.2468699  0.05808704  setosa</span></a></code></pre></div>
-</section>
-</section>
-<section id="imputation" class="level2">
+</div>
+</div>
+<div id="imputation" class="section level2">
 <h2>Imputation</h2>
 <p>There are two <em>general</em> and many <em>specialised</em> imputation CPOs. The general imputation CPOs have parameters that let them use different imputation methods on different columns. They are a thin wrapper around <code>mlr</code>’s <code>impute()</code> and <code>reimpute()</code> functions. The specialised imputation CPOs each implement exactly one imputation method and are closer to the behaviour of typical CPOs.</p>
-<section id="general-imputation-wrappers" class="level4">
+<div id="general-imputation-wrappers" class="section level4">
 <h4>General Imputation Wrappers</h4>
 <p><code>cpoImpute</code> and <code>cpoImputeAll</code> both have parameters very much like <code>impute()</code>. The latter assumes that <em>all</em> columns of its input is somehow being imputed and can be preprended to a learner to give it the ability to work with missing data. It will, however, throw an error if data is missing after imputation.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">impdata <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoImpute</span>(<span class="dt">cols =</span> <span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">imputeMedian</span>()))</a>
@@ -1857,9 +1857,9 @@ predict.type
 <a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">train</span>(<span class="kw">cpoImputeAll</span>(<span class="dt">cols =</span> <span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">imputeMedian</span>())) <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">makeLearner</span>(<span class="st">&quot;regr.lm&quot;</span>), missing.task)</a>
 <a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co">#&gt; Model for learner.id=regr.lm.impute; learner.class=CPOLearner</span></a>
 <a class="sourceLine" id="cb32-4" data-line-number="4"><span class="co">#&gt; Trained on: task.id = missing.task; obs = 3; features = 1</span></a>
-<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="co">#&gt; Hyperparameters: impute.target.cols=character(0),impute.classes=,impute.cols=a=&lt;ImputeMethod&gt;,impute.dummy.classes=character(0),impute.dummy.cols=character(0),impute.dummy.type=factor,impute.force.dummies=FALSE,impute.impute.new.levels=TRUE,impute.recode.factor.levels=TRUE</span></a></code></pre></div>
-</section>
-<section id="specialised-imputation-wrappers" class="level4">
+<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="co">#&gt; Hyperparameters: impute.target.cols=character(0),impute.classes=list(),impute.cols=a=&lt;ImputeMethod&gt;,impute.dummy.classes=character(0),impute.dummy.cols=character(0),impute.dummy.type=factor,impute.force.dummies=FALSE,impute.impute.new.levels=TRUE,impute.recode.factor.levels=TRUE</span></a></code></pre></div>
+</div>
+<div id="specialised-imputation-wrappers" class="section level4">
 <h4>Specialised Imputation Wrappers</h4>
 <p>There is one for each imputation method.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">impdata <span class="op">%&gt;&gt;%</span><span class="st"> </span><span class="kw">cpoImputeConstant</span>(<span class="dv">10</span>)</a>
@@ -1883,9 +1883,9 @@ predict.type
 <a class="sourceLine" id="cb33-19" data-line-number="19"><span class="co">#&gt; 42     cpoImputeMean</span></a>
 <a class="sourceLine" id="cb33-20" data-line-number="20"><span class="co">#&gt; 41   cpoImputeMedian</span></a>
 <a class="sourceLine" id="cb33-21" data-line-number="21"><span class="co">#&gt; ... (#rows: 10, #cols: 1)</span></a></code></pre></div>
-</section>
-</section>
-<section id="feature-filtering" class="level2">
+</div>
+</div>
+<div id="feature-filtering" class="section level2">
 <h2>Feature Filtering</h2>
 <p>There is one <em>general</em> and many <em>specialised</em> feature filtering CPOs. The general filtering CPO, <code>cpoFilterFeatures</code>, is a thin wrapper around <code>filterFeatures</code> and takes the filtering method as its argument. The specialised CPOs each call a specific filtering method.</p>
 <p>Most arguments of <code>filterFeatures</code> are reflected in the CPOs. The exceptions being: 1. for <code>filterFeatures</code>, the filter method arguments are given in a list <code>filter.args</code>, instead of in <code>...</code> 2. The argument <code>fval</code> was dropped for the specialised filter CPOs. 3. The argument <code>mandatory.feat</code> was dropped. Use <code>affect.*</code> parameters to prevent features from being filtered.</p>
@@ -1916,7 +1916,7 @@ predict.type
 <a class="sourceLine" id="cb34-25" data-line-number="25"><span class="co">#&gt; 25 cpoFilterInformationGain</span></a>
 <a class="sourceLine" id="cb34-26" data-line-number="26"><span class="co">#&gt; 33         cpoFilterKruskal</span></a>
 <a class="sourceLine" id="cb34-27" data-line-number="27"><span class="co">#&gt; ... (#rows: 19, #cols: 1)</span></a></code></pre></div>
-</section>
+</div>
 
 
 
