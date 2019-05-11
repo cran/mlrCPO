@@ -156,7 +156,7 @@ prepareRetrafoInput = function(indata, dataformat, strict.factors, allowed.prope
     private = list(tempdata = split.data$tempdata, subset.index = subset.info$subset.index,
       origdata = origdata, dataformat = dataformat, strict.factors = strict.factors,
       name = name, operating.type = operating.type, origdatatype = origdatatype,
-      targetnames = names(target)))
+      targetnames = names(target) %??% character(0)))
 }
 
 # Do the check of the trafo's return value
@@ -1233,7 +1233,10 @@ recombinedf = function(df, newdata, dataformat = c("df.features", "split", "df.a
   if (nrow(df) != nrow(newdata)) {
     stopf("CPO %s must not change number of rows.", name)
   }
-  outsetcols = dropNamed(df, targetcols)[-subset.index]
+  outsetcols = dropNamed(df, targetcols)
+  if (length(subset.index)) {
+    outsetcols = outsetcols[-subset.index]
+  }
   fullnames = c(names(newdata), names(outsetcols), targetcols)
   dubs = duplicated(fullnames)
   if (any(dubs)) {

@@ -116,7 +116,7 @@ predictLearner.CPOLearner = function(.learner, .model, .newdata, ...) {
   } else {
     inverter = NULLCPO
   }
-  prediction = NextMethod(.newdata = .newdata)
+  prediction = NextMethod()
   if (!is.nullcpo(inverter)) {
     # check prediction before we feed it to CPOs
     prediction = checkPredictLearnerOutput(.learner$next.learner, .model$learner.model$next.model, prediction)
@@ -126,6 +126,18 @@ predictLearner.CPOLearner = function(.learner, .model, .newdata, ...) {
     prediction
   }
 }
+
+# Makes sure a valid 'BaseWrapperModel' is created even when CPO fails.
+# If CPO fails then we don't create a 'BaseWrapper' model.
+#' @export
+makeWrappedModel.CPOLearner = function(learner, learner.model, task.desc, subset = NULL, features, factor.levels, time) {
+  x = NextMethod()
+  if ("FailureModel" %in% class(x)) {
+    class(x) = setdiff(class(x), "BaseWrapperModel")
+  }
+  x
+}
+
 
 #' @export
 # Target Bound CPOs have the possibility of mapping some predict.type values
