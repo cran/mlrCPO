@@ -7,12 +7,13 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="author" content="Martin Binder" />
 
-<meta name="date" content="2019-05-11" />
+<meta name="date" content="2019-08-07" />
 
 <title>Building Custom CPOs</title>
 
@@ -98,7 +99,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -305,7 +306,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Building Custom CPOs</h1>
 <h4 class="author">Martin Binder</h4>
-<h4 class="date">2019-05-11</h4>
+<h4 class="date">2019-08-07</h4>
 
 
 
@@ -745,7 +746,7 @@ Table of Contents
 <a class="sourceLine" id="cb12-36" data-line-number="36"><span class="co">#&gt;     greatest = order(-ctrl)</span></a>
 <a class="sourceLine" id="cb12-37" data-line-number="37"><span class="co">#&gt;     x[greatest[seq_len(n.col)]]</span></a>
 <a class="sourceLine" id="cb12-38" data-line-number="38"><span class="co">#&gt; }</span></a>
-<a class="sourceLine" id="cb12-39" data-line-number="39"><span class="co">#&gt; &lt;environment: 0x55df53c8ba38&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb12-39" data-line-number="39"><span class="co">#&gt; &lt;environment: 0x55fe6647a558&gt;</span></a></code></pre></div>
 </div>
 <div id="stateless-focpo" class="section level4">
 <h4>Stateless FOCPO</h4>
@@ -1348,6 +1349,9 @@ Table of Contents
 <a class="sourceLine" id="cb60-8" data-line-number="8"><span class="co">#&gt;  0.007  0.000</span></a></code></pre></div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
