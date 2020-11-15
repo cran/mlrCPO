@@ -23,15 +23,18 @@ Suggests: care, party, rpart, mlbench, knitr, rmarkdown, testthat,
         0.8.0), Rfast, FSelector, FSelectorRcpp, e1071, DiscriMiner,
         digest, lintr, Hmisc, fastICA, rex
 LazyData: yes
+Config/testthat/edition: 3
+Config/testthat/parallel: true
 ByteCompile: yes
-Version: 0.3.6
+Version: 0.3.7
 Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'ParamSetSugar.R' 'callInterface.R' 'FormatCheck.R' 'callCPO.R'
         'properties.R' 'parameters.R' 'listCPO.R' 'makeCPO.R'
         'CPO_applyFun.R' 'CPO_asNumeric.R' 'operators.R' 'NULLCPO.R'
         'CPO_meta.R' 'CPO_cbind.R' 'CPO_collapseFact.R'
-        'CPO_dropConstants.R' 'CPO_encode.R' 'CPO_filterFeatures.R'
-        'CPO_fixFactors.R' 'CPO_ica.R' 'CPO_impute.R' 'CPO_makeCols.R'
+        'CPO_dropConstants.R' 'CPO_dropMostlyConstants.R'
+        'CPO_encode.R' 'CPO_filterFeatures.R' 'CPO_fixFactors.R'
+        'CPO_ica.R' 'CPO_impute.R' 'CPO_makeCols.R'
         'CPO_missingIndicators.R' 'CPO_modelMatrix.R' 'CPO_pca.R'
         'CPO_quantileBinNumerics.R' 'CPO_regrResiduals.R'
         'CPO_responseFromSE.R' 'CPO_scale.R' 'CPO_scaleMaxAbs.R'
@@ -40,14 +43,14 @@ Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'RetrafoState.R' 'attributes.R' 'auxhelp.R'
         'composeProperties.R' 'doublecaret.R' 'inverter.R' 'learner.R'
         'makeCPOHelp.R' 'print.R' 'zzz.R'
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-04-06 07:27:44 UTC; user
+Packaged: 2020-11-15 19:19:28 UTC; user
 Author: Martin Binder [aut, cre],
   Bernd Bischl [ctb],
   Michel Lang [ctb],
   Lars Kotthoff [ctb]
 Maintainer: Martin Binder <developer.mb706@doublecaret.com>
 Repository: CRAN
-Date/Publication: 2020-04-06 09:00:03 UTC
+Date/Publication: 2020-11-15 20:30:02 UTC
