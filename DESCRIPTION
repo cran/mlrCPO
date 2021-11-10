@@ -22,11 +22,10 @@ Suggests: care, party, rpart, mlbench, knitr, rmarkdown, testthat,
         mRMRe, praznik, randomForestSRC, randomForest, ranger (>=
         0.8.0), Rfast, FSelector, FSelectorRcpp, e1071, DiscriMiner,
         digest, lintr, Hmisc, fastICA, rex
-LazyData: yes
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 ByteCompile: yes
-Version: 0.3.7-2
+Version: 0.3.7-3
 Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'ParamSetSugar.R' 'callInterface.R' 'FormatCheck.R' 'callCPO.R'
         'properties.R' 'parameters.R' 'listCPO.R' 'makeCPO.R'
@@ -43,14 +42,14 @@ Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'RetrafoState.R' 'attributes.R' 'auxhelp.R'
         'composeProperties.R' 'doublecaret.R' 'inverter.R' 'learner.R'
         'makeCPOHelp.R' 'print.R' 'zzz.R'
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-02-24 21:42:45 UTC; user
+Packaged: 2021-11-10 02:11:55 UTC; user
 Author: Martin Binder [aut, cre],
   Bernd Bischl [ctb],
   Michel Lang [ctb],
   Lars Kotthoff [ctb]
 Maintainer: Martin Binder <developer.mb706@doublecaret.com>
 Repository: CRAN
-Date/Publication: 2021-02-24 22:40:06 UTC
+Date/Publication: 2021-11-10 07:50:02 UTC
