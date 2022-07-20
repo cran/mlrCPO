@@ -9,7 +9,9 @@ cpoFilterPermutationImportance(
   abs = NULL,
   threshold = NULL,
   imp.learner,
-  contrast = function(x, y) {     x - y },
+  contrast = function(x, y) {
+     x - y
+ },
   measure = NULL,
   aggregation = function(x, ...) UseMethod("mean"),
   nmc = 50,

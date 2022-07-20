@@ -447,16 +447,16 @@ cpo %>>% setCPOId(cpo, "two")
 getCPOProperties(cpoDummyEncode())
 
 ## ---- error = TRUE------------------------------------------------------------
-train("classif.geoDA", bc.task)  # gives an error
+train("classif.fnn", bc.task)  # gives an error
 
 ## -----------------------------------------------------------------------------
-train(cpoDummyEncode(reference.cat = TRUE) %>>% makeLearner("classif.geoDA"), bc.task)
+train(cpoDummyEncode(reference.cat = TRUE) %>>% makeLearner("classif.fnn"), bc.task)
 
 ## -----------------------------------------------------------------------------
-getLearnerProperties("classif.geoDA")
+getLearnerProperties("classif.fnn")
 
 ## -----------------------------------------------------------------------------
-getLearnerProperties(cpoDummyEncode(TRUE) %>>% makeLearner("classif.geoDA"))
+getLearnerProperties(cpoDummyEncode(TRUE) %>>% makeLearner("classif.fnn"))
 
 ## -----------------------------------------------------------------------------
 getCPOProperties(cpoApplyFun(export = "export.all"), get.internal = TRUE)

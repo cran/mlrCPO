@@ -1,3 +1,5 @@
+mlrCPO 0.3.7-4
+* minor fix to vignette to account for archiving of DiscriMiner package.
 mlrCPO 0.3.7-3
 * minor fix to tests to accomodate changes in R 4.2
 
