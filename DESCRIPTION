@@ -20,20 +20,20 @@ Imports: BBmisc (>= 1.11), stringi, checkmate (>= 1.8.3), methods,
         stats, utils, backports (>= 1.1.0)
 Suggests: care, party, rpart, mlbench, knitr, rmarkdown, testthat,
         mRMRe, praznik, randomForestSRC, randomForest, ranger (>=
-        0.8.0), Rfast, FSelector, FSelectorRcpp, e1071, digest, lintr,
-        Hmisc, fastICA, rex
+        0.8.0), Rfast, FSelector, FSelectorRcpp, e1071, FNN, digest,
+        lintr, Hmisc, fastICA, rex
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 ByteCompile: yes
-Version: 0.3.7-4
+Version: 0.3.7-5
 Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'ParamSetSugar.R' 'callInterface.R' 'FormatCheck.R' 'callCPO.R'
         'properties.R' 'parameters.R' 'listCPO.R' 'makeCPO.R'
         'CPO_applyFun.R' 'CPO_asNumeric.R' 'operators.R' 'NULLCPO.R'
         'CPO_meta.R' 'CPO_cbind.R' 'CPO_collapseFact.R'
         'CPO_dropConstants.R' 'CPO_dropMostlyConstants.R'
-        'CPO_encode.R' 'CPO_filterFeatures.R' 'CPO_fixFactors.R'
-        'CPO_ica.R' 'CPO_impute.R' 'CPO_makeCols.R'
+        'CPO_encode.R' 'RandomForestSRC.R' 'CPO_filterFeatures.R'
+        'CPO_fixFactors.R' 'CPO_ica.R' 'CPO_impute.R' 'CPO_makeCols.R'
         'CPO_missingIndicators.R' 'CPO_modelMatrix.R' 'CPO_pca.R'
         'CPO_quantileBinNumerics.R' 'CPO_regrResiduals.R'
         'CPO_responseFromSE.R' 'CPO_scale.R' 'CPO_scaleMaxAbs.R'
@@ -45,11 +45,11 @@ Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
 RoxygenNote: 7.2.0
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-07-20 12:52:51 UTC; user
+Packaged: 2022-10-18 21:49:03 UTC; user
 Author: Martin Binder [aut, cre],
   Bernd Bischl [ctb],
   Michel Lang [ctb],
   Lars Kotthoff [ctb]
 Maintainer: Martin Binder <developer.mb706@doublecaret.com>
 Repository: CRAN
-Date/Publication: 2022-07-20 14:00:02 UTC
+Date/Publication: 2022-10-18 23:52:36 UTC
