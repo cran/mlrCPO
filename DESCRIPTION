@@ -19,13 +19,13 @@ Depends: R (>= 3.0.2), ParamHelpers (>= 1.10), mlr (>= 2.12)
 Imports: BBmisc (>= 1.11), stringi, checkmate (>= 1.8.3), methods,
         stats, utils, backports (>= 1.1.0)
 Suggests: care, party, rpart, mlbench, knitr, rmarkdown, testthat,
-        mRMRe, praznik, randomForestSRC, randomForest, ranger (>=
-        0.8.0), Rfast, FSelector, FSelectorRcpp, e1071, FNN, digest,
-        lintr, Hmisc, fastICA, rex
+        mRMRe, digest, praznik, randomForestSRC, randomForest, ranger
+        (>= 0.8.0), Rfast, FSelector, FSelectorRcpp, e1071, FNN, lintr,
+        Hmisc, fastICA, rex
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 ByteCompile: yes
-Version: 0.3.7-5
+Version: 0.3.7-6
 Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'ParamSetSugar.R' 'callInterface.R' 'FormatCheck.R' 'callCPO.R'
         'properties.R' 'parameters.R' 'listCPO.R' 'makeCPO.R'
@@ -42,14 +42,14 @@ Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'RetrafoState.R' 'attributes.R' 'auxhelp.R'
         'composeProperties.R' 'doublecaret.R' 'inverter.R' 'learner.R'
         'makeCPOHelp.R' 'print.R' 'zzz.R'
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.2
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-10-18 21:49:03 UTC; user
+Packaged: 2022-11-16 16:09:08 UTC; user
 Author: Martin Binder [aut, cre],
   Bernd Bischl [ctb],
   Michel Lang [ctb],
   Lars Kotthoff [ctb]
 Maintainer: Martin Binder <developer.mb706@doublecaret.com>
 Repository: CRAN
-Date/Publication: 2022-10-18 23:52:36 UTC
+Date/Publication: 2022-11-17 18:10:02 UTC
