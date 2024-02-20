@@ -1,4 +1,4 @@
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 
 # output format should be of the form
 #> output
@@ -179,7 +179,7 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 
 
 
-## ---- eval = TRUE, echo = FALSE, results = 'asis'-----------------------------
+## ----eval = TRUE, echo = FALSE, results = 'asis'------------------------------
 printToc(4)
 
 ## -----------------------------------------------------------------------------
@@ -322,7 +322,7 @@ getCPOTrainedCapability(retrafo(iris.logd))  # can do both retrafo and inversion
 ## -----------------------------------------------------------------------------
 getCPOTrainedCapability(inv)  # a pure inverter, can not be used for retrafo
 
-## ---- warnings = FALSE--------------------------------------------------------
+## ----warnings = FALSE---------------------------------------------------------
 set.seed(123)  # for reproducibility
 iris.resid = iris.regr %>>% cpoRegrResiduals("regr.lm")
 getTaskData(iris.resid)
@@ -356,7 +356,7 @@ set.seed(123)  # for reproducibility
 lrn = cpoRegrResiduals("regr.lm") %>>% makeLearner("regr.randomForest")
 lrn
 
-## ---- warnings = FALSE--------------------------------------------------------
+## ----warnings = FALSE---------------------------------------------------------
 model = train(lrn, iris.regr)
 
 pred = predict(model, newdata)

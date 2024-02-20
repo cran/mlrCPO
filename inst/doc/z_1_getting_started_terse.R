@@ -1,4 +1,4 @@
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 
 # output format should be of the form
 #> output
@@ -179,7 +179,7 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 
 
 
-## ---- eval = TRUE, echo = FALSE, results = 'asis'-----------------------------
+## ----eval = TRUE, echo = FALSE, results = 'asis'------------------------------
 printToc(4)
 
 ## -----------------------------------------------------------------------------
@@ -322,7 +322,7 @@ printToc(4)
 ## -----------------------------------------------------------------------------
 #  getCPOTrainedCapability(inv)  # a pure inverter, can not be used for retrafo
 
-## ---- warnings = FALSE--------------------------------------------------------
+## ----warnings = FALSE---------------------------------------------------------
 #  set.seed(123)  # for reproducibility
 #  iris.resid = iris.regr %>>% cpoRegrResiduals("regr.lm")
 #  getTaskData(iris.resid)
@@ -356,7 +356,7 @@ printToc(4)
 #  lrn = cpoRegrResiduals("regr.lm") %>>% makeLearner("regr.randomForest")
 #  lrn
 
-## ---- warnings = FALSE--------------------------------------------------------
+## ----warnings = FALSE---------------------------------------------------------
 #  model = train(lrn, iris.regr)
 #
 #  pred = predict(model, newdata)
@@ -453,6 +453,6 @@ printToc(4)
 ## -----------------------------------------------------------------------------
 #  iris.demo %>>% cbinder
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 cat(knitr::knit_child("a_1_getting_started.Rmd", options = list(eval = FALSE)), sep = "\n")
 

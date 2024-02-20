@@ -1,4 +1,4 @@
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 
 # output format should be of the form
 #> output
@@ -179,7 +179,7 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 
 
 
-## ---- eval = TRUE, echo = FALSE, results = 'asis'-----------------------------
+## ----eval = TRUE, echo = FALSE, results = 'asis'------------------------------
 printToc(4)
 
 ## -----------------------------------------------------------------------------
@@ -247,7 +247,7 @@ printToc(4)
 #  getHyperPars(compound)
 #  setHyperPars(compound, scale.center = TRUE, pca.center = FALSE)
 
-## ---- error = TRUE------------------------------------------------------------
+## ----error = TRUE-------------------------------------------------------------
 #  getCPOId(compound)  # error: no ID for compound CPOs
 #  getCPOAffect(compound)  # error: no affect for compound CPOs
 
@@ -382,7 +382,7 @@ printToc(4)
 ## -----------------------------------------------------------------------------
 #  head(transformed)
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  applyCPO(retrafo(transformed), head(iris))
 #  predict(retrafo(transformed), head(iris))
 
@@ -436,7 +436,7 @@ printToc(4)
 ## -----------------------------------------------------------------------------
 #  getParamSet(setCPOId(cpo, NULL))
 
-## ---- error = TRUE------------------------------------------------------------
+## ----error = TRUE-------------------------------------------------------------
 #
 #  cpo %>>% cpo
 
@@ -446,7 +446,7 @@ printToc(4)
 ## -----------------------------------------------------------------------------
 #  getCPOProperties(cpoDummyEncode())
 
-## ---- error = TRUE------------------------------------------------------------
+## ----error = TRUE-------------------------------------------------------------
 #  train("classif.fnn", bc.task)  # gives an error
 
 ## -----------------------------------------------------------------------------
@@ -479,6 +479,6 @@ printToc(4)
 ## -----------------------------------------------------------------------------
 #  !cpoScale(scale = FALSE, export = "export.unset")
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 cat(knitr::knit_child("a_2_mlrCPO_core.Rmd", options = list(eval = FALSE)), sep = "\n")
 

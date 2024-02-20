@@ -1,4 +1,4 @@
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 
 # output format should be of the form
 #> output
@@ -179,13 +179,13 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 
 
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 #  library("mlrCPO")
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  listCPO()[, c("name", "category", "subcategory")]
 
-## ---- echo = FALSE, results = 'asis'------------------------------------------
+## ----echo = FALSE, results = 'asis'-------------------------------------------
 #  tab = listCPO()[, c("name", "category", "subcategory")]
 #  owncontent = readLines(path)
 #  headlines = grep("^#+ +", owncontent, value = TRUE)
@@ -312,7 +312,7 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 ## -----------------------------------------------------------------------------
 #  head(iris %>>% cpoApplyFun(function(x) sqrt(x) - 10, affect.type = "numeric"))
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 #  set.seed(123)
 
 ## -----------------------------------------------------------------------------
@@ -342,11 +342,11 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 ## -----------------------------------------------------------------------------
 #  impdata %>>% cpoImpute(cols = list(a = imputeMedian()))
 
-## ---- error = TRUE------------------------------------------------------------
+## ----error = TRUE-------------------------------------------------------------
 #  impdata %>>% cpoImpute(cols = list(b = imputeMedian()))  # NAs remain
 #  impdata %>>% cpoImputeAll(cols = list(b = imputeMedian()))  # error, since NAs remain
 
-## ---- error = TRUE------------------------------------------------------------
+## ----error = TRUE-------------------------------------------------------------
 #  missing.task = makeRegrTask("missing.task", impdata, target = "b")
 #  # the following gives an error, since 'cpoImpute' does not make sure all missings are removed
 #  # and hence does not add the 'missings' property.
@@ -370,6 +370,6 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 #  listCPO()[listCPO()$category == "featurefilter" & listCPO()$subcategory == "specialised",
 #            c("name", "description")]
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 cat(knitr::knit_child("a_3_all_CPOs.Rmd", options = list(eval = FALSE)), sep = "\n")
 

@@ -1,4 +1,4 @@
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 
 # output format should be of the form
 #> output
@@ -179,7 +179,7 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 
 
 
-## ---- eval = TRUE, echo = FALSE, results = 'asis'-----------------------------
+## ----eval = TRUE, echo = FALSE, results = 'asis'------------------------------
 printToc(4)
 
 ## -----------------------------------------------------------------------------
@@ -338,7 +338,7 @@ printToc(4)
 ## -----------------------------------------------------------------------------
 #  getCPOTrainedState(retrafo(trafd))$pcr$x
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  c(response = "response", se = "prob")
 
 ## -----------------------------------------------------------------------------
@@ -510,7 +510,7 @@ printToc(4)
 #  predict.traf = predict.task %>>% retr
 #  getTaskTargets(predict.traf)
 
-## ---- warnings = FALSE--------------------------------------------------------
+## ----warnings = FALSE---------------------------------------------------------
 #  model = train("regr.lm", trafd)
 #  pred = predict(model, predict.traf)
 #  pred
@@ -518,7 +518,7 @@ printToc(4)
 ## -----------------------------------------------------------------------------
 #  invert(inverter(predict.traf), pred)
 
-## ---- warnings = FALSE--------------------------------------------------------
+## ----warnings = FALSE---------------------------------------------------------
 #  model = train("regr.lm", train.task)
 #  predict(model, predict.task)
 
@@ -552,7 +552,7 @@ printToc(4)
 #  predict.traf = predict.task %>>% retr
 #  getTaskTargets(predict.traf)
 
-## ---- warnings = FALSE--------------------------------------------------------
+## ----warnings = FALSE---------------------------------------------------------
 #  model = train("regr.lm", trafd)
 #  pred = predict(model, predict.traf)
 #  pred
@@ -612,7 +612,7 @@ printToc(4)
 ## -----------------------------------------------------------------------------
 #  inv = invert(inverter(retrafd), 1:6)
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 #  oscipen = options("scipen")
 #  options(scipen = 10)
 
@@ -644,9 +644,9 @@ printToc(4)
 #
 #  round(p.adjust(pvals), 3)
 
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 #  options(scipen = oscipen$scipen)
 
-## ---- results = "asis", echo = FALSE------------------------------------------
+## ----results = "asis", echo = FALSE-------------------------------------------
 cat(knitr::knit_child("a_4_custom_CPOs.Rmd", options = list(eval = FALSE)), sep = "\n")
 

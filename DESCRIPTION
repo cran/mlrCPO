@@ -25,7 +25,7 @@ Suggests: care, party, rpart, mlbench, knitr, rmarkdown, testthat,
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 ByteCompile: yes
-Version: 0.3.7-6
+Version: 0.3.7-7
 Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'ParamSetSugar.R' 'callInterface.R' 'FormatCheck.R' 'callCPO.R'
         'properties.R' 'parameters.R' 'listCPO.R' 'makeCPO.R'
@@ -42,14 +42,14 @@ Collate: 'CPOHelp.R' 'fauxCPOConstructor.R' 'auxiliary.R'
         'RetrafoState.R' 'attributes.R' 'auxhelp.R'
         'composeProperties.R' 'doublecaret.R' 'inverter.R' 'learner.R'
         'makeCPOHelp.R' 'print.R' 'zzz.R'
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-11-16 16:09:08 UTC; user
+Packaged: 2024-02-20 10:25:27 UTC; user
 Author: Martin Binder [aut, cre],
   Bernd Bischl [ctb],
   Michel Lang [ctb],
   Lars Kotthoff [ctb]
 Maintainer: Martin Binder <developer.mb706@doublecaret.com>
 Repository: CRAN
-Date/Publication: 2022-11-17 18:10:02 UTC
+Date/Publication: 2024-02-20 11:00:02 UTC
