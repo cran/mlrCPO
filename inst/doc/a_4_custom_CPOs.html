@@ -12,7 +12,7 @@
 
 <meta name="author" content="Martin Binder" />
 
-<meta name="date" content="2024-02-20" />
+<meta name="date" content="2025-06-16" />
 
 <title>Building Custom CPOs</title>
 
@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Building Custom CPOs</h1>
 <h4 class="author">Martin Binder</h4>
-<h4 class="date">2024-02-20</h4>
+<h4 class="date">2025-06-16</h4>
 
 
 
@@ -1053,18 +1053,8 @@ deleted and replaced by different values.</p>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $cpo.retrafo</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function(x) {  # the data is given to the only present parameter: &#39;x&#39;</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       cat(&quot;*** cpo.retrafo ***\n&quot;)</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       cat(&quot;Control:\n&quot;)</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       print(ctrl)</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       cat(&quot;\ndata:\n&quot;)</span></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       print(data)  # &#39;data&#39; is deleted: NULL</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       cat(&quot;target:\n&quot;)</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       print(target)  # &#39;target&#39; is deleted: NULL</span></span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       greatest = order(-ctrl)  # columns, ordered greatest to smallest var</span></span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x[greatest[seq_len(n.col)]]</span></span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     }</span></span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;environment: 0x562b5835fdb8&gt;</span></span></code></pre></div>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;srcref: file &quot;&quot; chars 8:5 to 18:5&gt;</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;environment: 0x559529bd6ac8&gt;</span></span></code></pre></div>
 </div>
 <div id="stateless-focpo" class="section level4">
 <h4>Stateless FOCPO</h4>

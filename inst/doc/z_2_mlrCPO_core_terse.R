@@ -183,301 +183,307 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 printToc(4)
 
 ## -----------------------------------------------------------------------------
-#  getCPOClass(cpoPca)
-#  getCPOClass(cpoPca())
-#  getCPOClass(pid.task %>|% cpoPca())
-#  getCPOClass(inverter(bh.task %>>% cpoLogTrafoRegr()))
-#  getCPOClass(NULLCPO)
+# getCPOClass(cpoPca)
+# getCPOClass(cpoPca())
+# getCPOClass(pid.task %>|% cpoPca())
+# getCPOClass(inverter(bh.task %>>% cpoLogTrafoRegr()))
+# getCPOClass(NULLCPO)
 
 ## -----------------------------------------------------------------------------
-#  print(cpoAsNumeric)  # example CPOConstructor
-#  print(cpoAsNumeric, verbose = TRUE)  # alternative: !cpoAsNumeric
-#  class(cpoAsNumeric)
-#  getCPOName(cpoPca)  # same as getCPOName() of the *constructed* CPO
-#  getCPOClass(cpoPca)
+# print(cpoAsNumeric)  # example CPOConstructor
+# print(cpoAsNumeric, verbose = TRUE)  # alternative: !cpoAsNumeric
+# class(cpoAsNumeric)
+# getCPOName(cpoPca)  # same as getCPOName() of the *constructed* CPO
+# getCPOClass(cpoPca)
 
 ## -----------------------------------------------------------------------------
-#  names(formals(cpoPca))
+# names(formals(cpoPca))
 
 ## -----------------------------------------------------------------------------
-#  (cpo = cpoScale()) # construct CPO with default Hyperparameter values
-#  print(cpo, verbose = TRUE)  # detailed printing. Alternative: !cpo
-#  class(cpo)  # CPOs that are not compound are "CPOPrimitive"
-#  getCPOClass(cpo)
+# (cpo = cpoScale()) # construct CPO with default Hyperparameter values
+# print(cpo, verbose = TRUE)  # detailed printing. Alternative: !cpo
+# class(cpo)  # CPOs that are not compound are "CPOPrimitive"
+# getCPOClass(cpo)
 
 ## -----------------------------------------------------------------------------
-#  getParamSet(cpo)
-#  getHyperPars(cpo)
-#  setHyperPars(cpo, scale.center = FALSE)
-#  getCPOId(cpo)
-#  setCPOId(cpo, "MYID")
-#  getCPOName(cpo)
-#  getCPOAffect(cpo)  # empty, since no affect set
-#  getCPOAffect(cpoPca(affect.pattern = "Width$"))
-#  getCPOConstructor(cpo)  # the constructor used to create the CPO
-#  getCPOProperties(cpo)  # see properties explanation below
-#  getCPOPredictType(cpo)
-#  getCPOClass(cpo)
-#  getCPOOperatingType(cpo)  # Operating on feature, target, retrafoless?
+# getParamSet(cpo)
+# getHyperPars(cpo)
+# setHyperPars(cpo, scale.center = FALSE)
+# getCPOId(cpo)
+# setCPOId(cpo, "MYID")
+# getCPOName(cpo)
+# getCPOAffect(cpo)  # empty, since no affect set
+# getCPOAffect(cpoPca(affect.pattern = "Width$"))
+# getCPOConstructor(cpo)  # the constructor used to create the CPO
+# getCPOProperties(cpo)  # see properties explanation below
+# getCPOPredictType(cpo)
+# getCPOClass(cpo)
+# getCPOOperatingType(cpo)  # Operating on feature, target, retrafoless?
 
 ## -----------------------------------------------------------------------------
-#  getCPOPredictType(cpoResponseFromSE())
-#  getCPOOperatingType(cpoResponseFromSE())
-#  getCPOOperatingType(cpoSample())
+# getCPOPredictType(cpoResponseFromSE())
+# getCPOOperatingType(cpoResponseFromSE())
+# getCPOOperatingType(cpoSample())
 
 ## -----------------------------------------------------------------------------
-#  identicalCPO(cpoScale(scale = TRUE), cpoScale(scale = FALSE))
-#  identicalCPO(cpoScale(), cpoPca())
+# identicalCPO(cpoScale(scale = TRUE), cpoScale(scale = FALSE))
+# identicalCPO(cpoScale(), cpoPca())
 
 ## -----------------------------------------------------------------------------
-#  head(iris) %>>% cpoPca()
-#  task = applyCPO(cpoPca(), iris.task)
-#  head(getTaskData(task))
+# head(iris) %>>% cpoPca()
+# task = applyCPO(cpoPca(), iris.task)
+# head(getTaskData(task))
 
 ## -----------------------------------------------------------------------------
-#  scale = cpoScale()
-#  pca = cpoPca()
+# scale = cpoScale()
+# pca = cpoPca()
 
 ## -----------------------------------------------------------------------------
-#  compound = scale %>>% pca
-#  composeCPO(scale, pca)  # same
-#  class(compound)
-#  !compound
-#  getCPOName(compound)
-#  getHyperPars(compound)
-#  setHyperPars(compound, scale.center = TRUE, pca.center = FALSE)
+# compound = scale %>>% pca
+# composeCPO(scale, pca)  # same
+# class(compound)
+# !compound
+# getCPOName(compound)
+# getHyperPars(compound)
+# setHyperPars(compound, scale.center = TRUE, pca.center = FALSE)
 
 ## ----error = TRUE-------------------------------------------------------------
-#  getCPOId(compound)  # error: no ID for compound CPOs
-#  getCPOAffect(compound)  # error: no affect for compound CPOs
+try({
+# getCPOId(compound)  # error: no ID for compound CPOs
+# getCPOAffect(compound)  # error: no affect for compound CPOs
+})
 
 ## -----------------------------------------------------------------------------
-#  getCPOOperatingType(NULLCPO)
-#  getCPOOperatingType(cpoScale())
-#  getCPOOperatingType(cpoScale() %>>% cpoLogTrafoRegr() %>>% cpoSample())
+# getCPOOperatingType(NULLCPO)
+# getCPOOperatingType(cpoScale())
+# getCPOOperatingType(cpoScale() %>>% cpoLogTrafoRegr() %>>% cpoSample())
 
 ## -----------------------------------------------------------------------------
-#  as.list(compound)
-#  pipeCPO(as.list(compound))  # chainCPO: (list of CPO) -> CPO
-#  pipeCPO(list())
+# as.list(compound)
+# pipeCPO(as.list(compound))  # chainCPO: (list of CPO) -> CPO
+# pipeCPO(list())
 
 ## -----------------------------------------------------------------------------
-#  lrn = makeLearner("classif.logreg")
-#  (cpolrn = cpo %>>% lrn)  # the new learner has the CPO hyperparameters
-#  attachCPO(compound, lrn)  # attaching compound CPO
+# lrn = makeLearner("classif.logreg")
+# (cpolrn = cpo %>>% lrn)  # the new learner has the CPO hyperparameters
+# attachCPO(compound, lrn)  # attaching compound CPO
 
 ## -----------------------------------------------------------------------------
-#  class(lrn)
+# class(lrn)
 
 ## -----------------------------------------------------------------------------
-#  lrn = cpoLogTrafoRegr() %>>% makeLearner("regr.lm")
-#  model = train(lrn, subsetTask(bh.task, 1:300))
-#  predict(model, subsetTask(bh.task, 301:500))
+# lrn = cpoLogTrafoRegr() %>>% makeLearner("regr.lm")
+# model = train(lrn, subsetTask(bh.task, 1:300))
+# predict(model, subsetTask(bh.task, 301:500))
 
 ## -----------------------------------------------------------------------------
-#  trafo = subsetTask(bh.task, 1:300) %>>% cpoLogTrafoRegr()
-#  model = train("regr.lm", trafo)
+# trafo = subsetTask(bh.task, 1:300) %>>% cpoLogTrafoRegr()
+# model = train("regr.lm", trafo)
 #
-#  newdata = subsetTask(bh.task, 301:500) %>>% retrafo(trafo)
-#  pred = predict(model, newdata)
-#  invert(inverter(newdata), pred)
+# newdata = subsetTask(bh.task, 301:500) %>>% retrafo(trafo)
+# pred = predict(model, newdata)
+# invert(inverter(newdata), pred)
 
 ## -----------------------------------------------------------------------------
-#  getLearnerCPO(cpolrn)  # the CPO
-#  getLearnerBare(cpolrn)  # the Learner
+# getLearnerCPO(cpolrn)  # the CPO
+# getLearnerBare(cpolrn)  # the Learner
 
 ## -----------------------------------------------------------------------------
-#  transformed = iris %>>% cpoScale()
-#  head(transformed)
-#  (ret = retrafo(transformed))
+# transformed = iris %>>% cpoScale()
+# head(transformed)
+# (ret = retrafo(transformed))
 
 ## -----------------------------------------------------------------------------
-#  head(getTaskTargets(bh.task))
-#  transformed = bh.task %>>% cpoLogTrafoRegr()
-#  head(getTaskTargets(transformed))
-#  (inv = inverter(transformed))
-#  head(invert(inv, getTaskTargets(transformed)))
+# head(getTaskTargets(bh.task))
+# transformed = bh.task %>>% cpoLogTrafoRegr()
+# head(getTaskTargets(transformed))
+# (inv = inverter(transformed))
+# head(invert(inv, getTaskTargets(transformed)))
 
 ## -----------------------------------------------------------------------------
-#  attributes(transformed)
+# attributes(transformed)
 
 ## -----------------------------------------------------------------------------
-#  bh2 = bh.task
-#  retrafo(bh2) = ret
-#  attributes(bh2)
+# bh2 = bh.task
+# retrafo(bh2) = ret
+# attributes(bh2)
 
 ## -----------------------------------------------------------------------------
-#  retrafo(bh2) = NULLCPO
-#  # equivalent:
-#  # retrafo(bh2) = NULL
-#  attributes(bh2)
+# retrafo(bh2) = NULLCPO
+# # equivalent:
+# # retrafo(bh2) = NULL
+# attributes(bh2)
 
 ## -----------------------------------------------------------------------------
-#  # clearRI returns the object without retrafo or inverter attributes
-#  bh3 = clearRI(transformed)
-#  attributes(bh3)
+# # clearRI returns the object without retrafo or inverter attributes
+# bh3 = clearRI(transformed)
+# attributes(bh3)
 
 ## -----------------------------------------------------------------------------
-#  getCPOName(ret)
-#  getParamSet(ret)
-#  getHyperPars(ret)
-#  getCPOProperties(ret)
-#  getCPOPredictType(ret)
-#  getCPOOperatingType(ret)  # Operating on feature, target, both?
-#  getCPOOperatingType(inv)
+# getCPOName(ret)
+# getParamSet(ret)
+# getHyperPars(ret)
+# getCPOProperties(ret)
+# getCPOPredictType(ret)
+# getCPOOperatingType(ret)  # Operating on feature, target, both?
+# getCPOOperatingType(inv)
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedCapability(ret)
-#  getCPOTrainedCapability(inv)
-#  getCPOTrainedCapability(NULLCPO)
+# getCPOTrainedCapability(ret)
+# getCPOTrainedCapability(inv)
+# getCPOTrainedCapability(NULLCPO)
 
 ## -----------------------------------------------------------------------------
-#  getCPOClass(ret)
-#  getCPOClass(inv)
+# getCPOClass(ret)
+# getCPOClass(inv)
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedCPO(ret)
-#  getCPOConstructor(ret)
+# getCPOTrainedCPO(ret)
+# getCPOConstructor(ret)
 
 ## -----------------------------------------------------------------------------
-#  (state = getCPOTrainedState(retrafo(iris %>>% cpoScale())))
-#  state$control$center[1] = 1000  # will now subtract 1000 from the first column
-#  new.retrafo = makeCPOTrainedFromState(cpoScale, state)
-#  head(iris %>>% new.retrafo)
+# (state = getCPOTrainedState(retrafo(iris %>>% cpoScale())))
+# state$control$center[1] = 1000  # will now subtract 1000 from the first column
+# new.retrafo = makeCPOTrainedFromState(cpoScale, state)
+# head(iris %>>% new.retrafo)
 
 ## -----------------------------------------------------------------------------
-#  data = head(iris) %>>% cpoPca()
-#  retrafo(data)
-#  data2 = data %>>% cpoScale()
+# data = head(iris) %>>% cpoPca()
+# retrafo(data)
+# data2 = data %>>% cpoScale()
 
 ## -----------------------------------------------------------------------------
-#  retrafo(data2)
+# retrafo(data2)
 
 ## -----------------------------------------------------------------------------
-#  data = clearRI(data)
-#  data2 = data %>>% cpoScale()
-#  retrafo(data2)
+# data = clearRI(data)
+# data2 = data %>>% cpoScale()
+# retrafo(data2)
 
 ## -----------------------------------------------------------------------------
-#  retrafo(data) = NULL
-#  inverter(data) = NULL
-#  data3 = data %>>% cpoScale()
-#  retrafo(data3)
+# retrafo(data) = NULL
+# inverter(data) = NULL
+# data3 = data %>>% cpoScale()
+# retrafo(data3)
 
 ## -----------------------------------------------------------------------------
-#  compound.retrafo = retrafo(head(iris) %>>% compound)
-#  compound.retrafo
+# compound.retrafo = retrafo(head(iris) %>>% compound)
+# compound.retrafo
 
 ## -----------------------------------------------------------------------------
-#  (retrafolist = as.list(compound.retrafo))
+# (retrafolist = as.list(compound.retrafo))
 
 ## -----------------------------------------------------------------------------
-#  retrafolist[[1]] %>>% retrafolist[[2]]
-#  pipeCPO(retrafolist)
+# retrafolist[[1]] %>>% retrafolist[[2]]
+# pipeCPO(retrafolist)
 
 ## -----------------------------------------------------------------------------
-#  transformed = iris %>>% cpoScale()
-#  head(iris) %>>% retrafo(transformed)
+# transformed = iris %>>% cpoScale()
+# head(iris) %>>% retrafo(transformed)
 
 ## -----------------------------------------------------------------------------
-#  head(transformed)
+# head(transformed)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  applyCPO(retrafo(transformed), head(iris))
-#  predict(retrafo(transformed), head(iris))
+# applyCPO(retrafo(transformed), head(iris))
+# predict(retrafo(transformed), head(iris))
 
 ## -----------------------------------------------------------------------------
-#  transformed = bh.task %>>% cpoLogTrafoRegr()
-#  prediction = predict(train("regr.lm", transformed), transformed)
-#  inv = inverter(transformed)
-#  invert(inv, prediction)
+# transformed = bh.task %>>% cpoLogTrafoRegr()
+# prediction = predict(train("regr.lm", transformed), transformed)
+# inv = inverter(transformed)
+# invert(inv, prediction)
 
 ## -----------------------------------------------------------------------------
-#  ret = retrafo(transformed)
-#  invert(ret, prediction)
+# ret = retrafo(transformed)
+# invert(ret, prediction)
 
 ## -----------------------------------------------------------------------------
-#  pipeCPO(list())
-#  as.list(NULLCPO)  # the inverse of pipeCPO
-#  retrafo(bh.task)
-#  inverter(bh.task %>>% cpoPca())  # cpoPca is a TOCPO, so no inverter is created
+# pipeCPO(list())
+# as.list(NULLCPO)  # the inverse of pipeCPO
+# retrafo(bh.task)
+# inverter(bh.task %>>% cpoPca())  # cpoPca is a TOCPO, so no inverter is created
 
 ## -----------------------------------------------------------------------------
-#  getCPOClass(NULLCPO)
-#  getCPOName(NULLCPO)
-#  getCPOId(NULLCPO)
-#  getHyperPars(NULLCPO)
-#  getParamSet(NULLCPO)
-#  getCPOAffect(NULLCPO)
-#  getCPOOperatingType(NULLCPO)  # operates neither on features nor on targets.
-#  getCPOProperties(NULLCPO)
-#  # applying NULLCPO leads to a retrafo() of NULLCPO, so it is its own CPOTrainedCPO
-#  getCPOTrainedCPO(NULLCPO)
-#  # NULLCPO has no effect on applyCPO and invert, so NULLCPO's capabilities are 0.
-#  getCPOTrainedCapability(NULLCPO)
-#  getCPOTrainedState(NULLCPO)
+# getCPOClass(NULLCPO)
+# getCPOName(NULLCPO)
+# getCPOId(NULLCPO)
+# getHyperPars(NULLCPO)
+# getParamSet(NULLCPO)
+# getCPOAffect(NULLCPO)
+# getCPOOperatingType(NULLCPO)  # operates neither on features nor on targets.
+# getCPOProperties(NULLCPO)
+# # applying NULLCPO leads to a retrafo() of NULLCPO, so it is its own CPOTrainedCPO
+# getCPOTrainedCPO(NULLCPO)
+# # NULLCPO has no effect on applyCPO and invert, so NULLCPO's capabilities are 0.
+# getCPOTrainedCapability(NULLCPO)
+# getCPOTrainedState(NULLCPO)
 
 ## -----------------------------------------------------------------------------
-#  nullToNullcpo(NULL)
-#  nullcpoToNull(NULLCPO)
-#  nullToNullcpo(10) # not changed
-#  nullcpoToNull(10) # ditto
+# nullToNullcpo(NULL)
+# nullcpoToNull(NULLCPO)
+# nullToNullcpo(10) # not changed
+# nullcpoToNull(10) # ditto
 
 ## -----------------------------------------------------------------------------
-#  cpo = cpoPca()
-#  getCPOId(cpo)
+# cpo = cpoPca()
+# getCPOId(cpo)
 
 ## -----------------------------------------------------------------------------
-#  getParamSet(cpo)
+# getParamSet(cpo)
 
 ## -----------------------------------------------------------------------------
-#  getParamSet(setCPOId(cpo, "my.id"))
+# getParamSet(setCPOId(cpo, "my.id"))
 
 ## -----------------------------------------------------------------------------
-#  getParamSet(setCPOId(cpo, NULL))
+# getParamSet(setCPOId(cpo, NULL))
 
 ## ----error = TRUE-------------------------------------------------------------
+try({
 #
-#  cpo %>>% cpo
+# cpo %>>% cpo
+})
 
 ## -----------------------------------------------------------------------------
-#  cpo %>>% setCPOId(cpo, "two")
+# cpo %>>% setCPOId(cpo, "two")
 
 ## -----------------------------------------------------------------------------
-#  getCPOProperties(cpoDummyEncode())
+# getCPOProperties(cpoDummyEncode())
 
 ## ----error = TRUE-------------------------------------------------------------
-#  train("classif.fnn", bc.task)  # gives an error
+try({
+# train("classif.fnn", bc.task)  # gives an error
+})
 
 ## -----------------------------------------------------------------------------
-#  train(cpoDummyEncode(reference.cat = TRUE) %>>% makeLearner("classif.fnn"), bc.task)
+# train(cpoDummyEncode(reference.cat = TRUE) %>>% makeLearner("classif.fnn"), bc.task)
 
 ## -----------------------------------------------------------------------------
-#  getLearnerProperties("classif.fnn")
+# getLearnerProperties("classif.fnn")
 
 ## -----------------------------------------------------------------------------
-#  getLearnerProperties(cpoDummyEncode(TRUE) %>>% makeLearner("classif.fnn"))
+# getLearnerProperties(cpoDummyEncode(TRUE) %>>% makeLearner("classif.fnn"))
 
 ## -----------------------------------------------------------------------------
-#  getCPOProperties(cpoApplyFun(export = "export.all"), get.internal = TRUE)
+# getCPOProperties(cpoApplyFun(export = "export.all"), get.internal = TRUE)
 
 ## -----------------------------------------------------------------------------
-#  # onlhy PCA columns that have '.Length' in their name
-#  cpo = cpoPca(affect.pattern = ".Length")
-#  getCPOAffect(cpo)
+# # onlhy PCA columns that have '.Length' in their name
+# cpo = cpoPca(affect.pattern = ".Length")
+# getCPOAffect(cpo)
 
 ## -----------------------------------------------------------------------------
-#  triris = iris %>>% cpo
-#  head(triris)
+# triris = iris %>>% cpo
+# head(triris)
 
 ## -----------------------------------------------------------------------------
-#  !cpoScale()
+# !cpoScale()
 
 ## -----------------------------------------------------------------------------
-#  !cpoScale(export = "export.none")
+# !cpoScale(export = "export.none")
 
 ## -----------------------------------------------------------------------------
-#  !cpoScale(scale = FALSE, export = "export.unset")
+# !cpoScale(scale = FALSE, export = "export.unset")
 
 ## ----results = "asis", echo = FALSE-------------------------------------------
 cat(knitr::knit_child("a_2_mlrCPO_core.Rmd", options = list(eval = FALSE)), sep = "\n")

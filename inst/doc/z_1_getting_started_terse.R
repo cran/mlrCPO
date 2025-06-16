@@ -183,275 +183,275 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 printToc(4)
 
 ## -----------------------------------------------------------------------------
-#  cpoScale  # a cpo constructor
+# cpoScale  # a cpo constructor
 
 ## -----------------------------------------------------------------------------
-#  cpoAddCols
+# cpoAddCols
 
 ## -----------------------------------------------------------------------------
-#  cpoScale(center = FALSE)  # create a CPO object that scales, but does not center, data
+# cpoScale(center = FALSE)  # create a CPO object that scales, but does not center, data
 
 ## -----------------------------------------------------------------------------
-#  cpoAddCols(Sepal.Area = Sepal.Length * Sepal.Width)  #  this would add a column
+# cpoAddCols(Sepal.Area = Sepal.Length * Sepal.Width)  #  this would add a column
 
 ## -----------------------------------------------------------------------------
-#  iris.demo = iris[c(1, 2, 3, 51, 52, 102, 103), ]
-#  tail(iris.demo %>>% cpoQuantileBinNumerics())  # bin the data in below & above median
+# iris.demo = iris[c(1, 2, 3, 51, 52, 102, 103), ]
+# tail(iris.demo %>>% cpoQuantileBinNumerics())  # bin the data in below & above median
 
 ## -----------------------------------------------------------------------------
-#  # first create three quantile bins, then as.numeric() all columns to
-#  # get 1, 2 or 3 as the bin number
-#  quantilenum = cpoQuantileBinNumerics(numsplits = 3) %>>% cpoAsNumeric()
-#  iris.demo %>>% quantilenum
+# # first create three quantile bins, then as.numeric() all columns to
+# # get 1, 2 or 3 as the bin number
+# quantilenum = cpoQuantileBinNumerics(numsplits = 3) %>>% cpoAsNumeric()
+# iris.demo %>>% quantilenum
 
 ## -----------------------------------------------------------------------------
-#  quantilenum.restricted = cpoQuantileBinNumerics(numsplits = 3) %>>%
-#    cpoAsNumeric(affect.names = "Species", affect.invert = TRUE)
-#  iris.demo %>>% quantilenum.restricted
+# quantilenum.restricted = cpoQuantileBinNumerics(numsplits = 3) %>>%
+#   cpoAsNumeric(affect.names = "Species", affect.invert = TRUE)
+# iris.demo %>>% quantilenum.restricted
 
 ## -----------------------------------------------------------------------------
-#  demo.task = makeClassifTask(data = iris.demo, target = "Species")
-#  result = demo.task %>>% quantilenum
-#  getTaskData(result)
+# demo.task = makeClassifTask(data = iris.demo, target = "Species")
+# result = demo.task %>>% quantilenum
+# getTaskData(result)
 
 ## -----------------------------------------------------------------------------
-#  cpo = cpoScale()
-#  cpo
+# cpo = cpoScale()
+# cpo
 
 ## -----------------------------------------------------------------------------
-#  getHyperPars(cpo)  # list of parameter names and values
+# getHyperPars(cpo)  # list of parameter names and values
 
 ## -----------------------------------------------------------------------------
-#  getParamSet(cpo)  # more detailed view of parameters and their type / range
+# getParamSet(cpo)  # more detailed view of parameters and their type / range
 
 ## -----------------------------------------------------------------------------
-#  !cpo  # equivalent to print(cpo, verbose = TRUE)
+# !cpo  # equivalent to print(cpo, verbose = TRUE)
 
 ## -----------------------------------------------------------------------------
-#  cpo2 = setHyperPars(cpo, scale.scale = FALSE)
-#  cpo2
+# cpo2 = setHyperPars(cpo, scale.scale = FALSE)
+# cpo2
 
 ## -----------------------------------------------------------------------------
-#  iris.demo %>>% cpo  # scales and centers
+# iris.demo %>>% cpo  # scales and centers
 
 ## -----------------------------------------------------------------------------
-#  iris.demo %>>% cpo2 # only centers
+# iris.demo %>>% cpo2 # only centers
 
 ## -----------------------------------------------------------------------------
-#  cpo = cpoScale(id = "a") %>>% cpoScale(id = "b")  # not very useful example
-#  getHyperPars(cpo)
+# cpo = cpoScale(id = "a") %>>% cpoScale(id = "b")  # not very useful example
+# getHyperPars(cpo)
 
 ## -----------------------------------------------------------------------------
-#  cpo = cpoPca(export = c("center", "rank"))
-#  getParamSet(cpo)
+# cpo = cpoPca(export = c("center", "rank"))
+# getParamSet(cpo)
 
 ## -----------------------------------------------------------------------------
-#  transformed = iris.demo %>>% cpoPca(rank = 3)
-#  transformed
+# transformed = iris.demo %>>% cpoPca(rank = 3)
+# transformed
 
 ## -----------------------------------------------------------------------------
-#  ret = retrafo(transformed)
-#  ret
+# ret = retrafo(transformed)
+# ret
 
 ## -----------------------------------------------------------------------------
-#  iris.demo[1, ] %>>% ret
+# iris.demo[1, ] %>>% ret
 
 ## -----------------------------------------------------------------------------
-#  iris.demo[1, ] %>>% cpoPca(rank = 3)
+# iris.demo[1, ] %>>% cpoPca(rank = 3)
 
 ## -----------------------------------------------------------------------------
-#  t2 = transformed %>>% cpoScale()
-#  retrafo(t2)
+# t2 = transformed %>>% cpoScale()
+# retrafo(t2)
 
 ## -----------------------------------------------------------------------------
-#  t3 = clearRI(transformed) %>>% cpoScale()
-#  retrafo(t3)
+# t3 = clearRI(transformed) %>>% cpoScale()
+# retrafo(t3)
 
 ## -----------------------------------------------------------------------------
-#  all.equal(t2, t3, check.attributes = FALSE)
+# all.equal(t2, t3, check.attributes = FALSE)
 
 ## -----------------------------------------------------------------------------
-#  retrafo(transformed) %>>% retrafo(t3)  # is the same as retrafo(t2) above.
+# retrafo(transformed) %>>% retrafo(t3)  # is the same as retrafo(t2) above.
 
 ## -----------------------------------------------------------------------------
-#  iris.regr = makeRegrTask(data = iris.demo, target = "Petal.Width")
-#  iris.logd = iris.regr %>>% cpoLogTrafoRegr()
+# iris.regr = makeRegrTask(data = iris.demo, target = "Petal.Width")
+# iris.logd = iris.regr %>>% cpoLogTrafoRegr()
 #
-#  getTaskData(iris.logd)  # log-transformed target 'Petal.Width'
+# getTaskData(iris.logd)  # log-transformed target 'Petal.Width'
 
 ## -----------------------------------------------------------------------------
-#  inv = inverter(iris.logd)  # inverter object
-#  inv
+# inv = inverter(iris.logd)  # inverter object
+# inv
 
 ## -----------------------------------------------------------------------------
-#  logmodel = train("regr.lm", iris.logd)
-#  pred = predict(logmodel, iris.logd)  # prediction on the task itself
-#  pred
+# logmodel = train("regr.lm", iris.logd)
+# pred = predict(logmodel, iris.logd)  # prediction on the task itself
+# pred
 
 ## -----------------------------------------------------------------------------
-#  invert(inv, pred)
+# invert(inv, pred)
 
 ## -----------------------------------------------------------------------------
-#  newdata = makeRegrTask("newiris", iris[7:9, ], target = "Petal.Width",
-#    fixup.data = "no", check.data = FALSE)
+# newdata = makeRegrTask("newiris", iris[7:9, ], target = "Petal.Width",
+#   fixup.data = "no", check.data = FALSE)
 
 ## -----------------------------------------------------------------------------
-#  # the retrafo does the same transformation(s) on newdata that were
-#  # done on the training data of the model, iris.logd. In general, this
-#  # could be more than just the target log transformation.
-#  newdata.transformed = newdata %>>% retrafo(iris.logd)
-#  getTaskData(newdata.transformed)
+# # the retrafo does the same transformation(s) on newdata that were
+# # done on the training data of the model, iris.logd. In general, this
+# # could be more than just the target log transformation.
+# newdata.transformed = newdata %>>% retrafo(iris.logd)
+# getTaskData(newdata.transformed)
 
 ## -----------------------------------------------------------------------------
-#  pred = predict(logmodel, newdata.transformed)
-#  pred
+# pred = predict(logmodel, newdata.transformed)
+# pred
 
 ## -----------------------------------------------------------------------------
-#  # the inverter of the newly transformed data contains information specific
-#  # to the newly transformed data. In the current case, that is just the
-#  # new "truth" column for the new data.
-#  inv.newdata = inverter(newdata.transformed)
-#  invert(inv.newdata, pred)
+# # the inverter of the newly transformed data contains information specific
+# # to the newly transformed data. In the current case, that is just the
+# # new "truth" column for the new data.
+# inv.newdata = inverter(newdata.transformed)
+# invert(inv.newdata, pred)
 
 ## -----------------------------------------------------------------------------
-#  invert(retrafo(iris.logd), pred)
+# invert(retrafo(iris.logd), pred)
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedCapability(retrafo(iris.logd))  # can do both retrafo and inversion
+# getCPOTrainedCapability(retrafo(iris.logd))  # can do both retrafo and inversion
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedCapability(inv)  # a pure inverter, can not be used for retrafo
+# getCPOTrainedCapability(inv)  # a pure inverter, can not be used for retrafo
 
 ## ----warnings = FALSE---------------------------------------------------------
-#  set.seed(123)  # for reproducibility
-#  iris.resid = iris.regr %>>% cpoRegrResiduals("regr.lm")
-#  getTaskData(iris.resid)
+# set.seed(123)  # for reproducibility
+# iris.resid = iris.regr %>>% cpoRegrResiduals("regr.lm")
+# getTaskData(iris.resid)
 
 ## -----------------------------------------------------------------------------
-#  model.resid = train("regr.randomForest", iris.resid)
+# model.resid = train("regr.randomForest", iris.resid)
 #
-#  newdata.resid = newdata %>>% retrafo(iris.resid)
-#  getTaskData(newdata.resid)  # Petal.Width are now the residuals of lm model predictions
+# newdata.resid = newdata %>>% retrafo(iris.resid)
+# getTaskData(newdata.resid)  # Petal.Width are now the residuals of lm model predictions
 
 ## -----------------------------------------------------------------------------
-#  pred = predict(model.resid, newdata.resid)
-#  pred
+# pred = predict(model.resid, newdata.resid)
+# pred
 
 ## -----------------------------------------------------------------------------
-#  # transforming this prediction back to compare
-#  # it to the original 'Petal.Width'
-#  inv.newdata = inverter(newdata.resid)
-#  invert(inv.newdata, pred)
+# # transforming this prediction back to compare
+# # it to the original 'Petal.Width'
+# inv.newdata = inverter(newdata.resid)
+# invert(inv.newdata, pred)
 
 ## -----------------------------------------------------------------------------
-#  sampled = iris %>>% cpoSample(size = 3)
-#  sampled
+# sampled = iris %>>% cpoSample(size = 3)
+# sampled
 
 ## -----------------------------------------------------------------------------
-#  retrafo(sampled)
-#  inverter(sampled)
+# retrafo(sampled)
+# inverter(sampled)
 
 ## -----------------------------------------------------------------------------
-#  set.seed(123)  # for reproducibility
-#  lrn = cpoRegrResiduals("regr.lm") %>>% makeLearner("regr.randomForest")
-#  lrn
+# set.seed(123)  # for reproducibility
+# lrn = cpoRegrResiduals("regr.lm") %>>% makeLearner("regr.randomForest")
+# lrn
 
 ## ----warnings = FALSE---------------------------------------------------------
-#  model = train(lrn, iris.regr)
+# model = train(lrn, iris.regr)
 #
-#  pred = predict(model, newdata)
-#  pred
+# pred = predict(model, newdata)
+# pred
 
 ## -----------------------------------------------------------------------------
-#  retrafo(model)
+# retrafo(model)
 
 ## -----------------------------------------------------------------------------
-#  icalrn = cpoIca() %>>% makeLearner("classif.logreg")
+# icalrn = cpoIca() %>>% makeLearner("classif.logreg")
 #
-#  getParamSet(icalrn)
+# getParamSet(icalrn)
 
 ## -----------------------------------------------------------------------------
-#  ps = makeParamSet(
-#      makeIntegerParam("ica.n.comp", lower = 1, upper = 8),
-#      makeDiscreteParam("ica.alg.typ", values = c("parallel", "deflation")))
-#  # shorter version using pSS:
-#  # ps = pSS(ica.n.comp: integer[1, 8], ica.alg.typ: discrete[parallel, deflation])
+# ps = makeParamSet(
+#     makeIntegerParam("ica.n.comp", lower = 1, upper = 8),
+#     makeDiscreteParam("ica.alg.typ", values = c("parallel", "deflation")))
+# # shorter version using pSS:
+# # ps = pSS(ica.n.comp: integer[1, 8], ica.alg.typ: discrete[parallel, deflation])
 
 ## -----------------------------------------------------------------------------
-#  tuneParams(icalrn, pid.task, cv5, par.set = ps,
-#    control = makeTuneControlGrid(),
-#    show.info = FALSE)
+# tuneParams(icalrn, pid.task, cv5, par.set = ps,
+#   control = makeTuneControlGrid(),
+#   show.info = FALSE)
 
 ## -----------------------------------------------------------------------------
-#  cpoAsNumeric  # plain print
-#  !cpoAsNumeric  # verbose print
+# cpoAsNumeric  # plain print
+# !cpoAsNumeric  # verbose print
 
 ## -----------------------------------------------------------------------------
-#  cpoScale() %>>% cpoIca()  # plain print
-#  !cpoScale() %>>% cpoIca()  # verbose print
+# cpoScale() %>>% cpoIca()  # plain print
+# !cpoScale() %>>% cpoIca()  # verbose print
 
 ## -----------------------------------------------------------------------------
-#  as.list(cpoScale() %>>% cpoIca())
+# as.list(cpoScale() %>>% cpoIca())
 
 ## -----------------------------------------------------------------------------
-#  pipeCPO(list(cpoScale(), cpoIca()))
+# pipeCPO(list(cpoScale(), cpoIca()))
 
 ## -----------------------------------------------------------------------------
-#  repca = retrafo(iris.demo %>>% cpoPca())
-#  state = getCPOTrainedState(repca)
-#  state
+# repca = retrafo(iris.demo %>>% cpoPca())
+# state = getCPOTrainedState(repca)
+# state
 
 ## -----------------------------------------------------------------------------
-#  state$control$center = FALSE
-#  state$control$scale = FALSE
-#  nosc.repca = makeCPOTrainedFromState(cpoPca, state)
+# state$control$center = FALSE
+# state$control$scale = FALSE
+# nosc.repca = makeCPOTrainedFromState(cpoPca, state)
 
 ## -----------------------------------------------------------------------------
-#  iris.demo %>>% repca
+# iris.demo %>>% repca
 
 ## -----------------------------------------------------------------------------
-#  iris.demo %>>% nosc.repca
+# iris.demo %>>% nosc.repca
 
 ## -----------------------------------------------------------------------------
-#  NULLCPO
+# NULLCPO
 
 ## -----------------------------------------------------------------------------
-#  all.equal(iris %>>% NULLCPO, iris)
-#  cpoPca() %>>% NULLCPO
+# all.equal(iris %>>% NULLCPO, iris)
+# cpoPca() %>>% NULLCPO
 
 ## -----------------------------------------------------------------------------
-#  cpm = cpoMultiplex(list(cpoIca, cpoPca(export = "export.all")))
-#  !cpm
+# cpm = cpoMultiplex(list(cpoIca, cpoPca(export = "export.all")))
+# !cpm
 
 ## -----------------------------------------------------------------------------
-#  iris.demo %>>% setHyperPars(cpm, selected.cpo = "ica", ica.n.comp = 3)
+# iris.demo %>>% setHyperPars(cpm, selected.cpo = "ica", ica.n.comp = 3)
 
 ## -----------------------------------------------------------------------------
-#  iris.demo %>>% setHyperPars(cpm, selected.cpo = "pca", pca.rank = 3)
+# iris.demo %>>% setHyperPars(cpm, selected.cpo = "pca", pca.rank = 3)
 
 ## -----------------------------------------------------------------------------
-#  cpa = cpoWrap()
-#  !cpa
+# cpa = cpoWrap()
+# !cpa
 
 ## -----------------------------------------------------------------------------
-#  iris.demo %>>% setHyperPars(cpa, wrap.cpo = cpoScale())
+# iris.demo %>>% setHyperPars(cpa, wrap.cpo = cpoScale())
 
 ## -----------------------------------------------------------------------------
-#  iris.demo %>>% setHyperPars(cpa, wrap.cpo = cpoPca())
+# iris.demo %>>% setHyperPars(cpa, wrap.cpo = cpoPca())
 
 ## -----------------------------------------------------------------------------
-#  getParamSet(cpoWrap() %>>% makeLearner("classif.logreg"))
+# getParamSet(cpoWrap() %>>% makeLearner("classif.logreg"))
 
 ## -----------------------------------------------------------------------------
-#  scale = cpoSelect(pattern = "Sepal", id = "first") %>>% cpoScale(id = "scale")
-#  scale.pca = scale %>>% cpoPca()
-#  cbinder = cpoCbind(scale, scale.pca, cpoSelect(pattern = "Petal", id = "second"))
+# scale = cpoSelect(pattern = "Sepal", id = "first") %>>% cpoScale(id = "scale")
+# scale.pca = scale %>>% cpoPca()
+# cbinder = cpoCbind(scale, scale.pca, cpoSelect(pattern = "Petal", id = "second"))
 
 ## -----------------------------------------------------------------------------
-#  !cbinder
+# !cbinder
 
 ## -----------------------------------------------------------------------------
-#  iris.demo %>>% cbinder
+# iris.demo %>>% cbinder
 
 ## ----results = "asis", echo = FALSE-------------------------------------------
 cat(knitr::knit_child("a_1_getting_started.Rmd", options = list(eval = FALSE)), sep = "\n")

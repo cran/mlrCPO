@@ -248,8 +248,10 @@ getHyperPars(compound)
 setHyperPars(compound, scale.center = TRUE, pca.center = FALSE)
 
 ## ----error = TRUE-------------------------------------------------------------
+try({
 getCPOId(compound)  # error: no ID for compound CPOs
 getCPOAffect(compound)  # error: no affect for compound CPOs
+})
 
 ## -----------------------------------------------------------------------------
 getCPOOperatingType(NULLCPO)
@@ -383,8 +385,8 @@ head(iris) %>>% retrafo(transformed)
 head(transformed)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  applyCPO(retrafo(transformed), head(iris))
-#  predict(retrafo(transformed), head(iris))
+# applyCPO(retrafo(transformed), head(iris))
+# predict(retrafo(transformed), head(iris))
 
 ## -----------------------------------------------------------------------------
 transformed = bh.task %>>% cpoLogTrafoRegr()
@@ -437,8 +439,10 @@ getParamSet(setCPOId(cpo, "my.id"))
 getParamSet(setCPOId(cpo, NULL))
 
 ## ----error = TRUE-------------------------------------------------------------
+try({
 
 cpo %>>% cpo
+})
 
 ## -----------------------------------------------------------------------------
 cpo %>>% setCPOId(cpo, "two")
@@ -447,7 +451,9 @@ cpo %>>% setCPOId(cpo, "two")
 getCPOProperties(cpoDummyEncode())
 
 ## ----error = TRUE-------------------------------------------------------------
+try({
 train("classif.fnn", bc.task)  # gives an error
+})
 
 ## -----------------------------------------------------------------------------
 train(cpoDummyEncode(reference.cat = TRUE) %>>% makeLearner("classif.fnn"), bc.task)

@@ -183,7 +183,7 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 library("mlrCPO")
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  listCPO()[, c("name", "category", "subcategory")]
+# listCPO()[, c("name", "category", "subcategory")]
 
 ## ----echo = FALSE, results = 'asis'-------------------------------------------
 tab = listCPO()[, c("name", "category", "subcategory")]
@@ -343,14 +343,18 @@ head(iris %>>% cpoSpatialSign())
 impdata %>>% cpoImpute(cols = list(a = imputeMedian()))
 
 ## ----error = TRUE-------------------------------------------------------------
+try({
 impdata %>>% cpoImpute(cols = list(b = imputeMedian()))  # NAs remain
 impdata %>>% cpoImputeAll(cols = list(b = imputeMedian()))  # error, since NAs remain
+})
 
 ## ----error = TRUE-------------------------------------------------------------
+try({
 missing.task = makeRegrTask("missing.task", impdata, target = "b")
 # the following gives an error, since 'cpoImpute' does not make sure all missings are removed
 # and hence does not add the 'missings' property.
 train(cpoImpute(cols = list(a = imputeMedian())) %>>% makeLearner("regr.lm"), missing.task)
+})
 
 ## -----------------------------------------------------------------------------
 # instead, the following works:

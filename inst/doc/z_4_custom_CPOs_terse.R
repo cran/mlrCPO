@@ -183,469 +183,469 @@ for (pfunc in grep("print\\.", ls(asNamespace("mlr")), value = TRUE)) {
 printToc(4)
 
 ## -----------------------------------------------------------------------------
-#  !cpoPca()
+# !cpoPca()
 
 ## -----------------------------------------------------------------------------
-#  xmpSample = makeCPORetrafoless("exsample",  # nolint
-#    pSS(fraction: numeric[0, 1]),
-#    dataformat = "df.all",
-#    cpo.trafo = function(data, target, fraction) {
-#      newsize = round(nrow(data) * fraction)
-#      row.indices = sample(nrow(data), newsize)
-#      data[row.indices, ]
-#    })
+# xmpSample = makeCPORetrafoless("exsample",  # nolint
+#   pSS(fraction: numeric[0, 1]),
+#   dataformat = "df.all",
+#   cpo.trafo = function(data, target, fraction) {
+#     newsize = round(nrow(data) * fraction)
+#     row.indices = sample(nrow(data), newsize)
+#     data[row.indices, ]
+#   })
 #
-#  cpo = xmpSample(0.01)
+# cpo = xmpSample(0.01)
 
 ## -----------------------------------------------------------------------------
-#  iris %>>% cpo
+# iris %>>% cpo
 
 ## -----------------------------------------------------------------------------
-#  xmpSampleHeadless = makeCPORetrafoless("exsample",  # nolint
-#    pSS(fraction: numeric[0, 1]),
-#    dataformat = "df.all",
-#    cpo.trafo = {
-#      newsize = round(nrow(data) * fraction)
-#      row.indices = sample(nrow(data), newsize)
-#      data[row.indices, ]
-#    })
+# xmpSampleHeadless = makeCPORetrafoless("exsample",  # nolint
+#   pSS(fraction: numeric[0, 1]),
+#   dataformat = "df.all",
+#   cpo.trafo = {
+#     newsize = round(nrow(data) * fraction)
+#     row.indices = sample(nrow(data), newsize)
+#     data[row.indices, ]
+#   })
 
 ## -----------------------------------------------------------------------------
-#  xmpFilterVar = makeCPO("exemplvar",  # nolint
-#    pSS(n.col: integer[0, ]),
-#    dataformat = "numeric",
-#    cpo.train = function(data, target, n.col) {
-#      cat("*** cpo.train ***\n")
-#      sapply(data, var, na.rm = TRUE)
-#    },
-#    cpo.retrafo = function(data, control, n.col) {
-#      cat("*** cpo.retrafo ***\n")
-#      cat("Control:\n")
-#      print(control)
-#      cat("\n")
-#      greatest = order(-control)  # columns, ordered greatest to smallest var
-#      data[greatest[seq_len(n.col)]]
-#    })
+# xmpFilterVar = makeCPO("exemplvar",  # nolint
+#   pSS(n.col: integer[0, ]),
+#   dataformat = "numeric",
+#   cpo.train = function(data, target, n.col) {
+#     cat("*** cpo.train ***\n")
+#     sapply(data, var, na.rm = TRUE)
+#   },
+#   cpo.retrafo = function(data, control, n.col) {
+#     cat("*** cpo.retrafo ***\n")
+#     cat("Control:\n")
+#     print(control)
+#     cat("\n")
+#     greatest = order(-control)  # columns, ordered greatest to smallest var
+#     data[greatest[seq_len(n.col)]]
+#   })
 #
-#  cpo = xmpFilterVar(2)
+# cpo = xmpFilterVar(2)
 
 ## -----------------------------------------------------------------------------
-#  (trafd = head(iris) %>>% cpo)
+# (trafd = head(iris) %>>% cpo)
 
 ## -----------------------------------------------------------------------------
-#  head(iris %>>% cpo)
+# head(iris %>>% cpo)
 
 ## -----------------------------------------------------------------------------
-#  head(iris %>>% retrafo(trafd))
+# head(iris %>>% retrafo(trafd))
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedState(retrafo(trafd))
+# getCPOTrainedState(retrafo(trafd))
 
 ## -----------------------------------------------------------------------------
-#  xmpFilterVarFunc = makeCPO("exemplvar.func",  # nolint
-#    pSS(n.col: integer[0, ]),
-#    dataformat = "numeric",
-#    cpo.retrafo = NULL,
-#    cpo.train = function(data, target, n.col) {
-#      cat("*** cpo.train ***\n")
-#      ctrl = sapply(data, var, na.rm = TRUE)
-#      function(x) {  # the data is given to the only present parameter: 'x'
-#        cat("*** cpo.retrafo ***\n")
-#        cat("Control:\n")
-#        print(ctrl)
-#        cat("\ndata:\n")
-#        print(data)  # 'data' is deleted: NULL
-#        cat("target:\n")
-#        print(target)  # 'target' is deleted: NULL
-#        greatest = order(-ctrl)  # columns, ordered greatest to smallest var
-#        x[greatest[seq_len(n.col)]]
-#      }
-#    })
+# xmpFilterVarFunc = makeCPO("exemplvar.func",  # nolint
+#   pSS(n.col: integer[0, ]),
+#   dataformat = "numeric",
+#   cpo.retrafo = NULL,
+#   cpo.train = function(data, target, n.col) {
+#     cat("*** cpo.train ***\n")
+#     ctrl = sapply(data, var, na.rm = TRUE)
+#     function(x) {  # the data is given to the only present parameter: 'x'
+#       cat("*** cpo.retrafo ***\n")
+#       cat("Control:\n")
+#       print(ctrl)
+#       cat("\ndata:\n")
+#       print(data)  # 'data' is deleted: NULL
+#       cat("target:\n")
+#       print(target)  # 'target' is deleted: NULL
+#       greatest = order(-ctrl)  # columns, ordered greatest to smallest var
+#       x[greatest[seq_len(n.col)]]
+#     }
+#   })
 #
-#  cpo = xmpFilterVarFunc(2)
+# cpo = xmpFilterVarFunc(2)
 
 ## -----------------------------------------------------------------------------
-#  (trafd = head(iris) %>>% cpo)
+# (trafd = head(iris) %>>% cpo)
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedState(retrafo(trafd))
+# getCPOTrainedState(retrafo(trafd))
 
 ## -----------------------------------------------------------------------------
-#  xmpAsNum = makeCPO("asnum",  # nolint
-#    cpo.train = NULL,
-#    cpo.retrafo = function(data) {
-#      data.frame(lapply(data, as.numeric))
-#    })
+# xmpAsNum = makeCPO("asnum",  # nolint
+#   cpo.train = NULL,
+#   cpo.retrafo = function(data) {
+#     data.frame(lapply(data, as.numeric))
+#   })
 #
-#  cpo = xmpAsNum()
+# cpo = xmpAsNum()
 
 ## -----------------------------------------------------------------------------
-#  (trafd = head(iris) %>>% cpo)
+# (trafd = head(iris) %>>% cpo)
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedState(retrafo(trafd))
+# getCPOTrainedState(retrafo(trafd))
 
 ## -----------------------------------------------------------------------------
-#  xmpPca = makeCPOExtendedTrafo("simple.pca",  # nolint
-#    pSS(n.col: integer[0, ]),
-#    dataformat = "numeric",
-#    cpo.trafo = function(data, target, n.col) {
-#      cat("*** cpo.trafo ***\n")
-#      pcr = prcomp(as.matrix(data), center = FALSE, scale. = FALSE, rank = n.col)
-#      # save the rotation matrix as 'control' variable
-#      control = pcr$rotation
-#      pcr$x
-#    },
-#    cpo.retrafo = function(data, control, n.col) {
-#      cat("*** cpo.retrafo ***\n")
-#      # rotate the data by the rotation matrix
-#      as.matrix(data) %*% control
-#    })
+# xmpPca = makeCPOExtendedTrafo("simple.pca",  # nolint
+#   pSS(n.col: integer[0, ]),
+#   dataformat = "numeric",
+#   cpo.trafo = function(data, target, n.col) {
+#     cat("*** cpo.trafo ***\n")
+#     pcr = prcomp(as.matrix(data), center = FALSE, scale. = FALSE, rank = n.col)
+#     # save the rotation matrix as 'control' variable
+#     control = pcr$rotation
+#     pcr$x
+#   },
+#   cpo.retrafo = function(data, control, n.col) {
+#     cat("*** cpo.retrafo ***\n")
+#     # rotate the data by the rotation matrix
+#     as.matrix(data) %*% control
+#   })
 #
-#  cpo = xmpPca(2)
+# cpo = xmpPca(2)
 
 ## -----------------------------------------------------------------------------
-#  (trafd = head(iris) %>>% cpo)
+# (trafd = head(iris) %>>% cpo)
 
 ## -----------------------------------------------------------------------------
-#  tail(iris) %>>% retrafo(trafd)
+# tail(iris) %>>% retrafo(trafd)
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedState(retrafo(trafd))
+# getCPOTrainedState(retrafo(trafd))
 
 ## -----------------------------------------------------------------------------
-#  xmpPcaFunc = makeCPOExtendedTrafo("simple.pca.func",  # nolint
-#    pSS(n.col: integer[0, ]),
-#    dataformat = "numeric",
-#    cpo.retrafo = NULL,
-#    cpo.trafo = function(data, target, n.col) {
-#      cat("*** cpo.trafo ***\n")
-#      pcr = prcomp(as.matrix(data), center = FALSE, scale. = FALSE, rank = n.col)
-#      # save the rotation matrix as 'control' variable
-#      cpo.retrafo = function(data) {
-#        cat("*** cpo.retrafo ***\n")
-#        # rotate the data by the rotation matrix
-#        as.matrix(data) %*% pcr$rotation
-#      }
-#      pcr$x
-#    })
+# xmpPcaFunc = makeCPOExtendedTrafo("simple.pca.func",  # nolint
+#   pSS(n.col: integer[0, ]),
+#   dataformat = "numeric",
+#   cpo.retrafo = NULL,
+#   cpo.trafo = function(data, target, n.col) {
+#     cat("*** cpo.trafo ***\n")
+#     pcr = prcomp(as.matrix(data), center = FALSE, scale. = FALSE, rank = n.col)
+#     # save the rotation matrix as 'control' variable
+#     cpo.retrafo = function(data) {
+#       cat("*** cpo.retrafo ***\n")
+#       # rotate the data by the rotation matrix
+#       as.matrix(data) %*% pcr$rotation
+#     }
+#     pcr$x
+#   })
 #
-#  cpo = xmpPcaFunc(2)
+# cpo = xmpPcaFunc(2)
 
 ## -----------------------------------------------------------------------------
-#  (trafd = head(iris) %>>% cpo)
+# (trafd = head(iris) %>>% cpo)
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedState(retrafo(trafd))$pcr$x
+# getCPOTrainedState(retrafo(trafd))$pcr$x
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  c(response = "response", se = "prob")
+# c(response = "response", se = "prob")
 
 ## -----------------------------------------------------------------------------
-#  xmpMetaLearn = makeCPOTargetOp("xmp.meta",  # nolint
-#    pSS(lrn: untyped),
-#    dataformat = "task",
-#    properties.target = c("classif", "twoclass"),
-#    predict.type.map = c(response = "response", prob = "prob"),
-#    cpo.train = function(data, target, lrn) {
-#      cat("*** cpo.train ***\n")
-#      lrn = setPredictType(lrn, "prob")
-#      train(lrn, data)
-#    },
-#    cpo.retrafo = function(data, target, control, lrn) {
-#      cat("*** cpo.retrafo ***\n")
-#      prediction = predict(control, target)
-#      tname = getTaskTargetNames(target)
-#      tdata = getTaskData(target)
-#      tdata[[tname]] = factor(prediction$data$response == prediction$data$truth)
-#      makeClassifTask(getTaskId(target), tdata, tname, positive = "TRUE",
-#        fixup.data = "no", check.data = FALSE)
-#    },
-#    cpo.train.invert = function(data, control, lrn) {
-#      cat("*** cpo.train.invert ***\n")
-#      predict(control, newdata = data)$data
-#    },
-#    cpo.invert = function(target, control.invert, predict.type, lrn) {
-#      cat("*** cpo.invert ***\n")
-#      if (predict.type == "prob") {
-#        outmat = as.matrix(control.invert[grep("^prob\\.", names(control.invert))])
-#        revmat = outmat[, c(2, 1)]
-#        outmat * target[, "prob.TRUE", drop = TRUE] +
-#          revmat * target[, "prob.FALSE", drop = TRUE]
-#      } else {
-#        stopifnot(levels(target) == c("FALSE", "TRUE"))
-#        numeric.prediction = as.numeric(control.invert$response)
-#        numeric.res = ifelse(target == "TRUE",
-#          numeric.prediction,
-#          3 - numeric.prediction)
-#        factor(levels(control.invert$response)[numeric.res],
-#          levels(control.invert$response))
-#      }
-#    })
+# xmpMetaLearn = makeCPOTargetOp("xmp.meta",  # nolint
+#   pSS(lrn: untyped),
+#   dataformat = "task",
+#   properties.target = c("classif", "twoclass"),
+#   predict.type.map = c(response = "response", prob = "prob"),
+#   cpo.train = function(data, target, lrn) {
+#     cat("*** cpo.train ***\n")
+#     lrn = setPredictType(lrn, "prob")
+#     train(lrn, data)
+#   },
+#   cpo.retrafo = function(data, target, control, lrn) {
+#     cat("*** cpo.retrafo ***\n")
+#     prediction = predict(control, target)
+#     tname = getTaskTargetNames(target)
+#     tdata = getTaskData(target)
+#     tdata[[tname]] = factor(prediction$data$response == prediction$data$truth)
+#     makeClassifTask(getTaskId(target), tdata, tname, positive = "TRUE",
+#       fixup.data = "no", check.data = FALSE)
+#   },
+#   cpo.train.invert = function(data, control, lrn) {
+#     cat("*** cpo.train.invert ***\n")
+#     predict(control, newdata = data)$data
+#   },
+#   cpo.invert = function(target, control.invert, predict.type, lrn) {
+#     cat("*** cpo.invert ***\n")
+#     if (predict.type == "prob") {
+#       outmat = as.matrix(control.invert[grep("^prob\\.", names(control.invert))])
+#       revmat = outmat[, c(2, 1)]
+#       outmat * target[, "prob.TRUE", drop = TRUE] +
+#         revmat * target[, "prob.FALSE", drop = TRUE]
+#     } else {
+#       stopifnot(levels(target) == c("FALSE", "TRUE"))
+#       numeric.prediction = as.numeric(control.invert$response)
+#       numeric.res = ifelse(target == "TRUE",
+#         numeric.prediction,
+#         3 - numeric.prediction)
+#       factor(levels(control.invert$response)[numeric.res],
+#         levels(control.invert$response))
+#     }
+#   })
 #
-#  cpo = xmpMetaLearn(makeLearner("classif.logreg"))
+# cpo = xmpMetaLearn(makeLearner("classif.logreg"))
 
 ## -----------------------------------------------------------------------------
-#  set.seed(12)
-#  split = makeResampleInstance(hout, pid.task)
-#  train.task = subsetTask(pid.task, split$train.inds[[1]])
-#  test.task = subsetTask(pid.task, split$predict.inds[[1]])
+# set.seed(12)
+# split = makeResampleInstance(hout, pid.task)
+# train.task = subsetTask(pid.task, split$train.inds[[1]])
+# test.task = subsetTask(pid.task, split$predict.inds[[1]])
 
 ## -----------------------------------------------------------------------------
-#  trafd = train.task %>>% cpo
-#  attributes(trafd)
+# trafd = train.task %>>% cpo
+# attributes(trafd)
 
 ## -----------------------------------------------------------------------------
-#  head(getTaskData(trafd))
+# head(getTaskData(trafd))
 
 ## -----------------------------------------------------------------------------
-#  model = train(makeLearner("classif.logreg", predict.type = "prob"), train.task)
-#  head(predict(model, train.task)$data[c("truth", "response")])
+# model = train(makeLearner("classif.logreg", predict.type = "prob"), train.task)
+# head(predict(model, train.task)$data[c("truth", "response")])
 
 ## -----------------------------------------------------------------------------
-#  retr = test.task %>>% retrafo(trafd)
-#  attributes(retr)
+# retr = test.task %>>% retrafo(trafd)
+# attributes(retr)
 
 ## -----------------------------------------------------------------------------
-#  retr.df = getTaskData(test.task, target.extra = TRUE)$data %>>% retrafo(trafd)
-#  names(attributes(retr.df))
+# retr.df = getTaskData(test.task, target.extra = TRUE)$data %>>% retrafo(trafd)
+# names(attributes(retr.df))
 
 ## -----------------------------------------------------------------------------
-#  ext.model = train("classif.svm", trafd)
-#  ext.pred = predict(ext.model, retr)
-#  newpred = invert(inverter(retr), ext.pred)
-#  performance(newpred)
+# ext.model = train("classif.svm", trafd)
+# ext.pred = predict(ext.model, retr)
+# newpred = invert(inverter(retr), ext.pred)
+# performance(newpred)
 
 ## -----------------------------------------------------------------------------
-#  cpo.learner = cpo %>>% makeLearner("classif.svm")
-#  cpo.model = train(cpo.learner, train.task)
+# cpo.learner = cpo %>>% makeLearner("classif.svm")
+# cpo.model = train(cpo.learner, train.task)
 
 ## -----------------------------------------------------------------------------
-#  lrnpred = predict(cpo.model, test.task)
-#  performance(lrnpred)
+# lrnpred = predict(cpo.model, test.task)
+# performance(lrnpred)
 
 ## -----------------------------------------------------------------------------
 #
-#  xmpMetaLearn = makeCPOTargetOp("xmp.meta.fnc",  # nolint
-#    pSS(lrn: untyped),
-#    dataformat = "task",
-#    properties.target = c("classif", "twoclass"),
-#    predict.type.map = c(response = "response", prob = "prob"),
-#    # set the cpo.* parameters not needed to NULL:
-#    cpo.retrafo = NULL, cpo.train.invert = NULL, cpo.invert = NULL,
-#    cpo.train = function(data, target, lrn) {
-#      cat("*** cpo.train ***\n")
-#      lrn = setPredictType(lrn, "prob")
-#      model = train(lrn, data)
-#      cpo.retrafo = function(data, target) {
-#        cat("*** cpo.retrafo ***\n")
-#        prediction = predict(model, target)
-#        tname = getTaskTargetNames(target)
-#        tdata = getTaskData(target)
-#        tdata[[tname]] = factor(prediction$data$response == prediction$data$truth)
-#        makeClassifTask(getTaskId(target), tdata, tname, positive = "TRUE",
-#          fixup.data = "no", check.data = FALSE)
-#      }
-#      cpo.train.invert = function(data) {
-#        cat("*** cpo.train.invert ***\n")
-#        prediction = predict(model, newdata = data)$data
-#        function(target, predict.type) {  # this is returned as cpo.invert
-#          cat("*** cpo.invert ***\n")
-#          if (predict.type == "prob") {
-#            outmat = as.matrix(prediction[grep("^prob\\.", names(prediction))])
-#            revmat = outmat[, c(2, 1)]
-#            outmat * target[, "prob.TRUE", drop = TRUE] +
-#              revmat * target[, "prob.FALSE", drop = TRUE]
-#          } else {
-#            stopifnot(levels(target) == c("FALSE", "TRUE"))
-#            numeric.prediction = as.numeric(prediction$response)
-#            numeric.res = ifelse(target == "TRUE",
-#              numeric.prediction,
-#              3 - numeric.prediction)
-#            factor(levels(prediction$response)[numeric.res],
-#              levels(prediction$response))
-#          }
-#        }
-#      }
-#    })
+# xmpMetaLearn = makeCPOTargetOp("xmp.meta.fnc",  # nolint
+#   pSS(lrn: untyped),
+#   dataformat = "task",
+#   properties.target = c("classif", "twoclass"),
+#   predict.type.map = c(response = "response", prob = "prob"),
+#   # set the cpo.* parameters not needed to NULL:
+#   cpo.retrafo = NULL, cpo.train.invert = NULL, cpo.invert = NULL,
+#   cpo.train = function(data, target, lrn) {
+#     cat("*** cpo.train ***\n")
+#     lrn = setPredictType(lrn, "prob")
+#     model = train(lrn, data)
+#     cpo.retrafo = function(data, target) {
+#       cat("*** cpo.retrafo ***\n")
+#       prediction = predict(model, target)
+#       tname = getTaskTargetNames(target)
+#       tdata = getTaskData(target)
+#       tdata[[tname]] = factor(prediction$data$response == prediction$data$truth)
+#       makeClassifTask(getTaskId(target), tdata, tname, positive = "TRUE",
+#         fixup.data = "no", check.data = FALSE)
+#     }
+#     cpo.train.invert = function(data) {
+#       cat("*** cpo.train.invert ***\n")
+#       prediction = predict(model, newdata = data)$data
+#       function(target, predict.type) {  # this is returned as cpo.invert
+#         cat("*** cpo.invert ***\n")
+#         if (predict.type == "prob") {
+#           outmat = as.matrix(prediction[grep("^prob\\.", names(prediction))])
+#           revmat = outmat[, c(2, 1)]
+#           outmat * target[, "prob.TRUE", drop = TRUE] +
+#             revmat * target[, "prob.FALSE", drop = TRUE]
+#         } else {
+#           stopifnot(levels(target) == c("FALSE", "TRUE"))
+#           numeric.prediction = as.numeric(prediction$response)
+#           numeric.res = ifelse(target == "TRUE",
+#             numeric.prediction,
+#             3 - numeric.prediction)
+#           factor(levels(prediction$response)[numeric.res],
+#             levels(prediction$response))
+#         }
+#       }
+#     }
+#   })
 
 ## -----------------------------------------------------------------------------
-#  xmpRegCenter = makeCPOTargetOp("xmp.center",  # nolint
-#    constant.invert = TRUE,
-#    cpo.train.invert = NULL,  # necessary for constant.invert = TRUE
-#    dataformat = "df.feature",
-#    properties.target = "regr",
-#    cpo.train = function(data, target) {
-#      # control value is just the mean of the target column
-#      mean(target[[1]])
-#    },
-#    cpo.retrafo = function(data, target, control) {
-#      # subtract mean from target column in retrafo
-#      target[[1]] = target[[1]] - control
-#      target
-#    },
-#    cpo.invert = function(target, predict.type, control.invert) {
-#      target + control.invert
-#    })
+# xmpRegCenter = makeCPOTargetOp("xmp.center",  # nolint
+#   constant.invert = TRUE,
+#   cpo.train.invert = NULL,  # necessary for constant.invert = TRUE
+#   dataformat = "df.feature",
+#   properties.target = "regr",
+#   cpo.train = function(data, target) {
+#     # control value is just the mean of the target column
+#     mean(target[[1]])
+#   },
+#   cpo.retrafo = function(data, target, control) {
+#     # subtract mean from target column in retrafo
+#     target[[1]] = target[[1]] - control
+#     target
+#   },
+#   cpo.invert = function(target, predict.type, control.invert) {
+#     target + control.invert
+#   })
 #
-#  cpo = xmpRegCenter()
+# cpo = xmpRegCenter()
 
 ## -----------------------------------------------------------------------------
-#  train.task = subsetTask(bh.task, 150:155)
-#  getTaskTargets(train.task)
+# train.task = subsetTask(bh.task, 150:155)
+# getTaskTargets(train.task)
 
 ## -----------------------------------------------------------------------------
-#  predict.task = subsetTask(bh.task, 156:160)
-#  getTaskTargets(predict.task)
+# predict.task = subsetTask(bh.task, 156:160)
+# getTaskTargets(predict.task)
 
 ## -----------------------------------------------------------------------------
-#  trafd = train.task %>>% cpo
-#  getTaskTargets(trafd)
+# trafd = train.task %>>% cpo
+# getTaskTargets(trafd)
 
 ## -----------------------------------------------------------------------------
-#  getTaskTargets(predict.task)
+# getTaskTargets(predict.task)
 
 ## -----------------------------------------------------------------------------
-#  retr = retrafo(trafd)
-#  predict.traf = predict.task %>>% retr
-#  getTaskTargets(predict.traf)
+# retr = retrafo(trafd)
+# predict.traf = predict.task %>>% retr
+# getTaskTargets(predict.traf)
 
 ## ----warnings = FALSE---------------------------------------------------------
-#  model = train("regr.lm", trafd)
-#  pred = predict(model, predict.traf)
-#  pred
+# model = train("regr.lm", trafd)
+# pred = predict(model, predict.traf)
+# pred
 
 ## -----------------------------------------------------------------------------
-#  invert(inverter(predict.traf), pred)
+# invert(inverter(predict.traf), pred)
 
 ## ----warnings = FALSE---------------------------------------------------------
-#  model = train("regr.lm", train.task)
-#  predict(model, predict.task)
+# model = train("regr.lm", train.task)
+# predict(model, predict.task)
 
 ## -----------------------------------------------------------------------------
-#  getCPOTrainedCapability(retr)
+# getCPOTrainedCapability(retr)
 
 ## -----------------------------------------------------------------------------
-#  invert(retr, pred)
+# invert(retr, pred)
 
 ## -----------------------------------------------------------------------------
-#  xmpLogRegr = makeCPOTargetOp("log.regr",  # nolint
-#    constant.invert = TRUE,
-#    properties.target = "regr",
-#    cpo.train = NULL, cpo.train.invert = NULL,
-#    cpo.retrafo = function(data, target) {
-#      target[[1]] = log(target[[1]])
-#      target
-#    },
-#    cpo.invert = function(target, predict.type) {
-#      exp(target)
-#    })
+# xmpLogRegr = makeCPOTargetOp("log.regr",  # nolint
+#   constant.invert = TRUE,
+#   properties.target = "regr",
+#   cpo.train = NULL, cpo.train.invert = NULL,
+#   cpo.retrafo = function(data, target) {
+#     target[[1]] = log(target[[1]])
+#     target
+#   },
+#   cpo.invert = function(target, predict.type) {
+#     exp(target)
+#   })
 #
-#  cpo = xmpLogRegr()
+# cpo = xmpLogRegr()
 
 ## -----------------------------------------------------------------------------
-#  trafd = train.task %>>% cpo
-#  getTaskTargets(trafd)
+# trafd = train.task %>>% cpo
+# getTaskTargets(trafd)
 
 ## -----------------------------------------------------------------------------
-#  retr = retrafo(trafd)
-#  predict.traf = predict.task %>>% retr
-#  getTaskTargets(predict.traf)
+# retr = retrafo(trafd)
+# predict.traf = predict.task %>>% retr
+# getTaskTargets(predict.traf)
 
 ## ----warnings = FALSE---------------------------------------------------------
-#  model = train("regr.lm", trafd)
-#  pred = predict(model, predict.traf)
-#  pred
+# model = train("regr.lm", trafd)
+# pred = predict(model, predict.traf)
+# pred
 
 ## -----------------------------------------------------------------------------
-#  invert(inverter(predict.traf), pred)
+# invert(inverter(predict.traf), pred)
 
 ## -----------------------------------------------------------------------------
-#  invert(retr, pred)
+# invert(retr, pred)
 
 ## -----------------------------------------------------------------------------
-#  xmpSynCPO = makeCPOExtendedTargetOp("syn.cpo",  # nolint
-#    properties.target = "regr",
-#    cpo.trafo = function(data, target) {
-#      cat("*** cpo.trafo ***\n")
-#      target[[1]] = target[[1]] + 1
-#      control = "control created in cpo.trafo"
-#      control.invert = "control.invert created in cpo.trafo"
-#      target
-#    },
-#    cpo.retrafo = function(data, target, control) {
-#      cat("*** cpo.retrafo ***", "control is:", deparse(control), sep = "\n")
-#      control.invert = "control.invert created in cpo.retrafo"
-#      if (!is.null(target)) {
-#        cat("target is non-NULL, performing transformation\n")
-#        target[[1]] = target[[1]] - 1
-#        return(target)
-#      } else {
-#        cat("target is NULL, no transformation (but control.invert was created)\n")
-#        return(NULL)  # is ignored.
-#      }
-#    },
-#    cpo.invert = function(target, control.invert, predict.type) {
-#      cat("*** invert ***", "control.invert is:", deparse(control.invert),
-#        sep = "\n")
-#      target
-#    })
+# xmpSynCPO = makeCPOExtendedTargetOp("syn.cpo",  # nolint
+#   properties.target = "regr",
+#   cpo.trafo = function(data, target) {
+#     cat("*** cpo.trafo ***\n")
+#     target[[1]] = target[[1]] + 1
+#     control = "control created in cpo.trafo"
+#     control.invert = "control.invert created in cpo.trafo"
+#     target
+#   },
+#   cpo.retrafo = function(data, target, control) {
+#     cat("*** cpo.retrafo ***", "control is:", deparse(control), sep = "\n")
+#     control.invert = "control.invert created in cpo.retrafo"
+#     if (!is.null(target)) {
+#       cat("target is non-NULL, performing transformation\n")
+#       target[[1]] = target[[1]] - 1
+#       return(target)
+#     } else {
+#       cat("target is NULL, no transformation (but control.invert was created)\n")
+#       return(NULL)  # is ignored.
+#     }
+#   },
+#   cpo.invert = function(target, control.invert, predict.type) {
+#     cat("*** invert ***", "control.invert is:", deparse(control.invert),
+#       sep = "\n")
+#     target
+#   })
 #
-#  cpo = xmpSynCPO()
+# cpo = xmpSynCPO()
 
 ## -----------------------------------------------------------------------------
-#  trafd = train.task %>>% cpo
-#  getTaskTargets(trafd)
+# trafd = train.task %>>% cpo
+# getTaskTargets(trafd)
 
 ## -----------------------------------------------------------------------------
-#  retrafd = train.task %>>% retrafo(trafd)
+# retrafd = train.task %>>% retrafo(trafd)
 
 ## -----------------------------------------------------------------------------
-#  getTaskTargets(retrafd)
+# getTaskTargets(retrafd)
 
 ## -----------------------------------------------------------------------------
-#  retrafd = getTaskData(train.task, target.extra = TRUE)$data %>>% retrafo(trafd)
+# retrafd = getTaskData(train.task, target.extra = TRUE)$data %>>% retrafo(trafd)
 
 ## -----------------------------------------------------------------------------
-#  inv = invert(inverter(trafd), 1:6)
+# inv = invert(inverter(trafd), 1:6)
 
 ## -----------------------------------------------------------------------------
-#  inv = invert(inverter(retrafd), 1:6)
+# inv = invert(inverter(retrafd), 1:6)
 
 ## ----echo = FALSE-------------------------------------------------------------
-#  oscipen = options("scipen")
-#  options(scipen = 10)
+# oscipen = options("scipen")
+# options(scipen = 10)
 
 ## -----------------------------------------------------------------------------
-#  learners = list(
-#      logreg = makeLearner("classif.logreg"),
-#      svm = makeLearner("classif.svm"),
-#      cpo = xmpMetaLearn(makeLearner("classif.logreg")) %>>%
-#        makeLearner("classif.svm")
-#  )
+# learners = list(
+#     logreg = makeLearner("classif.logreg"),
+#     svm = makeLearner("classif.svm"),
+#     cpo = xmpMetaLearn(makeLearner("classif.logreg")) %>>%
+#       makeLearner("classif.svm")
+# )
 #
-#  # suppress output of '*** cpo.train ***' etc.
-#  configureMlr(show.info = FALSE, show.learner.output = FALSE)
+# # suppress output of '*** cpo.train ***' etc.
+# configureMlr(show.info = FALSE, show.learner.output = FALSE)
 #
-#  perfs = sapply(learners, function(lrn) {
-#    unname(replicate(20, resample(lrn, pid.task, cv10)$aggr))
-#  })
+# perfs = sapply(learners, function(lrn) {
+#   unname(replicate(20, resample(lrn, pid.task, cv10)$aggr))
+# })
 #
-#  # reset mlr settings
-#  configureMlr()
+# # reset mlr settings
+# configureMlr()
 #
-#  boxplot(perfs)
+# boxplot(perfs)
 
 ## -----------------------------------------------------------------------------
-#  pvals = c(
-#      logreg = t.test(perfs[, "logreg"], perfs[, "cpo"], "greater")$p.value,
-#      svm = t.test(perfs[, "svm"], perfs[, "cpo"], "greater")$p.value
-#  )
+# pvals = c(
+#     logreg = t.test(perfs[, "logreg"], perfs[, "cpo"], "greater")$p.value,
+#     svm = t.test(perfs[, "svm"], perfs[, "cpo"], "greater")$p.value
+# )
 #
-#  round(p.adjust(pvals), 3)
+# round(p.adjust(pvals), 3)
 
 ## ----echo = FALSE-------------------------------------------------------------
-#  options(scipen = oscipen$scipen)
+# options(scipen = oscipen$scipen)
 
 ## ----results = "asis", echo = FALSE-------------------------------------------
 cat(knitr::knit_child("a_4_custom_CPOs.Rmd", options = list(eval = FALSE)), sep = "\n")

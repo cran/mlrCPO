@@ -339,7 +339,7 @@ cpo = xmpPcaFunc(2)
 getCPOTrainedState(retrafo(trafd))$pcr$x
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  c(response = "response", se = "prob")
+# c(response = "response", se = "prob")
 
 ## -----------------------------------------------------------------------------
 xmpMetaLearn = makeCPOTargetOp("xmp.meta",  # nolint
